@@ -1,0 +1,107 @@
+// out: style.css, compress: true
+
+@AccentFont: 'Inknut Antiqua', serif;
+@BackgroundColor: rgb(240, 240, 207);
+@LayoutBoxShadow: 5px 5px 10px #1d1d1d;
+@LayoutReverseBoxShadow: -5px -5px 10px #1d1d1d;
+@TextFont: 'Roboto', sans-serif;
+
+@x-small: ~"(max-width: 576px)";
+@small: ~"(min-width: 576px) and (max-width: 768px)";
+@medium: ~"(min-width: 768px) and (max-width: 992px)";
+@large: ~"(min-width: 992px) and (max-width: 1200px)";
+@x-large: ~"(min-width: 1200px)";
+
+// universal stuff
+p,
+img {
+    padding: 10px;
+}
+
+h1, h2, h3, h4, h5, h6,
+.accent-font {
+    font-family: @AccentFont;
+}
+
+// layout
+body {
+    background: url('/img/wallpaper-2.jpg') fixed center top;
+    background-size: 100% auto;
+    color: #000;
+    font-family: @TextFont;
+    font-weight: 600;
+}
+
+#content {
+    background: @BackgroundColor;
+    border-radius: 1pc;
+    box-shadow: @LayoutBoxShadow;
+    margin: 100px auto;
+    padding: 20px;
+}
+
+#header {
+    background: @BackgroundColor;
+    box-shadow: @LayoutBoxShadow;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+.row {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+// home
+.home-img {
+    max-width: 350px;
+}
+
+// forms
+.dates {
+    display: inline-block;
+    width: auto;
+}
+
+.exp-description {
+    padding: 0px;
+}
+
+.img-account {
+    max-height: 350px;
+    max-width: 33%;
+}
+
+label[for=role-student],
+label[for=role-employee],
+label[for=role-site-admin],
+label[for=routine-1],
+label[for=routine-2],
+label[for=routine-0] {
+    display: block;
+}
+
+// index
+div.index {
+    border-radius: 1pc;
+    box-shadow: 1px 1px 12px #BBB;
+    margin: 20px auto;
+    ul {
+        li {
+            text-align: left;
+        }
+    }
+}
+
+.img-index {
+    max-height: 250px;
+    max-width: 100%;
+}
+
+// forms
+.select-box {
+    height: 50px;
+}
