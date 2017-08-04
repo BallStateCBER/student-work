@@ -18,7 +18,7 @@ class AwardsTest extends IntegrationTestCase
         $classes = ['Awards', 'Users'];
         foreach ($classes as $class) {
             $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\'.$class.'Table'];
-            $this->$class = TableRegistry::get('Awards', $config);
+            $this->$class = TableRegistry::get("$class", $config);
         }
     }
 
@@ -31,7 +31,7 @@ class AwardsTest extends IntegrationTestCase
     {
         $classes = ['Awards', 'Users'];
         foreach ($classes as $class) {
-            $this->unset("$class");
+            unset($this->$class);
         }
         parent::tearDown();
     }
