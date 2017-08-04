@@ -75,35 +75,6 @@ class ReportsController extends AppController
      */
     public function add()
     {
-        $report = $this->Reports->newEntity();
-        if ($this->request->is('post')) {
-            $report = $this->Reports->patchEntity($report, $this->request->getData());
-            $type = $report->project_type;
-            if ($type == 'Localprojects') {
-                $selector = 'name';
-            }
-            if ($type == 'Publications') {
-                $selector = 'title';
-            }
-            if ($type == 'Sites') {
-                $selector = 'site_name';
-            }
-            $project = $this->Reports->$type->find()
-                ->select('id')
-                ->where([$selector => $this->request->data['project_name']])
-                ->first();
-            if ($project == null) {
-                $this->Flash->error(__('That project was not found. Please enter a new project to make a report about it.'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $report->project_name = $this->request->data['project_name'];
-            $report->student_id = Router::getRequest()->session()->read('Auth.User.id');
-            if ($this->Reports->save($report)) {
-                $this->Flash->success(__('The report has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The report could not be saved. Please, try again.'));
-        }
         $projectNames = [];
         $locals = $this->Reports->Localprojects->find()
             ->select('name');
@@ -129,21 +100,9 @@ class ReportsController extends AppController
         $this->set(compact('projectNames', 'projectTypes', 'report', 'routine', 'supervisors'));
         $this->set('_serialize', ['report']);
         $this->set(['titleForLayout' => 'Add a Report']);
-    }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Report id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $report = $this->Reports->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        $report = $this->Reports->newEntity();
+        if ($this->request->is('post')) {
             $report = $this->Reports->patchEntity($report, $this->request->getData());
             $type = $report->project_type;
             if ($type == 'Localprojects') {
@@ -163,13 +122,28 @@ class ReportsController extends AppController
                 $this->Flash->error(__('That project was not found. Please enter a new project to make a report about it.'));
                 return $this->redirect(['action' => 'index']);
             }
+            $report->project_name = $this->request->data['project_name'];
             $report->student_id = Router::getRequest()->session()->read('Auth.User.id');
             if ($this->Reports->save($report)) {
-                $this->Flash->success(__('The report has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->Flash->success(__('The report has been saved.'));
             }
-            $this->Flash->error(__('The report could not be saved. Please, try again.'));
+            return $this->Flash->error(__('The report could not be saved. Please, try again.'));
         }
+    }
+
+    /**
+     * Edit method
+     *
+     * @param string|null $id Report id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function edit($id = null)
+    {
+        $report = $this->Reports->get($id, [
+            'contain' => []
+        ]);
+
         $projectNames = [];
         $locals = $this->Reports->Localprojects->find()
             ->select('name');
@@ -195,6 +169,34 @@ class ReportsController extends AppController
         $this->set(compact('projectNames', 'projectTypes', 'report', 'routine', 'supervisors'));
         $this->set('_serialize', ['report']);
         $this->set(['titleForLayout' => "Edit Report: $report->project_name"]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $report = $this->Reports->patchEntity($report, $this->request->getData());
+            $type = $report->project_type;
+            if ($type == 'Localprojects') {
+                $selector = 'name';
+            }
+            if ($type == 'Publications') {
+                $selector = 'title';
+            }
+            if ($type == 'Sites') {
+                $selector = 'site_name';
+            }
+            $project = $this->Reports->$type->find()
+                ->select('id')
+                ->where([$selector => $this->request->data['project_name']])
+                ->first();
+            if ($project == null) {
+                $this->Flash->error(__('That project was not found. Please enter a new project to make a report about it.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $report->project_name = $this->request->data['project_name'];
+            $report->student_id = Router::getRequest()->session()->read('Auth.User.id');
+            if ($this->Reports->save($report)) {
+                return $this->Flash->success(__('The report has been saved.'));
+            }
+            return $this->Flash->error(__('The report could not be saved. Please, try again.'));
+        }
     }
 
     /**
