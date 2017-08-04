@@ -140,6 +140,19 @@ class UsersTable extends Table
         return $rules;
     }
 
+    public function getEmailFromId($userId)
+    {
+        $query = TableRegistry::get('Users')->find()->select(['email'])->where(['id' => $userId]);
+        $result = $query->all();
+        $email = $result->toArray();
+        $email = implode($email);
+        $email = trim($email, '{}');
+        $email = str_replace('"email": ', '', $email);
+        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+
+        return $email;
+    }
+
     public function getIdFromEmail($email)
     {
         $result = $this->find()
@@ -150,5 +163,35 @@ class UsersTable extends Table
             return $result->id;
         }
         return false;
+    }
+
+    public function getResetPasswordHash($userId, $email)
+    {
+        $salt = Configure::read('password_reset_salt');
+        $month = date('my');
+        return md5($userId.$email.$salt.$month);
+    }
+
+    public function sendPasswordResetEmail($userId, $email)
+    {
+        $resetPasswordHash = $this->getResetPasswordHash($userId, $email);
+        $resetEmail = new Email('default');
+        $resetUrl = Router::url([
+            'controller' => 'users',
+            'action' => 'resetPassword',
+            $userId,
+            $resetPasswordHash
+        ], true);
+        $resetEmail
+            ->setTo($email)
+            ->setSubject('Muncie Events: Reset Password')
+            ->template('forgot_password')
+            ->emailFormat('both')
+            ->helpers(['Html', 'Text'])
+            ->viewVars(compact(
+                'email',
+                'resetUrl'
+            ));
+        return $resetEmail->send();
     }
 }
