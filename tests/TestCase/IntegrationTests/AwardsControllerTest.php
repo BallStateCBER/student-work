@@ -12,29 +12,29 @@ class AwardsControllerTest extends IntegrationTestCase
      *
      * @return void
      */
-    public function setUp()
-    {
-        parent::setUp();
-        $classes = ['Awards', 'Users'];
-        foreach ($classes as $class) {
-            $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\'.$class.'Table'];
-            $this->$class = TableRegistry::get("$class", $config);
-        }
-    }
+     public function setUp()
+     {
+         parent::setUp();
+         $classes = ['Awards'/*, 'Users'*/];
+         foreach ($classes as $class) {
+             $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\'.$class.'Table'];
+             $this->$class = TableRegistry::get("$class", $config);
+         }
+     }
 
-    /**
-     * tearDown method
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        $classes = ['Awards', 'Users'];
-        foreach ($classes as $class) {
-            unset($this->$class);
-        }
-        parent::tearDown();
-    }
+     /**
+      * tearDown method
+      *
+      * @return void
+      */
+     public function tearDown()
+     {
+         $classes = ['Awards'/*, 'Users'*/];
+         foreach ($classes as $class) {
+             unset($this->$class);
+         }
+         parent::tearDown();
+     }
 
     /**
      * Test award add page view & use
@@ -43,8 +43,8 @@ class AwardsControllerTest extends IntegrationTestCase
      */
     public function testAddAnAward()
     {
-        $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        #    $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
+    #    $this->session(['Auth.User.id' => $id]);
 
         $this->get('/awards/add');
         $this->assertResponseOk();
@@ -79,8 +79,8 @@ class AwardsControllerTest extends IntegrationTestCase
      */
     public function testEditingAwards()
     {
-        $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        #        $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
+    #    $this->session(['Auth.User.id' => $id]);
 
         $award = $this->Awards->find()
             ->where(['name' => 'Test Awards'])
@@ -119,8 +119,8 @@ class AwardsControllerTest extends IntegrationTestCase
      */
     public function testDeletingAwards()
     {
-        $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        #        $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
+#        $this->session(['Auth.User.id' => $id]);
 
         $award = $this->Awards->find()
             ->where(['name' => 'Test Awards Part Three'])
