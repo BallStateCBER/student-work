@@ -15,7 +15,7 @@ class AwardsTest extends IntegrationTestCase
     public function setUp()
     {
         parent::setUp();
-        $classes = ['Awards'/*, 'Users'*/];
+        $classes = ['Awards', 'Users'];
         foreach ($classes as $class) {
             $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\'.$class.'Table'];
             $this->$class = TableRegistry::get("$class", $config);
@@ -29,7 +29,7 @@ class AwardsTest extends IntegrationTestCase
      */
     public function tearDown()
     {
-        $classes = ['Awards'/*, 'Users'*/];
+        $classes = ['Awards', 'Users'];
         foreach ($classes as $class) {
             unset($this->$class);
         }
@@ -43,8 +43,8 @@ class AwardsTest extends IntegrationTestCase
      */
     public function testAddPage()
     {
-        #    $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-    #    $this->session(['Auth.User.id' => $id]);
+        $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
+        $this->session(['Auth.User.id' => $id]);
 
         $this->get('/awards/add');
         $this->assertResponseOk();
