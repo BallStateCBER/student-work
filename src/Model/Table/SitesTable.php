@@ -56,9 +56,7 @@ class SitesTable extends Table
             'joinTable' => 'users_sites'
         ]);
 
-        $this->hasMany('Grants', [
-            'foreignKey' => 'grant_id'
-        ]);
+        $this->belongsTo('Grants');
     }
 
     /**

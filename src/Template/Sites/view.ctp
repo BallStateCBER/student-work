@@ -31,8 +31,8 @@
         <a href="<?= $site->url ?>"><?= $site->url ?></a>
     </div>
     <div class="col-lg-4">
-        <h6>Sponsor</h6>
-        <?= $site->sponsor; ?>
+        <h6>Grant</h6>
+        <?= $site->grant->name ?: 'None/not applicable'; ?>
     </div>
     <div class="col-lg-4">
         <?php if ($site->in_progress): ?>

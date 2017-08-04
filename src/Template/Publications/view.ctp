@@ -31,8 +31,8 @@
         <a href="<?= $publication->url ?>"><?= $publication->url ?></a>
     </div>
     <div class="col-lg-4">
-        <h6>Sponsor</h6>
-        <?= $publication->sponsor; ?>
+        <h6>Grant</h6>
+        <?= $publication->grant->name ?: 'None/not applicable'; ?>
     </div>
 </div>
 <?php if ($publication->users): ?>

@@ -54,9 +54,7 @@ class PublicationsTable extends Table
             'joinTable' => 'users_publications'
         ]);
 
-        $this->hasMany('Grants', [
-            'foreignKey' => 'grant_id'
-        ]);
+        $this->belongsTo('Grants');
     }
 
     /**

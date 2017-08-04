@@ -70,7 +70,7 @@ class PublicationsController extends AppController
         }
 
         $publication = $this->Publications->patchEntity($publication, $this->request->getData(), [
-            'fieldList' => ['title', 'url', 'sponsor', 'date_published', 'cover', 'abstract']
+            'fieldList' => ['title', 'url', 'sponsor', 'date_published', 'cover', 'abstract', 'grant_id']
         ]);
 
         if ($this->Publications->save($publication)) {

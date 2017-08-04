@@ -70,7 +70,7 @@ class LocalprojectsController extends AppController
         }
 
         $localproject = $this->Localprojects->patchEntity($localproject, $this->request->getData(), [
-            'fieldList' => ['name', 'description', 'organization']
+            'fieldList' => ['name', 'description', 'grant_id', 'organization']
         ]);
 
         if ($this->Localprojects->save($localproject)) {

@@ -42,9 +42,7 @@ class LocalprojectsTable extends Table
             'joinTable' => 'users_localprojects'
         ]);
 
-        $this->hasMany('Grants', [
-            'foreignKey' => 'grant_id'
-        ]);
+        $this->belongsTo('Grants');
     }
 
     /**

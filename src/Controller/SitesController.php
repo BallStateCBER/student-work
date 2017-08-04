@@ -71,14 +71,13 @@ class SitesController extends AppController
         }
 
         $site = $this->Sites->patchEntity($site, $this->request->getData(), [
-            'fieldList' => ['site_name', 'url', 'sponsor', 'date_live', 'image', 'description', 'in_progress']
+            'fieldList' => ['site_name', 'url', 'sponsor', 'date_live', 'image', 'description', 'grant_id', 'in_progress']
         ]);
 
         if ($this->Sites->save($site)) {
-            $this->Flash->success(__('The site has been saved.'));
-            return $this->redirect(['action' => 'index']);
+            return $this->Flash->success(__('The site has been saved.'));
         }
-        $this->Flash->error(__('The site could not be saved. Please, try again.'));
+        return $this->Flash->error(__('The site could not be saved. Please, try again.'));
     }
 
     public function index()
@@ -94,7 +93,7 @@ class SitesController extends AppController
     public function view($id = null)
     {
         $site = $this->Sites->get($id, [
-            'contain' => ['Users']
+            'contain' => ['Grants', 'Users']
         ]);
 
         $this->set('site', $site);
@@ -118,7 +117,7 @@ class SitesController extends AppController
     public function edit($id = null)
     {
         $site = $this->Sites->get($id, [
-            'contain' => ['Users']
+            'contain' => ['Grants', 'Users']
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
