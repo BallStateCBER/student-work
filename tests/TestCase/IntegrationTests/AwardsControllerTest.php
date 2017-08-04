@@ -17,7 +17,7 @@ class AwardsControllerTest extends IntegrationTestCase
         parent::setUp();
         $config = TableRegistry::exists('Awards') ? [] : ['className' => 'App\Model\Table\AwardsTable'];
         $this->Awards = TableRegistry::get('Awards', $config);
-        $this->Users = TableRegistry::get('Users');
+    #    $this->Users = TableRegistry::get('Users');
     }
 
     /**
