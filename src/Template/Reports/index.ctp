@@ -1,9 +1,8 @@
 <h3><?= __('Reports') ?></h3>
 <?= $this->Html->link(__('New Report'), ['action' => 'add']) ?>
-<table cellpadding="25" cellspacing="25">
+<table cellpadding="15" cellspacing="0">
     <thead>
         <tr>
-            <th scope="col"><?= $this->Paginator->sort('id', ['label' => 'Report ID']) ?></th>
             <th scope="col"><?= $this->Paginator->sort('project_name') ?></th>
             <th scope="col"><?= $this->Paginator->sort('project_type') ?></th>
             <th scope="col"><?= $this->Paginator->sort('student_id') ?></th>
@@ -16,7 +15,6 @@
     <tbody>
         <?php foreach ($reports as $report): ?>
         <tr>
-            <td><?= $this->Number->format($report->id) ?></td>
             <td><?= h($report->project_name) ?></td>
             <td><?= h($report->project_type) ?></td>
             <td><?= h($report->student_id) ?></td>

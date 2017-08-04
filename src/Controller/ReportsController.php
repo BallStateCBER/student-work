@@ -60,12 +60,23 @@ class ReportsController extends AppController
      */
     public function view($id = null)
     {
-        $report = $this->Reports->get($id, [
-            'contain' => ['Students', 'Supervisors', 'Projects']
-        ]);
+        $report = $this->Reports->get($id);
+
+        $student = $this->Reports->Users->find()
+            ->where(['id' => $report->student_id])
+            ->first();
+
+        $report->student_id = $student->name;
+
+        $supervisor = $this->Reports->Users->find()
+                ->where(['id' => $report->supervisor_id])
+                ->first();
+
+        $report->supervisor_id = $supervisor->name;
 
         $this->set('report', $report);
         $this->set('_serialize', ['report']);
+        $this->set(['titleForLayout' => "Report: $report->project_name"]);
     }
 
     /**

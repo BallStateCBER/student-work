@@ -185,22 +185,6 @@ $firstName = $firstName[0];
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-9">
-        <h4>Your job history (<?= $this->Html->link('+', ['controller' => 'Jobs', 'action' => 'add']) ?>)</h4>
-        <?php if ($jobs): ?>
-            <?php foreach ($jobs as $job): ?>
-                <h6><?= $job->job_title; ?></h6>
-                <p class="exp-description">
-                    <?= $job->description; ?>
-                    <em class="text-muted"><?= $this->Html->link('Edit position', ['controller' => 'Jobs', 'action' => 'edit', $job->id]) ?></em>
-                </p>
-            <?php endforeach; ?>
-        <?php else: ?>
-            You do not have any listed job titles. Um, don't you work here? <em class="text-muted"><?= $this->Html->link('Add a position!', ['controller' => 'Jobs', 'action' => 'add']) ?></em>
-        <?php endif; ?>
-    </div>
-</div>
-<div class="row">
     <div class="col-sm-12">
         <h4>Your awards (<?= $this->Html->link('+', ['controller' => 'Awards', 'action' => 'add']) ?>)</h4>
         <?php if ($awards): ?>

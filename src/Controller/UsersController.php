@@ -24,7 +24,6 @@ class UsersController extends AppController
         parent::initialize();
         $this->loadModel('Awards');
         $this->loadModel('Degrees');
-        $this->loadModel('Jobs');
         /*$this->loadComponent('Search.Prg', [
             'actions' => ['search']
         ]);*/
@@ -63,18 +62,7 @@ class UsersController extends AppController
             $degrees = null;
         }
 
-        $jobs = $this->Jobs->find('all');
-        $jobs
-            ->select()
-            ->where(['user_id' => $id])
-            ->order(['job_title' => 'ASC'])
-            ->toArray();
-
-        if (!iterator_count($jobs)) {
-            $jobs = null;
-        }
-
-        $this->set(compact('awards', 'degrees', 'jobs'));
+        $this->set(compact('awards', 'degrees'));
     }
 
     /**

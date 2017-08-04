@@ -57,9 +57,6 @@ class UsersTable extends Table
         $this->hasMany('Awards', [
             'foreignKey' => 'user_id'
         ]);
-        $this->hasMany('Jobs', [
-            'foreignKey' => 'user_id'
-        ]);
         $this->belongsToMany('Localprojects', [
             'foreignKey' => 'user_id',
             'targetForeignKey' => 'localproject_id',

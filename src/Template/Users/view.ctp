@@ -38,6 +38,10 @@ $firstName = $firstName[0];
         <h6>Current Position</h6>
         <?= $user->position; ?>
     </div>
+    <div class="col-lg-4">
+        <h6>Role</h6>
+        <?= $user->role; ?>
+    </div>
 </div>
 <div class="row">
     <div class="col-lg-4">
@@ -101,21 +105,6 @@ $firstName = $firstName[0];
             <?php endforeach; ?>
         <?php else: ?>
             <?= $firstName ?> does not have any listed degrees or credentials.
-        <?php endif; ?>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-9">
-        <h4>Job History</h4>
-        <?php if ($jobs): ?>
-            <?php foreach ($jobs as $job): ?>
-                <h6><?= $job->job_title; ?></h6>
-                <p>
-                    <?= $job->description; ?>
-                </p>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <?= $firstName; ?> does not have any listed job titles? Really?
         <?php endif; ?>
     </div>
 </div>
