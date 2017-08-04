@@ -15,9 +15,11 @@ class AwardsControllerTest extends IntegrationTestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Awards') ? [] : ['className' => 'App\Model\Table\AwardsTable'];
-        $this->Awards = TableRegistry::get('Awards', $config);
-    #    $this->Users = TableRegistry::get('Users');
+        $classes = ['Awards', 'Users'];
+        foreach ($classes as $class) {
+            $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\'.$class.'Table'];
+            $this->$class = TableRegistry::get('Awards', $config);
+        }
     }
 
     /**
@@ -27,8 +29,10 @@ class AwardsControllerTest extends IntegrationTestCase
      */
     public function tearDown()
     {
-        unset($this->Awards);
-        unset($this->Users);
+        $classes = ['Awards', 'Users'];
+        foreach ($classes as $class) {
+            $this->unset("$class");
+        }
         parent::tearDown();
     }
 
