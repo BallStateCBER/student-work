@@ -7,6 +7,11 @@ use Cake\TestSuite\IntegrationTestCase;
 
 class AwardsTest extends IntegrationTestCase
 {
+    public $fixtures = [
+        'app.awards',
+        'app.users'
+    ];
+
     /**
      * setUp method
      *
