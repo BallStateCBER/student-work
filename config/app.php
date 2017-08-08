@@ -291,7 +291,6 @@ $config = [
             'password' => env('DB_PASSWORD') ?: null,
             'database' => 'wawh_testing',
             'encoding' => 'utf8',
-            'timezone' => 'America/New_York',
             'cacheMetadata' => true,
             'quoteIdentifiers' => false,
             'log' => false,
