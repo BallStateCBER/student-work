@@ -29,19 +29,20 @@ class DegreesController extends AppController
     public function add()
     {
         $degreeTypes = $this->getDegreeTypesPr();
+
         $degree = $this->Degrees->newEntity();
+        $this->set(['titleForLayout' => 'Add Educational Experience']);
+        $this->set(compact('degree'));
+        $this->set('_serialize', ['degree']);
+
         if ($this->request->is('post')) {
             $degree = $this->Degrees->patchEntity($degree, $this->request->getData());
             $degree->user_id = $this->request->session()->read('Auth.User.id');
             if ($this->Degrees->save($degree)) {
-                $this->Flash->success(__('The degree has been saved.'));
-                return $this->redirect(['controller' => 'Users', 'action' => 'account']);
+                return $this->Flash->success(__('The degree has been saved.'));
             }
             $this->Flash->error(__('The degree could not be saved. Please, try again.'));
         }
-        $this->set(['titleForLayout' => 'Add Educational Experience']);
-        $this->set(compact('degree'));
-        $this->set('_serialize', ['degree']);
     }
 
     /**
@@ -54,20 +55,22 @@ class DegreesController extends AppController
     public function edit($id = null)
     {
         $degreeTypes = $this->getDegreeTypesPr();
+
         $degree = $this->Degrees->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $degree = $this->Degrees->patchEntity($degree, $this->request->getData());
-            if ($this->Degrees->save($degree)) {
-                $this->Flash->success(__('The degree has been saved.'));
-                return $this->redirect(['controller' => 'Users', 'action' => 'account']);
-            }
-            $this->Flash->error(__('The degree could not be saved. Please, try again.'));
-        }
+
         $this->set(['titleForLayout' => 'Edit this Degree']);
         $this->set(compact('degree'));
         $this->set('_serialize', ['degree']);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $degree = $this->Degrees->patchEntity($degree, $this->request->getData());
+            if ($this->Degrees->save($degree)) {
+                return $this->Flash->success(__('The degree has been saved.'));
+            }
+            $this->Flash->error(__('The degree could not be saved. Please, try again.'));
+        }
     }
 
     /**

@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Routing\Router;
 use Cake\I18n\Time;
@@ -116,7 +117,7 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Thanks for registering with us!'));
                 $this->Auth->setUser($user);
-                return $this->redirect(['action' => 'account', $user->id]);
+                return $this->redirect(['action' => 'account']);
             }
             $this->Flash->error(__('Sorry, we could not register you. Please try again.'));
         }
@@ -139,17 +140,18 @@ class UsersController extends AppController
             'contain' => ['Localprojects', 'Publications', 'Sites']
         ]);
         $this->getUserVarsPr($id);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('Your information has been saved!'));
-            } else {
-                $this->Flash->error(__('Your information could not be saved. Please, try again.'));
-            }
-        }
+
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
         $this->set(['titleForLayout' => 'Your Account Info']);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
+                return $this->Flash->success(__('Your information has been saved!'));
+            }
+            return $this->Flash->error(__('Your information could not be saved. Please, try again.'));
+        }
     }
 
     /**

@@ -24,7 +24,7 @@ $this->Form->setTemplates([
         </i>
     </div>
     <div class="col-lg-4">
-        <?= $this->Form->control('name', ['class' => 'form-control']); ?>
+        <?= $this->Form->control('email', ['class' => 'form-control']); ?>
     </div>
     <div class="col-lg-4">
         <?= $this->Form->control('password', ['class' => 'form-control']); ?>

@@ -53,7 +53,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
-    $userActions = ['account', 'login', 'register'];
+    $userActions = ['account', 'login', 'logout', 'register'];
     foreach ($userActions as $action) {
         $routes->connect('/'.$action, ['controller' => 'Users', 'action' => $action]);
     }
