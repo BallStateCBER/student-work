@@ -5,12 +5,12 @@ use App\Model\Table\UsersTable;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
-use Cake\TestSuite\TestCase;
+use Cake\TestSuite\IntegrationTestCase;
 
 /**
  * App\Model\Table\UsersTable Test Case
  */
-class UsersTest extends TestCase
+class UsersTest extends IntegrationTestCase
 {
 
     /**
@@ -112,5 +112,43 @@ class UsersTest extends TestCase
 #        $resetPasswordHash = $this->Users->getResetPasswordHash($user->id, $user->email);
 
 #        $this->assertTextContains($resetPasswordHash, $email);
+    }
+
+    /**
+     * Test viewing an employee
+     *
+     * @return void
+     */
+    public function testViewingAnEmployee()
+    {
+        $user = $this->Users->find()
+            ->where(['name' => 'Erica Dee Fox'])
+            ->first();
+
+        $id = $this->Users->getIdFromEmail($user->email);
+
+        $this->get("/employee/$id");
+        $this->assertResponseContains($user->email);
+        $this->assertResponseContains($user->position);
+        $this->assertResponseContains($user->bio);
+    }
+
+    /**
+     * Test viewing the employee index
+     *
+     * @return void
+     */
+    public function testViewingEmployeeIndex()
+    {
+        $user = $this->Users->find()
+            ->where(['name' => 'Erica Dee Fox'])
+            ->first();
+
+        $id = $this->Users->getIdFromEmail($user->email);
+
+        $this->get("/employees");
+        $this->assertResponseContains($user->email);
+        $this->assertResponseContains($user->position);
+        $this->assertResponseContains($user->name);
     }
 }

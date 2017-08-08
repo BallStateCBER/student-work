@@ -82,6 +82,7 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->connect('/employee/delete/*', ['controller' => 'Users', 'action' => 'delete']);
     $routes->connect('/employee/*', ['controller' => 'Users', 'action' => 'view']);
+    $routes->connect('/employees', ['controller' => 'Users', 'action' => 'index']);
     /**
      * Connect catchall routes for all controllers.
      *
