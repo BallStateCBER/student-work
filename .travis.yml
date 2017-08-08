@@ -24,7 +24,7 @@ before_script:
   - if [[ $PHPCS != 1 ]]; then composer install; fi
   - if [[ $PHPCS != 1 ]]; then composer require phpunit/phpunit:"^5.7|^6.0"; fi
   - if [[ $PHPCS != 1 ]]; then composer run-script post-install-cmd --no-interaction; fi
-  - mysql -e 'CREATE DATABSE IF NOT EXISTS wawh_testing'
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS wawh_testing'
   - mysql -u root --default-character-set=utf8 wawh_testing < wawh_testing.sql
 
 script:
