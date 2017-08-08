@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `okbvtfr_whyarewehere` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
-USE `okbvtfr_whyarewehere`;
+CREATE DATABASE  IF NOT EXISTS `wawh_testing` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+USE `wawh_testing`;
 -- MySQL dump 10.13  Distrib 5.7.18, for Linux (x86_64)
 --
--- Host: localhost    Database: okbvtfr_whyarewehere
+-- Host: localhost    Database: wawh_testing
 -- ------------------------------------------------------
 -- Server version	5.7.18-0ubuntu0.16.04.1
 
