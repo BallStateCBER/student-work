@@ -21,13 +21,13 @@
     </div>
     <div class="col-lg-4">
         <h6>Grant</h6>
-        <?= $localproject->grant->name ?: 'None/not applicable'; ?>
+        <?= isset($localproject->grant->name) ? $localproject->grant->name : 'None/not applicable'; ?>
     </div>
 </div>
 <?php if ($localproject->users): ?>
     <div class="row">
         <div class="col-sm-9">
-            <h4>Publication credits</h4>
+            <h4>Project credits</h4>
                 <?php foreach ($localproject->users as $user): ?>
                     <h6><?= $user->name; ?></h6>
                     <p>
@@ -35,8 +35,8 @@
                         <u>Job title:</u> <?= $this->Html->link($user->position, ['controller' => 'Users', 'action' => 'view', $user->id]); ?>
                     </p>
                 <?php endforeach; ?>
-            <?php else: ?>
-                No one has taken credit for <?= $localproject->name ?> yet. Were you on the researching team? <?= $this->Html->link('Take Credit!', ['controller' => 'Publications', 'action' => 'edit', $localproject->id]); ?>
+<?php else: ?>
+                No one has taken credit for <?= $localproject->name ?> yet. Were you on the project team? <?= $this->Html->link('Take Credit!', ['controller' => 'Localprojects', 'action' => 'edit', $localproject->id]); ?>
         </div>
     </div>
 <?php endif; ?>

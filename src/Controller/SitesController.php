@@ -31,39 +31,41 @@ class SitesController extends AppController
     private function uponFormSubmissionPr($site)
     {
         if ($this->request->getParam('action') == 'edit') {
-            foreach ($this->request->data['users'] as $user) {
-                // skip over the placeholders
-                if ($user['_joinData']['user_id'] != null) {
-                    // get form data & user
-                    $userId = $user['_joinData']['user_id'];
-                    $employeeRole = $user['_joinData']['employee_role'];
-                    $delete = isset($user['delete']) ? $user['delete'] : 0;
-                    $user = $this->Sites->Users->get($userId);
+            if (!empty($this->request->data['users'])) {
+                foreach ($this->request->data['users'] as $user) {
+                    // skip over the placeholders
+                    if ($user['_joinData']['user_id'] != null) {
+                        // get form data & user
+                        $userId = $user['_joinData']['user_id'];
+                        $employeeRole = $user['_joinData']['employee_role'];
+                        $delete = isset($user['delete']) ? $user['delete'] : 0;
+                        $user = $this->Sites->Users->get($userId);
 
-                    // are we deleting this field?
-                    if ($delete == 1) {
-                        $this->Sites->Users->unlink($site, [$user]);
-                    }
+                        // are we deleting this field?
+                        if ($delete == 1) {
+                            $this->Sites->Users->unlink($site, [$user]);
+                        }
 
-                    // nope? good to go
-                    if ($delete == 0) {
-                        // get the user and set joinData
-                        $user->_joinData = $this->UsersSites->newEntity();
-                        $user->_joinData->user_id = $userId;
-                        $user->_joinData->site_id = $site->id;
-                        $user->_joinData->employee_role = $employeeRole;
+                        // nope? good to go
+                        if ($delete == 0) {
+                            // get the user and set joinData
+                            $user->_joinData = $this->UsersSites->newEntity();
+                            $user->_joinData->user_id = $userId;
+                            $user->_joinData->site_id = $site->id;
+                            $user->_joinData->employee_role = $employeeRole;
 
-                        // does this exact field already exist?
-                        $prevField = $this->UsersSites->find();
-                        $prevField
-                            ->where(['user_id' => $userId])
-                            ->andWhere(['site_id' => $site->id])
-                            ->andWhere(['employee_role' => $employeeRole]);
-                        $prevCount = $prevField->count();
+                            // does this exact field already exist?
+                            $prevField = $this->UsersSites->find();
+                            $prevField
+                                ->where(['user_id' => $userId])
+                                ->andWhere(['site_id' => $site->id])
+                                ->andWhere(['employee_role' => $employeeRole]);
+                            $prevCount = $prevField->count();
 
-                        // if not, link the two
-                        if ($prevCount == 0) {
-                            $this->Sites->Users->link($site, [$user]);
+                            // if not, link the two
+                            if ($prevCount == 0) {
+                                $this->Sites->Users->link($site, [$user]);
+                            }
                         }
                     }
                 }
@@ -75,9 +77,10 @@ class SitesController extends AppController
         ]);
 
         if ($this->Sites->save($site)) {
-            return $this->Flash->success(__('The site has been saved.'));
+            $this->Flash->success(__('The site has been saved.'));
+            return $this->redirect(['action' => 'index']);
         }
-        return $this->Flash->error(__('The site could not be saved. Please, try again.'));
+        $this->Flash->error(__('The site could not be saved. Please, try again.'));
     }
 
     public function index()

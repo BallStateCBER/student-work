@@ -30,39 +30,41 @@ class PublicationsController extends AppController
     private function uponFormSubmissionPr($publication)
     {
         if ($this->request->getParam('action') == 'edit') {
-            foreach ($this->request->data['users'] as $user) {
-                // skip over the placeholders
-                if ($user['_joinData']['user_id'] != null) {
-                    // get form data & user
-                    $userId = $user['_joinData']['user_id'];
-                    $employeeRole = $user['_joinData']['employee_role'];
-                    $delete = isset($user['delete']) ? $user['delete'] : 0;
-                    $user = $this->Publications->Users->get($userId);
+            if (!empty($this->request->data['users'])) {
+                foreach ($this->request->data['users'] as $user) {
+                    // skip over the placeholders
+                    if ($user['_joinData']['user_id'] != null) {
+                        // get form data & user
+                        $userId = $user['_joinData']['user_id'];
+                        $employeeRole = $user['_joinData']['role'];
+                        $delete = isset($user['delete']) ? $user['delete'] : 0;
+                        $user = $this->Publications->Users->get($userId);
 
-                    // are we deleting this field?
-                    if ($delete == 1) {
-                        $this->Publications->Users->unlink($publication, [$user]);
-                    }
+                        // are we deleting this field?
+                        if ($delete == 1) {
+                            $this->Publications->Users->unlink($publication, [$user]);
+                        }
 
-                    // nope? good to go
-                    if ($delete == 0) {
-                        // get the user and set joinData
-                        $user->_joinData = $this->UsersPublications->newEntity();
-                        $user->_joinData->user_id = $userId;
-                        $user->_joinData->publication_id = $publication->id;
-                        $user->_joinData->employee_role = $employeeRole;
+                        // nope? good to go
+                        if ($delete == 0) {
+                            // get the user and set joinData
+                            $user->_joinData = $this->UsersPublications->newEntity();
+                            $user->_joinData->user_id = $userId;
+                            $user->_joinData->publication_id = $publication->id;
+                            $user->_joinData->role = $employeeRole;
 
-                        // does this exact field already exist?
-                        $prevField = $this->UsersPublications->find();
-                        $prevField
-                            ->where(['user_id' => $userId])
-                            ->andWhere(['publication_id' => $publication->id])
-                            ->andWhere(['employee_role' => $employeeRole]);
-                        $prevCount = $prevField->count();
+                            // does this exact field already exist?
+                            $prevField = $this->UsersPublications->find();
+                            $prevField
+                                ->where(['user_id' => $userId])
+                                ->andWhere(['publication_id' => $publication->id])
+                                ->andWhere(['role' => $employeeRole]);
+                            $prevCount = $prevField->count();
 
-                        // if not, link the two
-                        if ($prevCount == 0) {
-                            $this->Publications->Users->link($publication, [$user]);
+                            // if not, link the two
+                            if ($prevCount == 0) {
+                                $this->Publications->Users->link($publication, [$user]);
+                            }
                         }
                     }
                 }

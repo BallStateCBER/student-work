@@ -279,7 +279,7 @@ $firstName = $firstName[0];
                 </p>
             <?php endforeach; ?>
         <?php else: ?>
-            You do not have any listed community projects. C'mon, we know you're a do-gooder. <em class="text-muted"><?= $this->Html->link('Add a project!', ['controller' => 'Projects', 'action' => 'add']) ?></em>
+            You do not have any listed community projects. C'mon, we know you're a do-gooder. <em class="text-muted"><?= $this->Html->link('Add a project!', ['controller' => 'Localprojects', 'action' => 'add']) ?></em>
         <?php endif; ?>
     </div>
 </div>
