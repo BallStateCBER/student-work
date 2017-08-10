@@ -108,11 +108,13 @@ class ReportsController extends AppController
             'Publications' => 'Publication',
             'Sites' => 'Website'
         ];
+
+        $report = $this->Reports->newEntity();
+
         $this->set(compact('projectNames', 'projectTypes', 'report', 'routine', 'supervisors'));
         $this->set('_serialize', ['report']);
         $this->set(['titleForLayout' => 'Add a Report']);
 
-        $report = $this->Reports->newEntity();
         if ($this->request->is('post')) {
             $report = $this->Reports->patchEntity($report, $this->request->getData());
             $type = $report->project_type;
@@ -219,7 +221,6 @@ class ReportsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
         $report = $this->Reports->get($id);
         if ($this->Reports->delete($report)) {
             $this->Flash->success(__('The report has been deleted.'));

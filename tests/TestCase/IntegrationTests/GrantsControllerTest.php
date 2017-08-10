@@ -1,11 +1,11 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\AwardsController;
+use App\Controller\GrantsController;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestCase;
 
-class AwardsControllerTest extends IntegrationTestCase
+class GrantsControllerTest extends IntegrationTestCase
 {
     /**
      * setUp method
@@ -15,7 +15,7 @@ class AwardsControllerTest extends IntegrationTestCase
     public function setUp()
     {
         parent::setUp();
-        $classes = ['Awards', 'Users'];
+        $classes = ['Grants', 'Users'];
         foreach ($classes as $class) {
             $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\'.$class.'Table'];
             $this->$class = TableRegistry::get("$class", $config);
@@ -29,7 +29,7 @@ class AwardsControllerTest extends IntegrationTestCase
      */
     public function tearDown()
     {
-        $classes = ['Awards', 'Users'];
+        $classes = ['Grants', 'Users'];
         foreach ($classes as $class) {
             unset($this->$class);
         }
@@ -37,34 +37,70 @@ class AwardsControllerTest extends IntegrationTestCase
     }
 
     /**
-     * Test award add page view & use
+     * Test grant add page view & use
      *
      * @return void
      */
-    public function testAddAnAward()
+    public function testAddGrant()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $this->session(['Auth.User.id' => $id]);
 
-        $this->get('/awards/add');
+        $this->get('/grants/add');
         $this->assertResponseOk();
 
-        $award = [
-            'user_id' => $id,
-            'name' => 'Test Awards',
-            'awarded_on' => date('Y-m-d'),
-            'awarded_by' => 'This Test',
-            'description' => 'Testing 123'
+        $grant = [
+            'name' => 'Grant Win',
+            'organization' => 'American Placeholder Association',
+            'amount' => '$500',
+            'description' => 'Here is some text'
         ];
 
-        $this->post('/awards/add', $award);
+        $this->post('/grants/add', $grant);
         $this->assertResponseOk();
 
-        $award = $this->Awards->find()
-            ->where(['name' => $award['name']])
+        $grant = $this->Grants->find()
+            ->where(['name' => $grant['name']])
             ->firstOrFail();
 
-        if ($award) {
+        if ($grant) {
+            $this->assertResponseOk();
+            return;
+        }
+    }
+
+    /**
+     * Test grant edit page
+     *
+     * @return void
+     */
+    public function testEditingGrants()
+    {
+        $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
+        $this->session(['Auth.User.id' => $id]);
+
+        $grant = $this->Grants->find()
+            ->where(['name' => 'Grant Win'])
+            ->firstOrFail();
+
+        $this->get("/grants/edit/$grant->id");
+        $this->assertResponseOk();
+
+        $newGrant = [
+            'name' => 'Test Grant',
+            'organization' => 'American Testing Association',
+            'amount' => '$590',
+            'description' => 'Here is some TEST'
+        ];
+
+        $this->post("/grants/edit/$grant->id", $newGrant);
+        $this->assertResponseOk();
+
+        $grant = $this->Grants->find()
+            ->where(['name' => $newGrant['name']])
+            ->firstOrFail();
+
+        if ($grant) {
             $this->assertResponseOk();
             return;
         }
@@ -73,60 +109,20 @@ class AwardsControllerTest extends IntegrationTestCase
     }
 
     /**
-     * Test award edit page
+     * Test deleting grants
      *
      * @return void
      */
-    public function testEditingAwards()
+    public function testDeletingGrants()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $this->session(['Auth.User.id' => $id]);
 
-        $award = $this->Awards->find()
-            ->where(['name' => 'Test Awards'])
+        $grant = $this->Grants->find()
+            ->where(['name' => 'Test Grant'])
             ->firstOrFail();
 
-        $this->get("/awards/edit/$award->id");
-        $this->assertResponseOk();
-
-        $newAward = [
-            'user_id' => $id,
-            'name' => 'Test Awards Part Three',
-            'awarded_on' => date('Y-m-d'),
-            'awarded_by' => 'That Test',
-            'description' => 'Testing 321'
-        ];
-
-        $this->post("/awards/edit/$award->id", $newAward);
-        $this->assertResponseOk();
-
-        $award = $this->Awards->find()
-            ->where(['name' => $newAward['name']])
-            ->firstOrFail();
-
-        if ($award) {
-            $this->assertResponseOk();
-            return;
-        }
-
-        $this->assertResponseError();
-    }
-
-    /**
-     * Test deleting awards
-     *
-     * @return void
-     */
-    public function testDeletingAwards()
-    {
-        $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
-
-        $award = $this->Awards->find()
-            ->where(['name' => 'Test Awards Part Three'])
-            ->firstOrFail();
-
-        $this->get("/awards/delete/$award->id");
+        $this->get("/grants/delete/$grant->id");
         $this->assertResponseSuccess();
     }
 }

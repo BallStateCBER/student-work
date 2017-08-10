@@ -135,6 +135,7 @@ Email::setConfigTransport(Configure::consume('EmailTransport'));
 Email::setConfig(Configure::consume('Email'));
 Log::setConfig(Configure::consume('Log'));
 Security::salt(Configure::consume('Security.salt'));
+Configure::write('admin_email', 'admin@whyarewehere.com');
 
 // SALTS
 Configure::write('password_reset_salt', env('RESET_SALT'));

@@ -29,6 +29,11 @@ class GrantsController extends AppController
     public function add()
     {
         $grant = $this->Grants->newEntity();
+
+        $this->set(compact('grant'));
+        $this->set('_serialize', ['grant']);
+        $this->set(['titleForLayout' => 'Add a Grant']);
+
         if ($this->request->is('post')) {
             $grant = $this->Grants->patchEntity($grant, $this->request->getData());
             if ($this->Grants->save($grant)) {
@@ -36,9 +41,6 @@ class GrantsController extends AppController
             }
             $this->Flash->error(__('The grant could not be saved. Please, try again.'));
         }
-        $this->set(compact('grant'));
-        $this->set('_serialize', ['grant']);
-        $this->set(['titleForLayout' => 'Add a Grant']);
     }
 
     /**
@@ -53,6 +55,11 @@ class GrantsController extends AppController
         $grant = $this->Grants->get($id, [
             'contain' => []
         ]);
+
+        $this->set(compact('grant'));
+        $this->set('_serialize', ['grant']);
+        $this->set(['titleForLayout' => "Edit Grant: $grant->name"]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $grant = $this->Grants->patchEntity($grant, $this->request->getData());
             if ($this->Grants->save($grant)) {
@@ -60,9 +67,6 @@ class GrantsController extends AppController
             }
             $this->Flash->error(__('The grant could not be saved. Please, try again.'));
         }
-        $this->set(compact('grant'));
-        $this->set('_serialize', ['grant']);
-        $this->set(['titleForLayout' => "Edit Grant: $grant->name"]);
     }
 
     /**
@@ -74,14 +78,11 @@ class GrantsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
         $grant = $this->Grants->get($id);
         if ($this->Grants->delete($grant)) {
-            $this->Flash->success(__('The grant has been deleted.'));
-        } else {
-            $this->Flash->error(__('The grant could not be deleted. Please, try again.'));
+            $this->Flash->success(__('The degree has been deleted.'));
+            return $this->redirect(['controller' => 'Users', 'action' => 'account']);
         }
-
-        return $this->redirect(['action' => 'index']);
+        return $this->Flash->error(__('The grant could not be deleted. Please, try again.'));
     }
 }

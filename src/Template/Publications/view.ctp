@@ -32,7 +32,7 @@
     </div>
     <div class="col-lg-4">
         <h6>Grant</h6>
-        <?= $publication->grant->name ?: 'None/not applicable'; ?>
+        <?= isset($publication->grant->name) ? $publication->grant->name : 'None/not applicable'; ?>
     </div>
 </div>
 <?php if ($publication->users): ?>

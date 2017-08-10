@@ -53,7 +53,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
-    $userActions = ['account', 'login', 'register'];
+    $userActions = ['account', 'login', 'logout', 'register'];
     foreach ($userActions as $action) {
         $routes->connect('/'.$action, ['controller' => 'Users', 'action' => $action]);
     }
@@ -82,6 +82,7 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->connect('/employee/delete/*', ['controller' => 'Users', 'action' => 'delete']);
     $routes->connect('/employee/*', ['controller' => 'Users', 'action' => 'view']);
+    $routes->connect('/employees', ['controller' => 'Users', 'action' => 'index']);
     /**
      * Connect catchall routes for all controllers.
      *

@@ -2,7 +2,11 @@
 <?php foreach ($localprojects as $localproject): ?>
     <?= $x % 3 == 0 || $x == 0 ? '<div class="row">' : ''; ?>
     <div class="col-lg-3 index text-center">
-        <h5><?= $localproject->name; ?></h5>
+        <h5>
+            <?= $this->Html->link($localproject->name, [
+                'controller' => 'Localprojects', 'action' => 'view', $localproject->id
+            ]) ?>
+        </h5>
         <?= $localproject->organization; ?>
         <p>
             <?= $localproject->description; ?>

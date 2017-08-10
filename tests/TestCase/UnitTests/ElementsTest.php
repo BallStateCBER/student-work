@@ -5,7 +5,7 @@ use App\Controller\AwardsController;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestCase;
 
-class AwardsTest extends IntegrationTestCase
+class ElementsTest extends IntegrationTestCase
 {
     /**
      * setUp method
@@ -15,7 +15,7 @@ class AwardsTest extends IntegrationTestCase
     public function setUp()
     {
         parent::setUp();
-        $classes = ['Awards', 'Users'];
+        $classes = ['Users'];
         foreach ($classes as $class) {
             $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\'.$class.'Table'];
             $this->$class = TableRegistry::get("$class", $config);
@@ -29,7 +29,7 @@ class AwardsTest extends IntegrationTestCase
      */
     public function tearDown()
     {
-        $classes = ['Awards', 'Users'];
+        $classes = ['Users'];
         foreach ($classes as $class) {
             unset($this->$class);
         }
@@ -37,16 +37,31 @@ class AwardsTest extends IntegrationTestCase
     }
 
     /**
-     * Test award add page
+     * Test the main page
      *
      * @return void
      */
-    public function testAddAwardsPage()
+    public function testDisplay()
     {
+        $this->get('/');
+        $this->assertResponseContains('Log in');
+        $this->assertResponseContains('<i>You</i>');
+    }
+
+    /**
+     * Test the header
+     *
+     * @return void
+     */
+    public function testHeader()
+    {
+        $this->get('/');
+        $this->assertResponseContains('Log in');
+
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $this->session(['Auth.User.id' => $id]);
 
-        $this->get('/awards/add');
-        $this->assertResponseOk();
+        $this->get('/');
+        $this->assertResponseContains('Log out');
     }
 }

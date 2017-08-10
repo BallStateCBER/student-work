@@ -291,7 +291,6 @@ $config = [
             'password' => env('DB_PASSWORD') ?: null,
             'database' => 'wawh_testing',
             'encoding' => 'utf8',
-            'timezone' => 'America/Indiana/Indianapolis',
             'cacheMetadata' => true,
             'quoteIdentifiers' => false,
             'log' => false,
@@ -360,5 +359,6 @@ $config = [
      */
     'Session' => [
         'defaults' => 'php',
+        'timeout' => 1430 // 1 day
     ],
 ];

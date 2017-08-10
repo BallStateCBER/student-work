@@ -81,15 +81,18 @@
             <div class="collapse show" id="employee<?= $x ?>">
                 <div class="row">
                     <div class="col-lg-4">
+                        <label class="form-control-label">
+                            Contributor Name
+                        </label>
                         <?= $this->Form->control('users.'.$x.'._joinData.user_id', [
                             'class' => 'form-control select-box',
-                            'label' => 'Contributor Name',
+                            'label' => false,
                             'multiple' => false,
                             'type' => 'select'
                         ]); ?>
                     </div>
                     <div class="col-lg-4">
-                        <?= $this->Form->control('users.'.$x.'._joinData.employee_role', [
+                        <?= $this->Form->control('users.'.$x.'._joinData.role', [
                             'class' => 'form-control',
                             'label' => 'Contributor Role'
                         ]); ?>
@@ -114,16 +117,19 @@
             <div class="collapse" id="employee<?= $x ?>">
                 <div class="row">
                     <div class="col-lg-4">
+                        <label class="form-control-label">
+                            Contributor Name
+                        </label>
                         <?= $this->Form->control('users.'.$x.'._joinData.user_id', [
                             'class' => 'form-control select-box',
-                            'label' => 'Contributor Name',
+                            'label' => false,
                             'empty' => true,
                             'multiple' => false,
                             'type' => 'select'
                         ]); ?>
                     </div>
                     <div class="col-lg-4">
-                        <?= $this->Form->control('users.'.$x.'._joinData.employee_role', [
+                        <?= $this->Form->control('users.'.$x.'._joinData.role', [
                             'class' => 'form-control',
                             'label' => 'Contributor Role'
                         ]); ?>

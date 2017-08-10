@@ -1,11 +1,11 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\AwardsController;
+use App\Controller\ReportsController;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestCase;
 
-class AwardsTest extends IntegrationTestCase
+class ReportsTest extends IntegrationTestCase
 {
     /**
      * setUp method
@@ -15,7 +15,7 @@ class AwardsTest extends IntegrationTestCase
     public function setUp()
     {
         parent::setUp();
-        $classes = ['Awards', 'Users'];
+        $classes = ['Reports', 'Users'];
         foreach ($classes as $class) {
             $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\'.$class.'Table'];
             $this->$class = TableRegistry::get("$class", $config);
@@ -29,7 +29,7 @@ class AwardsTest extends IntegrationTestCase
      */
     public function tearDown()
     {
-        $classes = ['Awards', 'Users'];
+        $classes = ['Reports', 'Users'];
         foreach ($classes as $class) {
             unset($this->$class);
         }
@@ -37,16 +37,39 @@ class AwardsTest extends IntegrationTestCase
     }
 
     /**
-     * Test award add page
+     * Test Report add page
      *
      * @return void
      */
-    public function testAddAwardsPage()
+    public function testAddReportsPage()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $this->session(['Auth.User.id' => $id]);
 
-        $this->get('/awards/add');
+        $this->get('/reports/add');
         $this->assertResponseOk();
+    }
+
+    /**
+     * Test Report index page
+     *
+     * @return void
+     */
+    public function testIndexReports()
+    {
+        $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
+        $this->session(['Auth.User.id' => $id]);
+
+        $this->get('/reports');
+        $this->assertResponseOk();
+
+        $reports = $this->Reports->find('list')->toArray();
+
+        if ($reports > 0) {
+            foreach ($reports as $report) {
+                $this->assertResponseContains("$report");
+            }
+            return;
+        }
     }
 }
