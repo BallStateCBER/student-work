@@ -1,7 +1,6 @@
 /vendor/*
 /tmp/*
 /logs/*
-/config/.env.default
 /config/.env
 
 # PhpStorm
