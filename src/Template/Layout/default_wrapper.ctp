@@ -20,7 +20,6 @@
         echo $this->Html->css('style');
         echo $this->fetch('css');
     ?>
-    <script src='https://www.google.com/recaptcha/api.js'></script>
     <!-- jquery 3.1.1 min files, checks if CDN is down, deploys local file if necessary -->
     <script
     src="https://code.jquery.com/jquery-3.1.1.min.js"
