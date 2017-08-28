@@ -30,6 +30,9 @@
                 'class' => 'form-control',
                 'label' => false
             ]); ?>
+            <small>
+                Don't see yours listed? <?= $this->Html->link('Add a new grant!', ['controller' => 'Grants', 'action' => 'add'], ['class' => 'text-danger']) ?>
+            </small>
         </div>
     </div>
     <div class="row">
