@@ -28,6 +28,8 @@
             </label>
             <?= $this->Form->control('grant_id', [
                 'class' => 'form-control',
+                'default' => 'null',
+                'empty' => 'n/a',
                 'label' => false
             ]); ?>
             <small>

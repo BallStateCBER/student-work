@@ -11,11 +11,19 @@
             <?= $this->Form->control('organization', ['class' => 'form-control']); ?>
         </div>
         <div class="col-lg-2">
-            <?= $this->Form->control('grant_id', ['class' => 'form-control']); ?>
+            <label class="form-control-label">
+                Grant (if applicable)
+            </label>
+            <?= $this->Form->control('grant_id', [
+                'class' => 'form-control',
+                'default' => 'null',
+                'empty' => 'n/a',
+                'label' => false
+            ]); ?>
+            <small>
+                Don't see yours listed? <?= $this->Html->link('Add a new grant!', ['controller' => 'Grants', 'action' => 'add'], ['class' => 'text-danger']) ?>
+            </small>
         </div>
-        <small>
-            Don't see yours listed? <?= $this->Html->link('Add a new grant!', ['controller' => 'Grants', 'action' => 'add'], ['class' => 'text-danger']) ?>
-        </small>
     </div>
     <div class="row">
         <div class="col-lg-6">
