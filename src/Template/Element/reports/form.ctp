@@ -65,13 +65,15 @@
             </label>
             <div>
                 <?= $this->Form->control('end_date', [
+                    'default' => null,
+                    'empty' => 'n/a',
                     'hour' => false,
                     'label' => false,
                     'maxYear' => date('Y'),
                     'meridian' => false,
                     'minute' => false,
                     'minYear' => '2000',
-                    'value' => !empty($report->end_date) ? $report->end_date->format('Y-m-d') : date('Y-m-d')
+                    'value' => !empty($report->end_date) ? $report->end_date->format('Y-m-d') : null
                 ]);?>
             </div>
         </div>

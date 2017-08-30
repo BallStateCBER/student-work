@@ -19,9 +19,7 @@ $name = $name[0];
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <?php if ($loggedIn): ?>
-            <?= $this->Html->link($name ? "Hi, $name!": 'Hi!', ['controller' => 'Users', 'action' => 'account'], ['class'=>'nav-link']); ?>
-        <?php else: ?>
-            <?= $this->Html->link('Register', ['controller' => 'Users', 'action' => 'register'], ['class'=>'nav-link']); ?>
+            <?= $this->Html->link('Edit Your Account', ['controller' => 'Users', 'action' => 'account'], ['class'=>'nav-link']); ?>
         <?php endif; ?>
       </li>
       <li class="nav-item">

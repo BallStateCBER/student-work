@@ -84,7 +84,6 @@ class AppController extends Controller
             ]
         );
         $this->set(['activeUser' => $this->request->session()->read('Auth.User.name')]);
-        $this->Auth->allow();
 
         /*
          * Enable the following components for recommended CakePHP security settings.

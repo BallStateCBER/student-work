@@ -1,3 +1,6 @@
+<?php use Cake\Core\Configure;
+
+?>
 <?php $x = 0; ?>
 <?php foreach ($localprojects as $localproject): ?>
     <?= $x % 3 == 0 || $x == 0 ? '<div class="row">' : ''; ?>
@@ -24,11 +27,11 @@
 <?php endforeach; ?>
 <?php if (!isset($localproject->id)): ?>
     <p>
-        Sorry, there's nothing here! This probably suggests a problem. Contact <a href="mailto:edfox@bsu.edu">the admin</a> for advice!
+        Sorry, there's nothing here! This probably suggests a problem. Contact <a href="mailto:<?= Configure::read('admin_email') ?>">the admin</a> for advice!
     </p>
     <p>
         There might also just actually be nothing here. Go ahead and <?= $this->Html->link('add a project', [
             'controller' => 'Localprojects', 'action' => 'add'
-        ]) ?> so this lame placeholder message goes away.
+        ]) ?> so this goofy placeholder message goes away.
     </p>
 <?php endif; ?>

@@ -28,11 +28,11 @@
 <?php endforeach; ?>
 <?php if (!isset($site->id)): ?>
     <p>
-        Sorry, there's nothing here! This probably suggests a problem. Contact <a href="mailto:edfox@bsu.edu">the admin</a> for advice!
+        Sorry, there's nothing here! This probably suggests a problem. Contact <a href="mailto:<?= Configure::read('admin_email') ?>">the admin</a> for advice!
     </p>
     <p>
         There might also just actually be nothing here. Go ahead and <?= $this->Html->link('add a site', [
             'controller' => 'Sites', 'action' => 'add'
-        ]) ?> so this lame placeholder message goes away.
+        ]) ?> so this goofy placeholder message goes away.
     </p>
 <?php endif; ?>

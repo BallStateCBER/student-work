@@ -1,3 +1,6 @@
+<?php if ($this->request->session()->read('Auth.User.role') == 'Site Admin'): ?>
+    <?= $this->Html->link('Add a New User', ['controller' => 'Users', 'action' => 'register'], ['class'=>'nav-link']); ?>
+<?php endif; ?>
 <?php $x = 0; ?>
 <?php foreach ($users as $user): ?>
     <?= $x % 3 == 0 || $x == 0 ? '<div class="row">' : ''; ?>
@@ -21,6 +24,9 @@
         <?= $this->Text->autoLinkEmails($user->email); ?>
         <p>
             <?= $user->is_current == 1 ? 'Current' : 'Former'; ?> <?= $this->Html->link($user->position, ['controller' => 'Users', 'action' => 'view', $user->id]) ; ?>.
+            <?php if ($this->request->session()->read('Auth.User.role') == 'Site Admin'): ?>
+                <?= $this->Html->link('Admin: edit user', ['controller' => 'Users', 'action' => 'edit', $user->id], ['class'=>'nav-link']); ?>
+            <?php endif; ?>
         </p>
     </div>
     <?= $x % 3 == 2 ? '</div>' : ''; ?>
@@ -28,11 +34,11 @@
 <?php endforeach; ?>
 <?php if (count($users) < 1): ?>
     <p>
-        Sorry, there's nothing here! This probably suggests a problem. Contact <a href="mailto:edfox@bsu.edu">the admin</a> for advice!
+        Sorry, there's nothing here! This probably suggests a problem. Contact <a href="mailto:<?= Configure::read('admin_email') ?>">the admin</a> for advice!
     </p>
     <p>
         There might also just actually be nothing here. Go ahead and <?= $this->Html->link('add a user', [
-            'controller' => 'Users', 'action' => 'add'
-        ]) ?> so this lame placeholder message goes away.
+            'controller' => 'Users', 'action' => 'register'
+        ]) ?> so this goofy placeholder message goes away.
     </p>
 <?php endif; ?>

@@ -33,8 +33,8 @@ class UsersController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->deny([
-            'account', 'delete'
+        $this->Auth->allow([
+            'login'
         ]);
     }
 
@@ -110,6 +110,14 @@ class UsersController extends AppController
      */
     public function register()
     {
+        $this->set(['titleForLayout' => 'Register']);
+        $role = Router::getRequest()->session()->read('Auth.User.role');
+
+        if ($role != 'Site Admin') {
+            $this->Flash->error('You are not authorized to add new users.');
+            return;
+        }
+
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -123,7 +131,34 @@ class UsersController extends AppController
         }
         $this->set(compact('user', 'localprojects', 'publications', 'sites'));
         $this->set('_serialize', ['user']);
-        $this->set(['titleForLayout' => 'Register']);
+    }
+
+    /**
+     * Account method
+     *
+     * @param string|null $id User id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function account($id = null)
+    {
+        $id = Router::getRequest()->session()->read('Auth.User.id');
+        $user = $this->Users->get($id, [
+            'contain' => ['Localprojects', 'Publications', 'Sites']
+        ]);
+        $this->getUserVarsPr($id);
+
+        $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
+        $this->set(['titleForLayout' => 'Your Account Info']);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
+                return $this->Flash->success(__('Your information has been saved!'));
+            }
+            return $this->Flash->error(__('Your information could not be saved. Please, try again.'));
+        }
     }
 
     /**
@@ -133,9 +168,8 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function account($id = null)
+    public function edit($id = null)
     {
-        $id = Router::getRequest()->session()->read('Auth.User.id');
         $user = $this->Users->get($id, [
             'contain' => ['Localprojects', 'Publications', 'Sites']
         ]);
