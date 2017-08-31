@@ -10,8 +10,6 @@ use Cake\Validation\Validator;
  * Grants Model
  *
  * @property \Cake\ORM\Association\HasMany $Projects
- * @property \Cake\ORM\Association\HasMany $Publications
- * @property \Cake\ORM\Association\HasMany $Sites
  *
  * @method \App\Model\Entity\Grant get($primaryKey, $options = [])
  * @method \App\Model\Entity\Grant newEntity($data = null, array $options = [])
@@ -39,12 +37,6 @@ class GrantsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->hasMany('Projects', [
-            'foreignKey' => 'grant_id'
-        ]);
-        $this->hasMany('Publications', [
-            'foreignKey' => 'grant_id'
-        ]);
-        $this->hasMany('Sites', [
             'foreignKey' => 'grant_id'
         ]);
     }

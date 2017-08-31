@@ -49,8 +49,6 @@ class ReportsTable extends Table
         ]);
 
         $this->Projects = TableRegistry::get('Projects');
-        $this->Publications = TableRegistry::get('Publications');
-        $this->Sites = TableRegistry::get('Sites');
     }
 
     /**
@@ -65,10 +63,6 @@ class ReportsTable extends Table
             ->integer('id')
             ->allowEmpty('id', 'create')
             ->add('id', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
-        $validator
-            ->requirePresence('project_type', 'create')
-            ->notEmpty('project_type');
 
         $validator
             ->requirePresence('start_date', 'create')
