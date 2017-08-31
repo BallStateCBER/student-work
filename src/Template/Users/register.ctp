@@ -1,4 +1,3 @@
-<?php if ($this->request->session()->read('Auth.User.role') == 'Site Admin'): ?>
 <?php
 $this->Form->setTemplates([
     'select' => '<select class="form-control">{{content}}</select>'
@@ -44,4 +43,3 @@ $this->Form->setTemplates([
     <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-secondary btn-md']); ?>
 </div>
 <?= $this->Form->end() ?>
-<?php endif;

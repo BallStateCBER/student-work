@@ -1,3 +1,7 @@
+<?php
+use Cake\Core\Configure;
+
+?>
 <?php $x = 0; ?>
 <?php foreach ($publications as $publication): ?>
     <?= $x % 3 == 0 || $x == 0 ? '<div class="row">' : ''; ?>

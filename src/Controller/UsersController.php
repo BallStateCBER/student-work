@@ -34,7 +34,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
         $this->Auth->allow([
-            'login'
+            'forgotPassword', 'login', 'register', 'resetPassword'
         ]);
     }
 
@@ -111,14 +111,10 @@ class UsersController extends AppController
     public function register()
     {
         $this->set(['titleForLayout' => 'Register']);
-        $role = Router::getRequest()->session()->read('Auth.User.role');
-
-        if ($role != 'Site Admin') {
-            $this->Flash->error('You are not authorized to add new users.');
-            return;
-        }
-
         $user = $this->Users->newEntity();
+        $this->set(compact('user', 'localprojects', 'publications', 'sites'));
+        $this->set('_serialize', ['user']);
+
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $user->email = strtolower(trim($user->email));
@@ -129,8 +125,6 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('Sorry, we could not register you. Please try again.'));
         }
-        $this->set(compact('user', 'localprojects', 'publications', 'sites'));
-        $this->set('_serialize', ['user']);
     }
 
     /**

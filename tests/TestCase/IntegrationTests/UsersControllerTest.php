@@ -253,8 +253,6 @@ class UsersControllerTest extends IntegrationTestCase
     public function testResettingThePassword()
     {
         $id = $this->Users->getIdFromEmail('mblum@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
-
         // what if someone's trying to fabricate a password-resetting code?
         $this->get("users/reset-password/$id/abcdefg");
         $this->assertRedirect('/');
@@ -287,7 +285,7 @@ class UsersControllerTest extends IntegrationTestCase
         $this->session(['Auth.User.id' => 1]);
 
         // delete the new user
-        $id = $this->Users->getIdFromEmail('mal@blum.com');
+        $id = $this->Users->getIdFromEmail('mblum@bsu.edu');
 
         $this->get("employee/delete/$id");
         $this->assertResponseSuccess();
