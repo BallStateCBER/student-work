@@ -127,64 +127,10 @@ $firstName = $firstName[0];
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-9">
-        <h4>Publications</h4>
-        <?php if ($user->publications): ?>
-            <?php foreach ($user->publications as $publication): ?>
-                <h6><?= $publication->title; ?></h6>
-                <p>
-                    <u>Publication role:</u> <?= $publication->_joinData->employee_role; ?><br />
-                    <?php $date = strtotime($publication->date_published); ?>
-                    Published <?= date('F, Y', $date); ?><br />
-                    <?php
-                        $abstractArray = explode(' ', trim($publication->abstract));
-                        $abstractCount = count($abstractArray);
-                        $halfCount = $abstractCount / 2;
-                    ?>
-                    <?php for ($x = 0; $x <= $halfCount; $x++): ?>
-                        <?= $abstractArray[$x]; ?>
-                    <?php endfor; ?>
-                    ...
-                    <em class="text-muted"><?= $this->Html->link('Read more', ['controller' => 'Publications', 'action' => 'view', $publication->id]) ?></em>
-                </p>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <?= $firstName; ?> does not have any listed publications.
-        <?php endif; ?>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-9">
-        <h4>Websites</h4>
-        <?php if ($user->sites): ?>
-            <?php foreach ($user->sites as $site): ?>
-                <h6><?= $site->site_name; ?></h6>
-                <p>
-                    <u>Website role:</u> <?= $site->_joinData->employee_role; ?><br />
-                    <?php $date = strtotime($site->date_live); ?>
-                    <?= $site->in_progress == 1 ? 'In progress' : 'Live'; ?> since <?= date('F, Y', $date); ?><br />
-                    <?php
-                        $descriptionArray = explode(' ', trim($site->description));
-                        $wordCount = count($descriptionArray);
-                        $halfCount = $wordCount / 2;
-                    ?>
-                    <?php for ($x = 0; $x <= $halfCount; $x++): ?>
-                        <?= $descriptionArray[$x]; ?>
-                    <?php endfor; ?>
-                    ...
-                    <em class="text-muted"><?= $this->Html->link('Read more', ['controller' => 'Sites', 'action' => 'view', $site->id]) ?></em>
-                </p>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <?= $firstName; ?> does not have any listed websites.
-        <?php endif; ?>
-    </div>
-</div>
-<div class="row">
     <div class="col-sm-12">
-        <h4>Community Projects</h4>
-        <?php if ($user->localprojects): ?>
-            <?php foreach ($user->localprojects as $project): ?>
+        <h4>Projects</h4>
+        <?php if ($user->projects): ?>
+            <?php foreach ($user->projects as $project): ?>
                 <h6><?= $project->name; ?></h6>
                 <p>
                     <u>Project role:</u> <?= $project->_joinData->role; ?><br />
@@ -198,11 +144,11 @@ $firstName = $firstName[0];
                         <?= $descriptionArray[$x]; ?>
                     <?php endfor; ?>
                     ...
-                    <em class="text-muted"><?= $this->Html->link('Read more', ['controller' => 'Localprojects', 'action' => 'view', $project->id]) ?></em>
+                    <em class="text-muted"><?= $this->Html->link('Read more', ['controller' => 'Projects', 'action' => 'view', $project->id]) ?></em>
                 </p>
             <?php endforeach; ?>
         <?php else: ?>
-            <?= $firstName; ?> does not have any listed community projects.
+            <?= $firstName; ?> does not have any listed projects.
         <?php endif; ?>
     </div>
 </div>

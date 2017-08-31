@@ -4,18 +4,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Site Entity
+ * Project Entity
  *
  * @property int $id
- * @property string $site_name
- * @property \Cake\I18n\FrozenTime $date_live
+ * @property string $name
  * @property string $description
- * @property string $url
- * @property string $sponsor
+ * @property string $organization
  *
  * @property \App\Model\Entity\User[] $users
  */
-class Site extends Entity
+class Project extends Entity
 {
 
     /**

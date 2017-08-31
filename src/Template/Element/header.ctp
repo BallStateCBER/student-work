@@ -36,13 +36,7 @@ $name = $name[0];
         <?= $this->Html->link('Staff', ['controller' => 'Users', 'action' => 'index'], ['class'=>'nav-link']); ?>
       </li>
       <li class="nav-item">
-        <?= $this->Html->link('Publications', ['controller' => 'Publications', 'action' => 'index'], ['class'=>'nav-link']); ?>
-      </li>
-      <li class="nav-item">
-        <?= $this->Html->link('Sites', ['controller' => 'Sites', 'action' => 'index'], ['class'=>'nav-link']); ?>
-      </li>
-      <li class="nav-item">
-        <?= $this->Html->link('Community Projects', ['controller' => 'Localprojects', 'action' => 'index'], ['class'=>'nav-link']); ?>
+        <?= $this->Html->link('Projects', ['controller' => 'Projects', 'action' => 'index'], ['class'=>'nav-link']); ?>
       </li>
     </ul>
     <!--form class="form-inline my-2 my-lg-0">

@@ -1,4 +1,4 @@
-<?= $this->Form->create($localproject); ?>
+<?= $this->Form->create($project); ?>
 <fieldset>
     <h1>
         <?= $titleForLayout; ?>
@@ -36,12 +36,12 @@
     <?php if ($this->request->getParam('action') == 'edit'): ?>
         <h3>
             Edit contributors
-            <?php if (!$localproject->users): ?>
+            <?php if (!$project->users): ?>
                 (<a data-toggle="collapse" href="#employee0" aria-expanded="false" aria-controls="employee0">+</a>)
             <?php endif; ?>
         </h3>
         <?php $y = 0; ?>
-        <?php foreach ($localproject->users as $x => $user): ?>
+        <?php foreach ($project->users as $x => $user): ?>
             <div class="collapse show" id="employee<?= $x ?>">
                 <div class="row">
                     <div class="col-lg-4">
@@ -110,7 +110,7 @@
 <?php if ($this->request->params['action'] == 'edit'): ?>
     <p class="float-right">
         <small>
-            <?= $this->Html->link('Delete project?', ['controller' => 'Localprojects', 'action' => 'delete', $localproject->id], ['class' => 'text-danger']) ?>
+            <?= $this->Html->link('Delete project?', ['controller' => 'Projects', 'action' => 'delete', $project->id], ['class' => 'text-danger']) ?>
         </small>
     </p>
 <?php endif; ?>

@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `wawh_testing` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
-USE `wawh_testing`;
 -- MySQL dump 10.13  Distrib 5.7.18, for Linux (x86_64)
 --
 -- Host: localhost    Database: wawh_testing
@@ -27,13 +25,13 @@ DROP TABLE IF EXISTS `awards`;
 CREATE TABLE `awards` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
   `awarded_on` datetime NOT NULL,
-  `awarded_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `awarded_by` varchar(255) NOT NULL,
+  `description` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +61,7 @@ CREATE TABLE `degrees` (
   `date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,13 +82,14 @@ DROP TABLE IF EXISTS `grants`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `grants` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `organization` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `amount` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `funding_details` text COLLATE utf8mb4_unicode_ci,
+  `fund_number` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,18 +98,18 @@ CREATE TABLE `grants` (
 
 LOCK TABLES `grants` WRITE;
 /*!40000 ALTER TABLE `grants` DISABLE KEYS */;
-INSERT INTO `grants` VALUES (1,'Generic Grant','The American Psychiatric Association','$500','The most generic in show.');
+INSERT INTO `grants` VALUES (1,'Generic Grant','The American Psychiatric Association','$500','The most generic in show.','');
 /*!40000 ALTER TABLE `grants` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `localprojects`
+-- Table structure for table `projects`
 --
 
-DROP TABLE IF EXISTS `localprojects`;
+DROP TABLE IF EXISTS `projects`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `localprojects` (
+CREATE TABLE `projects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -118,45 +117,17 @@ CREATE TABLE `localprojects` (
   `grant_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `localprojects`
+-- Dumping data for table `projects`
 --
 
-LOCK TABLES `localprojects` WRITE;
-/*!40000 ALTER TABLE `localprojects` DISABLE KEYS */;
-/*!40000 ALTER TABLE `localprojects` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `publications`
---
-
-DROP TABLE IF EXISTS `publications`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `publications` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abstract` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date_published` datetime NOT NULL,
-  `cover` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `grant_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `publications`
---
-
-LOCK TABLES `publications` WRITE;
-/*!40000 ALTER TABLE `publications` DISABLE KEYS */;
-/*!40000 ALTER TABLE `publications` ENABLE KEYS */;
+LOCK TABLES `projects` WRITE;
+/*!40000 ALTER TABLE `projects` DISABLE KEYS */;
+INSERT INTO `projects` VALUES (2,'The Raven Who Refused to Sing','Sing to me raven.','Steven Wilson',NULL),(47,'Project Win','Here is some text','American Placeholder Association',1);
+/*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -170,8 +141,7 @@ CREATE TABLE `reports` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` int(11) NOT NULL,
   `supervisor_id` int(11) NOT NULL,
-  `project_type` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `project_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `project_name` int(11) NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime NOT NULL,
   `work_performed` text COLLATE utf8mb4_unicode_ci,
@@ -179,7 +149,7 @@ CREATE TABLE `reports` (
   `learned` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,38 +158,7 @@ CREATE TABLE `reports` (
 
 LOCK TABLES `reports` WRITE;
 /*!40000 ALTER TABLE `reports` DISABLE KEYS */;
-INSERT INTO `reports` VALUES (1,900903255,900903255,'Sites','Muncie Events','2017-08-02 00:00:00','2017-08-02 00:00:00','Making this placeholder.',1,'How to make a good placeholder.!!!!!!!!!!!!!!!!!');
 /*!40000 ALTER TABLE `reports` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `sites`
---
-
-DROP TABLE IF EXISTS `sites`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sites` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `site_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date_live` datetime NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `grant_id` int(11) DEFAULT NULL,
-  `in_progress` tinyint(4) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `sites`
---
-
-LOCK TABLES `sites` WRITE;
-/*!40000 ALTER TABLE `sites` DISABLE KEYS */;
-INSERT INTO `sites` VALUES (1,'Muncie Events','2012-10-02 00:00:00','2017: Erica began upgrading this thing to CakePHP','http://www.muncieevents.com',1,1);
-/*!40000 ALTER TABLE `sites` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -231,27 +170,27 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `start_date` datetime NOT NULL,
-  `end_date` datetime DEFAULT NULL,
-  `birth_date` datetime NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `bio` text COLLATE utf8mb4_unicode_ci,
-  `has_publications` int(11) NOT NULL,
-  `has_sites` int(11) NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_current` int(11) NOT NULL,
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ice_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ice_phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ice_relationship` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `alt_email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cell` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `position` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` text,
+  `start_date` text,
+  `end_date` text,
+  `birth_date` text,
+  `image` text,
+  `bio` text,
+  `has_publications` int(11) DEFAULT NULL,
+  `has_sites` int(11) DEFAULT NULL,
+  `email` text,
+  `password` text,
+  `is_current` int(11) DEFAULT NULL,
+  `role` text,
+  `ice_name` text,
+  `ice_phone` text,
+  `ice_relationship` text,
+  `alt_email` text,
+  `cell` text,
+  `position` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,87 +199,34 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (900903255,'Erica Dee Fox','2017-02-27 00:00:00',NULL,'1992-01-28 00:00:00','5a6ce2ead1e988a7993704afb87a0c9b.jpg','Erica builds websites for CBER. She has worked as a full-stack PHP developer for two years. Her favorite things are her daughter, husband, bandmate, diesel Benz, and pasta. All at the same time.',0,1,'edfox@bsu.edu','$2y$10$NZEUu7ci.17aimdHHSsGMO3tL70C18jAOR0IYyJpkn/ZvUbv.wpNi',1,'Site Admin','Sam Lonsberry','(765) 123-4567','Spouse','ericadeefox@gmail.com','(765) 891-0111','Web Programming Specialist');
+INSERT INTO `users` VALUES (123456789,'Mal Blum','','','',NULL,'I\'m a placeholder. I just quit my job!!',0,1,'mblum@bsu.edu','$2y$10$xv31B8YQ7r4nJyOeybDJuekhXOgg8VXB4lpnCUvGmbdkkS04q.JB6',0,'Student',NULL,NULL,NULL,NULL,NULL,'Former Placeholder Specialist'),(900903255,'Erica Dee Fox','2017-02-27 00:00:00','','1992-01-28 00:00:00','5a6ce2ead1e988a7993704afb87a0c9b.jpg','Erica builds websites for CBER. She has worked as a full-stack PHP developer for two years. Her favorite things are her daughter, husband, bandmate, diesel Benz, and pasta. All at the same time.',0,1,'edfox@bsu.edu','$2y$10$NZEUu7ci.17aimdHHSsGMO3tL70C18jAOR0IYyJpkn/ZvUbv.wpNi',1,'Site Admin','Sam Lonsberry','(765) 283-7945','Spouse','ericadeefox@gmail.com','(765) 997-8727','Web Programming Specialist');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `users_localprojects`
+-- Table structure for table `users_projects`
 --
 
-DROP TABLE IF EXISTS `users_localprojects`;
+DROP TABLE IF EXISTS `users_projects`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users_localprojects` (
+CREATE TABLE `users_projects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `localproject_id` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL,
   `role` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users_localprojects`
+-- Dumping data for table `users_projects`
 --
 
-LOCK TABLES `users_localprojects` WRITE;
-/*!40000 ALTER TABLE `users_localprojects` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users_localprojects` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `users_publications`
---
-
-DROP TABLE IF EXISTS `users_publications`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users_publications` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `publication_id` int(11) NOT NULL,
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users_publications`
---
-
-LOCK TABLES `users_publications` WRITE;
-/*!40000 ALTER TABLE `users_publications` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users_publications` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `users_sites`
---
-
-DROP TABLE IF EXISTS `users_sites`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users_sites` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `site_id` int(11) NOT NULL,
-  `employee_role` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users_sites`
---
-
-LOCK TABLES `users_sites` WRITE;
-/*!40000 ALTER TABLE `users_sites` DISABLE KEYS */;
-INSERT INTO `users_sites` VALUES (1,900903255,1,'Refactoring');
-/*!40000 ALTER TABLE `users_sites` ENABLE KEYS */;
+LOCK TABLES `users_projects` WRITE;
+/*!40000 ALTER TABLE `users_projects` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users_projects` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -352,4 +238,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-07 12:48:01
+-- Dump completed on 2017-08-31 12:37:23

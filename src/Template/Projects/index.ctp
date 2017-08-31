@@ -2,19 +2,19 @@
 
 ?>
 <?php $x = 0; ?>
-<?php foreach ($localprojects as $localproject): ?>
+<?php foreach ($projects as $project): ?>
     <?= $x % 3 == 0 || $x == 0 ? '<div class="row">' : ''; ?>
     <div class="col-lg-3 index text-center">
         <h5>
-            <?= $this->Html->link($localproject->name, [
-                'controller' => 'Localprojects', 'action' => 'view', $localproject->id
+            <?= $this->Html->link($project->name, [
+                'controller' => 'Projects', 'action' => 'view', $project->id
             ]) ?>
         </h5>
-        <?= $localproject->organization; ?>
+        <?= $project->organization; ?>
         <p>
-            <?= $localproject->description; ?>
+            <?= $project->description; ?>
         </p>
-        <?php foreach ($localproject->users as $user): ?>
+        <?php foreach ($project->users as $user): ?>
             <ul>
                 <li>
                     <?= $user->name; ?>, <?= $user->_joinData->role; ?>
@@ -25,13 +25,13 @@
     <?= $x % 3 == 2 ? '</div>' : ''; ?>
     <?php $x = $x + 1; ?>
 <?php endforeach; ?>
-<?php if (!isset($localproject->id)): ?>
+<?php if (!isset($project->id)): ?>
     <p>
         Sorry, there's nothing here! This probably suggests a problem. Contact <a href="mailto:<?= Configure::read('admin_email') ?>">the admin</a> for advice!
     </p>
     <p>
         There might also just actually be nothing here. Go ahead and <?= $this->Html->link('add a project', [
-            'controller' => 'Localprojects', 'action' => 'add'
+            'controller' => 'Projects', 'action' => 'add'
         ]) ?> so this goofy placeholder message goes away.
     </p>
 <?php endif; ?>

@@ -12,7 +12,7 @@ use Cake\ORM\Entity;
  * @property string $amount
  * @property string $description
  *
- * @property \App\Model\Entity\Localproject[] $localprojects
+ * @property \App\Model\Entity\Project[] $projects
  * @property \App\Model\Entity\Publication[] $publications
  * @property \App\Model\Entity\Site[] $sites
  */

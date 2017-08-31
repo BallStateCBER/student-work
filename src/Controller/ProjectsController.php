@@ -5,18 +5,18 @@ use App\Controller\AppController;
 use Cake\Event\Event;
 
 /**
- * Localprojects Controller
+ * Projects Controller
  *
- * @property \App\Model\Table\LocalprojectsTable $Localprojects
+ * @property \App\Model\Table\ProjectsTable $Projects
  *
- * @method \App\Model\Entity\Localproject[] paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Project[] paginate($object = null, array $settings = [])
  */
-class LocalprojectsController extends AppController
+class ProjectsController extends AppController
 {
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('UsersLocalprojects');
+        $this->loadModel('UsersProjects');
     }
 
     public function beforeFilter(Event $event)
@@ -27,7 +27,7 @@ class LocalprojectsController extends AppController
         ]);
     }
 
-    private function uponFormSubmissionPr($localproject)
+    private function uponFormSubmissionPr($project)
     {
         if ($this->request->getParam('action') == 'edit') {
             if (!empty($this->request->data['users'])) {
@@ -38,32 +38,32 @@ class LocalprojectsController extends AppController
                         $userId = $user['_joinData']['user_id'];
                         $employeeRole = $user['_joinData']['role'];
                         $delete = isset($user['delete']) ? $user['delete'] : 0;
-                        $user = $this->Localprojects->Users->get($userId);
+                        $user = $this->Projects->Users->get($userId);
 
                         // are we deleting this field?
                         if ($delete == 1) {
-                            $this->Localprojects->Users->unlink($localproject, [$user]);
+                            $this->Projects->Users->unlink($project, [$user]);
                         }
 
                         // nope? good to go
                         if ($delete == 0) {
                             // get the user and set joinData
-                            $user->_joinData = $this->UsersLocalprojects->newEntity();
+                            $user->_joinData = $this->UsersProjects->newEntity();
                             $user->_joinData->user_id = $userId;
-                            $user->_joinData->localproject_id = $localproject->id;
+                            $user->_joinData->project_id = $project->id;
                             $user->_joinData->role = $employeeRole;
 
                             // does this exact field already exist?
-                            $prevField = $this->UsersLocalprojects->find();
+                            $prevField = $this->UsersProjects->find();
                             $prevField
                                 ->where(['user_id' => $userId])
-                                ->andWhere(['localproject_id' => $localproject->id])
+                                ->andWhere(['project_id' => $project->id])
                                 ->andWhere(['role' => $employeeRole]);
                             $prevCount = $prevField->count();
 
                             // if not, link the two
                             if ($prevCount == 0) {
-                                $this->Localprojects->Users->link($localproject, [$user]);
+                                $this->Projects->Users->link($project, [$user]);
                             }
                         }
                     }
@@ -71,11 +71,11 @@ class LocalprojectsController extends AppController
             }
         }
 
-        $localproject = $this->Localprojects->patchEntity($localproject, $this->request->getData(), [
+        $project = $this->Projects->patchEntity($project, $this->request->getData(), [
             'fieldList' => ['name', 'description', 'grant_id', 'organization']
         ]);
 
-        if ($this->Localprojects->save($localproject)) {
+        if ($this->Projects->save($project)) {
             $this->Flash->success(__('The project has been saved.'));
             return $this->redirect(['action' => 'index']);
         }
@@ -84,60 +84,60 @@ class LocalprojectsController extends AppController
 
     public function index()
     {
-        $localprojects = $this->Localprojects->find('all', [
+        $projects = $this->Projects->find('all', [
             'contain' => ['Users'],
             'order' => ['name' => 'ASC']
         ]);
 
-        $this->set(compact('localprojects'));
-        $this->set('_serialize', ['localprojects']);
+        $this->set(compact('projects'));
+        $this->set('_serialize', ['projects']);
     }
 
     public function view($id = null)
     {
-        $localproject = $this->Localprojects->get($id, [
+        $project = $this->Projects->get($id, [
             'contain' => ['Users']
         ]);
 
-        $this->set('localproject', $localproject);
-        $this->set('_serialize', ['localproject']);
+        $this->set('project', $project);
+        $this->set('_serialize', ['project']);
     }
 
     public function add()
     {
-        $localproject = $this->Localprojects->newEntity();
+        $project = $this->Projects->newEntity();
 
-        $users = $this->Localprojects->Users->find('list');
-        $grants = $this->Localprojects->Grants->find('list');
-        $this->set(compact('grants', 'localproject', 'users'));
-        $this->set('_serialize', ['localproject']);
+        $users = $this->Projects->Users->find('list');
+        $grants = $this->Projects->Grants->find('list');
+        $this->set(compact('grants', 'project', 'users'));
+        $this->set('_serialize', ['project']);
         $this->set(['titleForLayout' => 'Add a Project']);
 
         if ($this->request->is('post')) {
-            $this->uponFormSubmissionPr($localproject);
+            $this->uponFormSubmissionPr($project);
         }
     }
 
     public function edit($id = null)
     {
-        $localproject = $this->Localprojects->get($id, [
+        $project = $this->Projects->get($id, [
             'contain' => ['Users']
         ]);
 
-        $users = $this->Localprojects->Users->find('list');
-        $this->set(compact('localproject', 'users'));
-        $this->set('_serialize', ['localproject']);
-        $this->set(['titleForLayout' => 'Edit Project: '.$localproject->title]);
+        $users = $this->Projects->Users->find('list');
+        $this->set(compact('project', 'users'));
+        $this->set('_serialize', ['project']);
+        $this->set(['titleForLayout' => 'Edit Project: '.$project->title]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $this->uponFormSubmissionPr($localproject);
+            $this->uponFormSubmissionPr($project);
         }
     }
 
     public function delete($id = null)
     {
-        $localproject = $this->Localprojects->get($id);
-        if ($this->Localprojects->delete($localproject)) {
+        $project = $this->Projects->get($id);
+        if ($this->Projects->delete($project)) {
             $this->Flash->success(__('The project has been deleted.'));
         } else {
             $this->Flash->error(__('The project could not be deleted. Please, try again.'));

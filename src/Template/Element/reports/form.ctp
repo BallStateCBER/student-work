@@ -7,7 +7,7 @@
         <?= $titleForLayout; ?>
     </h1>
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-2">
             <label class="form-control-label">
                 Supervisor
             </label>
@@ -23,16 +23,6 @@
                 'value' => $activeUser
             ]); ?>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3">
-            <label class="form-control-label">
-                Project type
-            </label>
-            <?= $this->Form->control('project_type', [
-                'label' => false
-            ]); ?>
-        </div>
         <div class="col-lg-3">
             <label class="form-control-label">
                 Project name
@@ -43,7 +33,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <label class="form-control-label">
                 Start date
             </label>

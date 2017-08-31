@@ -15,9 +15,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\HasMany $Awards
  * @property \Cake\ORM\Association\HasMany $Jobs
- * @property \Cake\ORM\Association\BelongsToMany $Localprojects
- * @property \Cake\ORM\Association\BelongsToMany $Publications
- * @property \Cake\ORM\Association\BelongsToMany $Sites
+ * @property \Cake\ORM\Association\BelongsToMany $Projects
  *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
@@ -59,20 +57,10 @@ class UsersTable extends Table
         $this->hasMany('Awards', [
             'foreignKey' => 'user_id'
         ]);
-        $this->belongsToMany('Localprojects', [
+        $this->belongsToMany('Projects', [
             'foreignKey' => 'user_id',
-            'targetForeignKey' => 'localproject_id',
-            'joinTable' => 'users_localprojects'
-        ]);
-        $this->belongsToMany('Publications', [
-            'foreignKey' => 'user_id',
-            'targetForeignKey' => 'publication_id',
-            'joinTable' => 'users_publications'
-        ]);
-        $this->belongsToMany('Sites', [
-            'foreignKey' => 'user_id',
-            'targetForeignKey' => 'site_id',
-            'joinTable' => 'users_sites'
+            'targetForeignKey' => 'project_id',
+            'joinTable' => 'users_projects'
         ]);
 
         # $this->addBehavior('Search.Search');

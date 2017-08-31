@@ -93,9 +93,7 @@ class UsersController extends AppController
     {
         $user = $this->Users->get($id, [
             'contain' => [
-                'Localprojects',
-                'Publications',
-                'Sites'
+                'Projects'
             ]
         ]);
         $this->getUserVarsPr($id);
@@ -112,7 +110,7 @@ class UsersController extends AppController
     {
         $this->set(['titleForLayout' => 'Register']);
         $user = $this->Users->newEntity();
-        $this->set(compact('user', 'localprojects', 'publications', 'sites'));
+        $this->set(compact('user', 'projects'));
         $this->set('_serialize', ['user']);
 
         if ($this->request->is('post')) {
@@ -138,7 +136,7 @@ class UsersController extends AppController
     {
         $id = Router::getRequest()->session()->read('Auth.User.id');
         $user = $this->Users->get($id, [
-            'contain' => ['Localprojects', 'Publications', 'Sites']
+            'contain' => ['Projects']
         ]);
         $this->getUserVarsPr($id);
 
@@ -165,7 +163,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Localprojects', 'Publications', 'Sites']
+            'contain' => ['Projects']
         ]);
         $this->getUserVarsPr($id);
 
@@ -244,7 +242,7 @@ class UsersController extends AppController
 
         $users = $this->Events->find('search', [
             'search' => $filter,
-            'contain' => ['Localprojects', 'Publications', 'Sites']])
+            'contain' => ['Projects']])
             ->toArray();
 
         if ($users) {

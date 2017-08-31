@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-lg-6">
             <label class="form-control-label">
-                Job description
+                Funding details
             </label>
             <?= $this->Form->textarea('description', ['class' => 'form-control']); ?>
         </div>

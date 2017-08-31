@@ -1,11 +1,11 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\SitesController;
+use App\Controller\ProjectsController;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestCase;
 
-class SitesTest extends IntegrationTestCase
+class ProjectsTest extends IntegrationTestCase
 {
     /**
      * setUp method
@@ -15,7 +15,7 @@ class SitesTest extends IntegrationTestCase
     public function setUp()
     {
         parent::setUp();
-        $classes = ['Sites', 'Users'];
+        $classes = ['Projects', 'Users'];
         foreach ($classes as $class) {
             $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\'.$class.'Table'];
             $this->$class = TableRegistry::get("$class", $config);
@@ -29,7 +29,7 @@ class SitesTest extends IntegrationTestCase
      */
     public function tearDown()
     {
-        $classes = ['Sites', 'Users'];
+        $classes = ['Projects', 'Users'];
         foreach ($classes as $class) {
             unset($this->$class);
         }
@@ -37,37 +37,37 @@ class SitesTest extends IntegrationTestCase
     }
 
     /**
-     * Test Site add page
+     * Test Project add page
      *
      * @return void
      */
-    public function testAddSitesPage()
+    public function testAddProjectsPage()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $this->session(['Auth.User.id' => $id]);
 
-        $this->get('/sites/add');
+        $this->get('/projects/add');
         $this->assertResponseOk();
     }
 
     /**
-     * Test Site index page
+     * Test Project index page
      *
      * @return void
      */
-    public function testIndexSites()
+    public function testIndexProjects()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $this->session(['Auth.User.id' => $id]);
 
-        $this->get('/sites');
+        $this->get('/projects');
         $this->assertResponseOk();
 
-        $sites = $this->Sites->find('list')->toArray();
+        $projects = $this->Projects->find('list')->toArray();
 
-        if ($sites > 0) {
-            foreach ($sites as $site) {
-                $this->assertResponseContains("$site");
+        if ($projects > 0) {
+            foreach ($projects as $project) {
+                $this->assertResponseContains($project);
             }
             return;
         }

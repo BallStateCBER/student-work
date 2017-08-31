@@ -52,8 +52,7 @@ class ReportsControllerTest extends IntegrationTestCase
         $report = [
             'student_id' => $id,
             'supervisor_id' => $id,
-            'project_type' => 'Sites',
-            'project_name' => 'Muncie Events',
+            'project_name' => 'The Raven Who Refused to Sing',
             'start_date' => [
                 'year' => date('Y'),
                 'month' => date('m'),
@@ -102,8 +101,7 @@ class ReportsControllerTest extends IntegrationTestCase
         $newReport = [
             'student_id' => $id,
             'supervisor_id' => $id,
-            'project_type' => 'Sites',
-            'project_name' => 'Muncie Events',
+            'project_name' => 'The Raven Who Refused to Sing',
             'start_date' => [
                 'year' => date('Y'),
                 'month' => date('m'),

@@ -1,15 +1,15 @@
 <h1>
-    <?= $localproject->name; ?>
+    <?= $project->name; ?>
 </h1>
 <div class="row">
     <div class="col-lg-8">
-        <?php if ($localproject->description): ?>
+        <?php if ($project->description): ?>
             <p>
-                <?= $localproject->description ?>
+                <?= $project->description ?>
             </p>
         <?php else: ?>
             <p>
-                There is no description for <?= $localproject->name ?> yet. Go on, put it up, or we aren't gonna know how to be proud of you!
+                There is no description for <?= $project->name ?> yet. Go on, put it up, or we aren't gonna know how to be proud of you!
             </p>
         <?php endif; ?>
     </div>
@@ -17,18 +17,18 @@
 <div class="row">
     <div class="col-lg-4">
         <h6>Organization</h6>
-        <a href="<?= $localproject->organization ?>"><?= $localproject->organization ?></a>
+        <a href="<?= $project->organization ?>"><?= $project->organization ?></a>
     </div>
     <div class="col-lg-4">
-        <h6>Grant</h6>
-        <?= isset($localproject->grant->name) ? $localproject->grant->name : 'None/not applicable'; ?>
+        <h6>Fund number</h6>
+        <?= isset($project->grant->fund_number) ? $project->grant->fund_number : 'None/not applicable'; ?>
     </div>
 </div>
-<?php if ($localproject->users): ?>
+<?php if ($project->users): ?>
     <div class="row">
         <div class="col-sm-9">
             <h4>Project credits</h4>
-                <?php foreach ($localproject->users as $user): ?>
+                <?php foreach ($project->users as $user): ?>
                     <h6><?= $user->name; ?></h6>
                     <p>
                         <u>Website role:</u> <?= $user->_joinData->employee_role; ?><br />
@@ -36,7 +36,7 @@
                     </p>
                 <?php endforeach; ?>
 <?php else: ?>
-                No one has taken credit for <?= $localproject->name ?> yet. Were you on the project team? <?= $this->Html->link('Take Credit!', ['controller' => 'Localprojects', 'action' => 'edit', $localproject->id]); ?>
+                No one has taken credit for <?= $project->name ?> yet. Were you on the project team? <?= $this->Html->link('Take Credit!', ['controller' => 'Projects', 'action' => 'edit', $project->id]); ?>
         </div>
     </div>
 <?php endif; ?>

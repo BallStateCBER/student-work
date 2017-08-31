@@ -67,16 +67,8 @@ Router::scope('/', function (RouteBuilder $routes) {
     });
 
     // viewing individual action pages
-    $routes->connect('/localproject/:id',
-        ['controller' => 'Localprojects', 'action' => 'view'],
-        ['id' => '[0-9]+', 'pass' => ['id']]
-    );
-    $routes->connect('/publication/:id',
-        ['controller' => 'Publications', 'action' => 'view'],
-        ['id' => '[0-9]+', 'pass' => ['id']]
-    );
-    $routes->connect('/site/:id',
-        ['controller' => 'Sites', 'action' => 'view'],
+    $routes->connect('/project/:id',
+        ['controller' => 'Projects', 'action' => 'view'],
         ['id' => '[0-9]+', 'pass' => ['id']]
     );
 

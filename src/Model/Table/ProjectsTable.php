@@ -7,19 +7,19 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Localprojects Model
+ * Projects Model
  *
  * @property \Cake\ORM\Association\BelongsToMany $Users
  *
- * @method \App\Model\Entity\Localproject get($primaryKey, $options = [])
- * @method \App\Model\Entity\Localproject newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Localproject[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Localproject|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Localproject patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Localproject[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Localproject findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Project get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Project newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Project[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Project|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Project patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Project[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Project findOrCreate($search, callable $callback = null, $options = [])
  */
-class LocalprojectsTable extends Table
+class ProjectsTable extends Table
 {
 
     /**
@@ -32,14 +32,14 @@ class LocalprojectsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('localprojects');
+        $this->setTable('projects');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->belongsToMany('Users', [
-            'foreignKey' => 'localproject_id',
+            'foreignKey' => 'project_id',
             'targetForeignKey' => 'user_id',
-            'joinTable' => 'users_localprojects'
+            'joinTable' => 'users_projects'
         ]);
 
         $this->belongsTo('Grants');

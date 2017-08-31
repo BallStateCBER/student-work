@@ -3,7 +3,7 @@
         <?= $titleForLayout; ?>
     </h1>
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-2">
             <h6>
                 Supervisor
             </h6>
@@ -13,14 +13,6 @@
             <h6>For student or employee</h6>
             <?= $report->student_id ?>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3">
-            <h6>
-                Project type
-            </h6>
-            <?= $report->project_type ?>
-        </div>
         <div class="col-lg-3">
             <h6>
                 Project name
@@ -29,7 +21,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <h6>
                 Start date
             </h6>

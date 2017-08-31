@@ -4,7 +4,6 @@
     <thead>
         <tr>
             <th scope="col"><?= $this->Paginator->sort('project_name') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('project_type') ?></th>
             <th scope="col"><?= $this->Paginator->sort('student_id') ?></th>
             <th scope="col"><?= $this->Paginator->sort('supervisor_id') ?></th>
             <th scope="col"><?= $this->Paginator->sort('start_date') ?></th>
@@ -16,7 +15,6 @@
         <?php foreach ($reports as $report): ?>
         <tr>
             <td><?= h($report->project_name) ?></td>
-            <td><?= h($report->project_type) ?></td>
             <td><?= h($report->student_id) ?></td>
             <td><?= h($report->supervisor_id) ?></td>
             <td><?= h(date('F j, Y', strtotime($report->start_date))) ?></td>

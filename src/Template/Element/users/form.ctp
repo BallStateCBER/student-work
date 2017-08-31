@@ -212,64 +212,10 @@ $firstName = $firstName[0];
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-9">
-        <h4>Your publications (<?= $this->Html->link('+', ['controller' => 'Publications', 'action' => 'add']) ?>)</h4>
-        <?php if ($user->publications): ?>
-            <?php foreach ($user->publications as $publication): ?>
-                <h6><?= $publication->title; ?></h6>
-                <p class="exp-description">
-                    <u>Publication role:</u> <?= $publication->_joinData->employee_role; ?><br />
-                    <?php $date = strtotime($publication->date_published); ?>
-                    Published <?= date('F, Y', $date); ?><br />
-                    <?php
-                        $abstractArray = explode(' ', trim($publication->abstract));
-                        $abstractCount = count($abstractArray);
-                        $halfCount = $abstractCount / 2;
-                    ?>
-                    <?php for ($x = 0; $x <= $halfCount; $x++): ?>
-                        <?= $abstractArray[$x]; ?>
-                    <?php endfor; ?>
-                    ...
-                    <em class="text-muted"><?= $this->Html->link('Edit publication', ['controller' => 'Publications', 'action' => 'edit', $publication->id]) ?></em>
-                </p>
-            <?php endforeach; ?>
-        <?php else: ?>
-            You do not have any listed publications. Have you published something? <em class="text-muted"><?= $this->Html->link('Add a publication!', ['controller' => 'publications', 'action' => 'add']) ?></em>
-        <?php endif; ?>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-9">
-        <h4>Your websites (<?= $this->Html->link('+', ['controller' => 'Sites', 'action' => 'add']) ?>)</h4>
-        <?php if ($user->sites): ?>
-            <?php foreach ($user->sites as $site): ?>
-                <h6><?= $site->site_name; ?></h6>
-                <p class="exp-description">
-                    <u>Website role:</u> <?= $site->_joinData->employee_role; ?><br />
-                    <?php $date = strtotime($site->date_live); ?>
-                    <?= $site->in_progress == 1 ? 'In progress' : 'Live'; ?> since <?= date('F, Y', $date); ?><br />
-                    <?php
-                        $descriptionArray = explode(' ', trim($site->description));
-                        $wordCount = count($descriptionArray);
-                        $halfCount = $wordCount / 2;
-                    ?>
-                    <?php for ($x = 0; $x <= $halfCount; $x++): ?>
-                        <?= $descriptionArray[$x]; ?>
-                    <?php endfor; ?>
-                    ...
-                    <em class="text-muted"><?= $this->Html->link('Edit website', ['controller' => 'Sites', 'action' => 'edit', $site->id]) ?></em>
-                </p>
-            <?php endforeach; ?>
-        <?php else: ?>
-            You do not have any listed websites. Have you committed lately? <em class="text-muted"><?= $this->Html->link('Add a website!', ['controller' => 'Sites', 'action' => 'add']) ?></em>
-        <?php endif; ?>
-    </div>
-</div>
-<div class="row">
     <div class="col-sm-12">
-        <h4>Your community projects (<?= $this->Html->link('+', ['controller' => 'Localprojects', 'action' => 'add']) ?>)</h4>
-        <?php if ($user->localprojects): ?>
-            <?php foreach ($user->localprojects as $project): ?>
+        <h4>Your projects (<?= $this->Html->link('+', ['controller' => 'Projects', 'action' => 'add']) ?>)</h4>
+        <?php if ($user->projects): ?>
+            <?php foreach ($user->projects as $project): ?>
                 <h6><?= $project->name; ?></h6>
                 <p class="exp-description">
                     <u>Project role:</u> <?= $project->_joinData->role; ?><br />
@@ -283,11 +229,11 @@ $firstName = $firstName[0];
                         <?= $descriptionArray[$x]; ?>
                     <?php endfor; ?>
                     ...
-                    <em class="text-muted"><?= $this->Html->link('Edit project', ['controller' => 'Localprojects', 'action' => 'edit', $project->id]) ?></em>
+                    <em class="text-muted"><?= $this->Html->link('Edit project', ['controller' => 'Projects', 'action' => 'edit', $project->id]) ?></em>
                 </p>
             <?php endforeach; ?>
         <?php else: ?>
-            You do not have any listed community projects. C'mon, we know you're a do-gooder. <em class="text-muted"><?= $this->Html->link('Add a project!', ['controller' => 'Localprojects', 'action' => 'add']) ?></em>
+            You do not have any listed projects. Don't be scared to show off! <em class="text-muted"><?= $this->Html->link('Add a project!', ['controller' => 'Projects', 'action' => 'add']) ?></em>
         <?php endif; ?>
     </div>
 </div>

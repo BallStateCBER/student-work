@@ -9,7 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Grants Model
  *
- * @property \Cake\ORM\Association\HasMany $Localprojects
+ * @property \Cake\ORM\Association\HasMany $Projects
  * @property \Cake\ORM\Association\HasMany $Publications
  * @property \Cake\ORM\Association\HasMany $Sites
  *
@@ -38,7 +38,7 @@ class GrantsTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->hasMany('Localprojects', [
+        $this->hasMany('Projects', [
             'foreignKey' => 'grant_id'
         ]);
         $this->hasMany('Publications', [

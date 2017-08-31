@@ -48,7 +48,7 @@ class ReportsTable extends Table
             'joinType' => 'INNER'
         ]);
 
-        $this->Localprojects = TableRegistry::get('Localprojects');
+        $this->Projects = TableRegistry::get('Projects');
         $this->Publications = TableRegistry::get('Publications');
         $this->Sites = TableRegistry::get('Sites');
     }

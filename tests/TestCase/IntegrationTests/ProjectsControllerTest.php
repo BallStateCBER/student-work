@@ -1,11 +1,11 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\LocalprojectsController;
+use App\Controller\ProjectsController;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestCase;
 
-class LocalprojectsControllerTest extends IntegrationTestCase
+class ProjectsControllerTest extends IntegrationTestCase
 {
     /**
      * setUp method
@@ -15,13 +15,13 @@ class LocalprojectsControllerTest extends IntegrationTestCase
     public function setUp()
     {
         parent::setUp();
-        $classes = ['Localprojects', 'Users'];
+        $classes = ['Projects', 'Users'];
         foreach ($classes as $class) {
             $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\'.$class.'Table'];
             $this->$class = TableRegistry::get("$class", $config);
         }
 
-        $this->UsersLocalprojects = TableRegistry::get("UsersLocalprojects");
+        $this->UsersProjects = TableRegistry::get("UsersProjects");
     }
 
     /**
@@ -31,79 +31,79 @@ class LocalprojectsControllerTest extends IntegrationTestCase
      */
     public function tearDown()
     {
-        $classes = ['Localprojects', 'Users'];
+        $classes = ['Projects', 'Users'];
         foreach ($classes as $class) {
             unset($this->$class);
         }
-        unset($this->UsersLocalprojects);
+        unset($this->UsersProjects);
         parent::tearDown();
     }
 
     /**
-     * Test localproject add page view & use
+     * Test project add page view & use
      *
      * @return void
      */
-    public function testAddLocalproject()
+    public function testAddProject()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $this->session(['Auth.User.id' => $id]);
 
-        $this->get('/localprojects/add');
+        $this->get('/projects/add');
         $this->assertResponseOk();
 
-        $localproject = [
-            'name' => 'Localproject Win',
+        $project = [
+            'name' => 'Project Win',
             'organization' => 'American Placeholder Association',
             'grant_id' => 1,
             'description' => 'Here is some text'
         ];
 
-        $this->post('/localprojects/add', $localproject);
+        $this->post('/projects/add', $project);
         $this->assertResponseSuccess();
 
-        $localproject = $this->Localprojects->find()
-            ->where(['name' => $localproject['name']])
+        $project = $this->Projects->find()
+            ->where(['name' => $project['name']])
             ->firstOrFail();
 
-        if ($localproject) {
+        if ($project) {
             $this->assertResponseSuccess();
             return;
         }
     }
 
     /**
-     * Test localproject edit page
+     * Test project edit page
      *
      * @return void
      */
-    public function testEditingLocalprojects()
+    public function testEditingProjects()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $this->session(['Auth.User.id' => $id]);
 
-        $localproject = $this->Localprojects->find()
-            ->where(['name' => 'Localproject Win'])
+        $project = $this->Projects->find()
+            ->where(['name' => 'Project Win'])
             ->firstOrFail();
 
-        $this->get("/localprojects/edit/$localproject->id");
+        $this->get("/projects/edit/$project->id");
         $this->assertResponseOk();
 
-        $newLocalproject = [
-            'name' => 'Test Localproject',
+        $newProject = [
+            'name' => 'Test Project',
             'organization' => 'American Testing Association',
             'grant_id' => 1,
             'description' => 'Here is some TEST'
         ];
 
-        $this->post("/localprojects/edit/$localproject->id", $newLocalproject);
+        $this->post("/projects/edit/$project->id", $newProject);
         $this->assertResponseSuccess();
 
-        $localproject = $this->Localprojects->find()
-            ->where(['name' => $newLocalproject['name']])
+        $project = $this->Projects->find()
+            ->where(['name' => $newProject['name']])
             ->firstOrFail();
 
-        if ($localproject) {
+        if ($project) {
             $this->assertResponseSuccess();
             return;
         }
@@ -112,21 +112,21 @@ class LocalprojectsControllerTest extends IntegrationTestCase
     }
 
     /**
-     * Test localproject edit page and add users to it
+     * Test project edit page and add users to it
      *
      * @return void
      */
-    public function testAddingUsersToLocalproject()
+    public function testAddingUsersToProject()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $this->session(['Auth.User.id' => $id]);
 
-        $localproject = $this->Localprojects->find()
-            ->where(['name' => 'Test Localproject'])
+        $project = $this->Projects->find()
+            ->where(['name' => 'Test Project'])
             ->firstOrFail();
 
-        $newLocalproject = [
-            'name' => 'Test Localproject',
+        $newProject = [
+            'name' => 'Test Project',
             'organization' => 'American Testing Association',
             'grant_id' => 1,
             'description' => 'Here is some TEST',
@@ -141,30 +141,30 @@ class LocalprojectsControllerTest extends IntegrationTestCase
             ]
         ];
 
-        $this->post("/localprojects/edit/$localproject->id", $newLocalproject);
+        $this->post("/projects/edit/$project->id", $newProject);
         $this->assertResponseSuccess();
 
-        $localproject = $this->UsersLocalprojects->find()
+        $project = $this->UsersProjects->find()
             ->where(['user_id' => $id])
             ->firstOrFail();
     }
 
     /**
-     * Test localproject edit page and remove users from it
+     * Test project edit page and remove users from it
      *
      * @return void
      */
-    public function testRemovingUsersFromLocalproject()
+    public function testRemovingUsersFromProject()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $this->session(['Auth.User.id' => $id]);
 
-        $localproject = $this->Localprojects->find()
-            ->where(['name' => 'Test Localproject'])
+        $project = $this->Projects->find()
+            ->where(['name' => 'Test Project'])
             ->firstOrFail();
 
-        $newLocalproject = [
-            'name' => 'Test Localproject',
+        $newProject = [
+            'name' => 'Test Project',
             'organization' => 'American Testing Association',
             'grant_id' => 1,
             'description' => 'Here is some TEST',
@@ -180,14 +180,14 @@ class LocalprojectsControllerTest extends IntegrationTestCase
             ]
         ];
 
-        $this->post("/localprojects/edit/$localproject->id", $newLocalproject);
+        $this->post("/projects/edit/$project->id", $newProject);
         $this->assertResponseSuccess();
 
-        $localproject = $this->UsersLocalprojects->find()
+        $project = $this->UsersProjects->find()
             ->where(['user_id' => $id])
             ->first();
 
-        if (!isset($localproject->id)) {
+        if (!isset($project->id)) {
             $this->assertResponseSuccess();
             return;
         }
@@ -196,20 +196,20 @@ class LocalprojectsControllerTest extends IntegrationTestCase
     }
 
     /**
-     * Test deleting localprojects
+     * Test deleting projects
      *
      * @return void
      */
-    public function testDeletingLocalprojects()
+    public function testDeletingProjects()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $this->session(['Auth.User.id' => $id]);
 
-        $localproject = $this->Localprojects->find()
-            ->where(['name' => 'Test Localproject'])
+        $project = $this->Projects->find()
+            ->where(['name' => 'Test Project'])
             ->firstOrFail();
 
-        $this->get("/localprojects/delete/$localproject->id");
+        $this->get("/projects/delete/$project->id");
         $this->assertResponseSuccess();
     }
 }

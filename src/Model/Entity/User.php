@@ -22,7 +22,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Award[] $awards
  * @property \App\Model\Entity\Job[] $jobs
- * @property \App\Model\Entity\Localproject[] $localprojects
+ * @property \App\Model\Entity\Project[] $projects
  * @property \App\Model\Entity\Publication[] $publications
  * @property \App\Model\Entity\Site[] $sites
  */

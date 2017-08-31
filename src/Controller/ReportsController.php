@@ -39,7 +39,6 @@ class ReportsController extends AppController
 
             $report->student_id = $student->name;
 
-
             $supervisor = $this->Reports->Users->find()
                     ->where(['id' => $report->supervisor_id])
                     ->first();
@@ -87,49 +86,26 @@ class ReportsController extends AppController
     public function add()
     {
         $projectNames = [];
-        $locals = $this->Reports->Localprojects->find()
+
+        $projects = $this->Reports->Projects->find()
             ->select('name');
-        foreach ($locals as $local) {
-            $projectNames += [$local->name => $local->name];
+        foreach ($projects as $project) {
+            $projectNames += [$project->name => $project->name];
         }
-        $pubs = $this->Reports->Publications->find()
-            ->select('title');
-        foreach ($pubs as $pub) {
-            $projectNames += [$pub->title => $pub->title];
-        }
-        $sites = $this->Reports->Sites->find()
-            ->select('site_name');
-        foreach ($sites as $site) {
-            $projectNames += [$site->site_name => $site->site_name];
-        }
+
         $supervisors = $this->Reports->Users->find('list');
-        $projectTypes = [
-            'Localprojects' => 'Community project',
-            'Publications' => 'Publication',
-            'Sites' => 'Website'
-        ];
 
         $report = $this->Reports->newEntity();
 
-        $this->set(compact('projectNames', 'projectTypes', 'report', 'routine', 'supervisors'));
+        $this->set(compact('projectNames', 'report', 'routine', 'supervisors'));
         $this->set('_serialize', ['report']);
         $this->set(['titleForLayout' => 'Add a Report']);
 
         if ($this->request->is('post')) {
             $report = $this->Reports->patchEntity($report, $this->request->getData());
-            $type = $report->project_type;
-            if ($type == 'Localprojects') {
-                $selector = 'name';
-            }
-            if ($type == 'Publications') {
-                $selector = 'title';
-            }
-            if ($type == 'Sites') {
-                $selector = 'site_name';
-            }
-            $project = $this->Reports->$type->find()
+            $project = $this->Reports->Projects->find()
                 ->select('id')
-                ->where([$selector => $this->request->data['project_name']])
+                ->where(['name' => $this->request->data['project_name']])
                 ->first();
             if ($project == null) {
                 $this->Flash->error(__('That project was not found. Please enter a new project to make a report about it.'));
@@ -158,46 +134,22 @@ class ReportsController extends AppController
         ]);
 
         $projectNames = [];
-        $locals = $this->Reports->Localprojects->find()
+        $projects = $this->Reports->Projects->find()
             ->select('name');
-        foreach ($locals as $local) {
-            $projectNames += [$local->name => $local->name];
-        }
-        $pubs = $this->Reports->Publications->find()
-            ->select('title');
-        foreach ($pubs as $pub) {
-            $projectNames += [$pub->title => $pub->title];
-        }
-        $sites = $this->Reports->Sites->find()
-            ->select('site_name');
-        foreach ($sites as $site) {
-            $projectNames += [$site->site_name => $site->site_name];
+        foreach ($projects as $project) {
+            $projectNames += [$project->name => $project->name];
         }
         $supervisors = $this->Reports->Users->find('list');
-        $projectTypes = [
-            'Localprojects' => 'Community project',
-            'Publications' => 'Publication',
-            'Sites' => 'Website'
-        ];
-        $this->set(compact('projectNames', 'projectTypes', 'report', 'routine', 'supervisors'));
+
+        $this->set(compact('projectNames', 'report', 'routine', 'supervisors'));
         $this->set('_serialize', ['report']);
         $this->set(['titleForLayout' => "Edit Report: $report->project_name"]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $report = $this->Reports->patchEntity($report, $this->request->getData());
-            $type = $report->project_type;
-            if ($type == 'Localprojects') {
-                $selector = 'name';
-            }
-            if ($type == 'Publications') {
-                $selector = 'title';
-            }
-            if ($type == 'Sites') {
-                $selector = 'site_name';
-            }
-            $project = $this->Reports->$type->find()
+            $project = $this->Reports->Projects->find()
                 ->select('id')
-                ->where([$selector => $this->request->data['project_name']])
+                ->where(['name' => $this->request->data['project_name']])
                 ->first();
             if ($project == null) {
                 $this->Flash->error(__('That project was not found. Please enter a new project to make a report about it.'));
