@@ -97,7 +97,7 @@ CREATE TABLE `funds` (
 
 LOCK TABLES `funds` WRITE;
 /*!40000 ALTER TABLE `funds` DISABLE KEYS */;
-INSERT INTO `funds` VALUES (1,'Generic Grant','The American Psychiatric Association','$500','The most generic in show.','');
+INSERT INTO `funds` VALUES (1,'Generic Grant','The American Psychiatric Association','$500','The most generic in show.');
 /*!40000 ALTER TABLE `funds` ENABLE KEYS */;
 UNLOCK TABLES;
 
