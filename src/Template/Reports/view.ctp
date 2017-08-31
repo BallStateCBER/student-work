@@ -29,12 +29,11 @@
                 <?= date('F j, Y', strtotime($report->start_date)) ?>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-2">
             <h6>
                 End date
             </h6>
-            <div>
-                <?= date('F j, Y', strtotime($report->end_date)) ?>
+            <div class="<?= strtotime($report->end_date) > strtotime(date('Y-m-d')) ? 'alert alert-success' : 'alert alert-danger'; ?>"><?= h(date('F j, Y', strtotime($report->end_date))) ?></u>
             </div>
         </div>
     </div>

@@ -18,7 +18,7 @@
             <td><?= h($report->student_id) ?></td>
             <td><?= h($report->supervisor_id) ?></td>
             <td><?= h(date('F j, Y', strtotime($report->start_date))) ?></td>
-            <td><?= $report->end_date == null ? '<u>Active Project</u>' : h(date('F j, Y', strtotime($report->end_date))) ?></td>
+            <td class="<?= strtotime($report->end_date) > strtotime(date('Y-m-d')) ? 'alert alert-success' : 'alert alert-danger'; ?>"><?= h(date('F j, Y', strtotime($report->end_date))) ?></u></td>
             <td class="actions">
                 <?= $this->Html->link(__('View'), ['action' => 'view', $report->id]) ?>
                 <?= $this->Html->link(__('Edit'), ['action' => 'edit', $report->id]) ?>
