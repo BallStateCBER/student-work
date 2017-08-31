@@ -69,10 +69,6 @@ class ReportsTable extends Table
             ->notEmpty('start_date');
 
         $validator
-            ->requirePresence('end_date', 'create')
-            ->notEmpty('end_date');
-
-        $validator
             ->allowEmpty('work_performed');
 
         $validator
