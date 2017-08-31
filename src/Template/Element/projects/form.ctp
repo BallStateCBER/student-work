@@ -12,7 +12,7 @@
         </div>
         <div class="col-lg-2">
             <label class="form-control-label">
-                Funding source (if applicable)
+                Fund number (if applicable)
             </label>
             <?= $this->Form->control('fund_id', [
                 'class' => 'form-control',

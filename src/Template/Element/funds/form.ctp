@@ -5,8 +5,12 @@
     </h1>
     <div class="row">
         <div class="col-lg-3">
+            <label class="form-control-label">
+                Fund number
+            </label>
             <?= $this->Form->control('name', [
-                'class' => 'form-control'
+                'class' => 'form-control',
+                'label' => false
             ]); ?>
         </div>
         <div class="col-lg-3">
@@ -25,7 +29,7 @@
             <label class="form-control-label">
                 Funding details
             </label>
-            <?= $this->Form->textarea('description', ['class' => 'form-control']); ?>
+            <?= $this->Form->textarea('funding_details', ['class' => 'form-control']); ?>
         </div>
     </div>
 </fieldset>

@@ -86,7 +86,6 @@ CREATE TABLE `funds` (
   `organization` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `amount` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `funding_details` text COLLATE utf8mb4_unicode_ci,
-  `fund_number` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
