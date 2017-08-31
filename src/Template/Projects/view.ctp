@@ -17,7 +17,7 @@
 <div class="row">
     <div class="col-lg-4">
         <h6>Organization</h6>
-        <a href="<?= $project->organization ?>"><?= $project->organization ?></a>
+        <?= $project->organization ?>
     </div>
     <div class="col-lg-4">
         <h6>Fund number</h6>

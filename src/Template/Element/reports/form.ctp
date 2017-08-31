@@ -19,7 +19,6 @@
             <label>For student or employee</label>
             <?= $this->Form->text('student_id', [
                 'class' => 'form-control',
-                'disabled' => true,
                 'value' => $activeUser
             ]); ?>
         </div>
@@ -30,6 +29,9 @@
             <?= $this->Form->control('project_name', [
                 'label' => false
             ]); ?>
+            <small>
+                Don't see your project? <?= $this->Html->link('Add a New Project!', ['controller' => 'Projects', 'action' => 'add'], ['class' => 'text-danger']) ?>
+            </small>
         </div>
     </div>
     <div class="row">

@@ -22,6 +22,20 @@ class FundsController extends AppController
     }
 
     /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function index()
+    {
+        $this->paginate;
+        $funds = $this->paginate($this->Funds);
+
+        $this->set(compact('funds'));
+        $this->set('_serialize', ['funds']);
+    }
+
+    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
@@ -80,7 +94,7 @@ class FundsController extends AppController
     {
         $fund = $this->Funds->get($id);
         if ($this->Funds->delete($fund)) {
-            $this->Flash->success(__('The degree has been deleted.'));
+            $this->Flash->success(__('The fund has been deleted.'));
             return $this->redirect(['controller' => 'Users', 'action' => 'account']);
         }
         return $this->Flash->error(__('The fund could not be deleted. Please, try again.'));

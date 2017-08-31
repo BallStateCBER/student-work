@@ -1,6 +1,7 @@
 <?php use Cake\Core\Configure;
 
 ?>
+<?= $this->Html->link('Add a New Project', ['controller' => 'Projects', 'action' => 'add'], ['class'=>'nav-link']); ?>
 <?php $x = 0; ?>
 <?php foreach ($projects as $project): ?>
     <?= $x % 3 == 0 || $x == 0 ? '<div class="row">' : ''; ?>
@@ -18,6 +19,9 @@
             <ul>
                 <li>
                     <?= $user->name; ?>, <?= $user->_joinData->role; ?>
+                    <?php if ($user->name == $this->request->session()->read('Auth.User.name')): ?>
+                        <br /><small>That's you. <?= $this->Html->link('Edit this project', ['controller' => 'Projects', 'action' => 'edit', $project->id], ['class' => 'text-danger']) ?></small>
+                    <?php endif; ?>
                 </li>
             </ul>
         <?php endforeach; ?>
