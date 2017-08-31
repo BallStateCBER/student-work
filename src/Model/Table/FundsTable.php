@@ -7,19 +7,19 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Grants Model
+ * Funds Model
  *
  * @property \Cake\ORM\Association\HasMany $Projects
  *
- * @method \App\Model\Entity\Grant get($primaryKey, $options = [])
- * @method \App\Model\Entity\Grant newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Grant[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Grant|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Grant patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Grant[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Grant findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Fund get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Fund newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Fund[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Fund|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Fund patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Fund[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Fund findOrCreate($search, callable $callback = null, $options = [])
  */
-class GrantsTable extends Table
+class FundsTable extends Table
 {
 
     /**
@@ -32,12 +32,12 @@ class GrantsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('grants');
+        $this->setTable('funds');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->hasMany('Projects', [
-            'foreignKey' => 'grant_id'
+            'foreignKey' => 'fund_id'
         ]);
     }
 

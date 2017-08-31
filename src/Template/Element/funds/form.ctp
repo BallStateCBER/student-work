@@ -1,4 +1,4 @@
-<?= $this->Form->create($grant); ?>
+<?= $this->Form->create($fund); ?>
 <fieldset>
     <h1>
         <?= $titleForLayout; ?>
@@ -36,7 +36,7 @@
 <?php if ($this->request->params['action'] == 'edit'): ?>
     <p class="float-right">
         <small>
-            <?= $this->Html->link('Delete grant?', ['controller' => 'Grants', 'action' => 'delete', $grant->id], ['class' => 'text-danger']) ?>
+            <?= $this->Html->link('Delete fund?', ['controller' => 'Funds', 'action' => 'delete', $fund->id], ['class' => 'text-danger']) ?>
         </small>
     </p>
 <?php endif; ?>

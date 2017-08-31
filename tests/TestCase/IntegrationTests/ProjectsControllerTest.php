@@ -55,7 +55,7 @@ class ProjectsControllerTest extends IntegrationTestCase
         $project = [
             'name' => 'Project Win',
             'organization' => 'American Placeholder Association',
-            'grant_id' => 1,
+            'fund_id' => 1,
             'description' => 'Here is some text'
         ];
 
@@ -92,7 +92,7 @@ class ProjectsControllerTest extends IntegrationTestCase
         $newProject = [
             'name' => 'Test Project',
             'organization' => 'American Testing Association',
-            'grant_id' => 1,
+            'fund_id' => 1,
             'description' => 'Here is some TEST'
         ];
 
@@ -128,7 +128,7 @@ class ProjectsControllerTest extends IntegrationTestCase
         $newProject = [
             'name' => 'Test Project',
             'organization' => 'American Testing Association',
-            'grant_id' => 1,
+            'fund_id' => 1,
             'description' => 'Here is some TEST',
             'users' => [
                 0 => [
@@ -166,7 +166,7 @@ class ProjectsControllerTest extends IntegrationTestCase
         $newProject = [
             'name' => 'Test Project',
             'organization' => 'American Testing Association',
-            'grant_id' => 1,
+            'fund_id' => 1,
             'description' => 'Here is some TEST',
             'users' => [
                 0 => [

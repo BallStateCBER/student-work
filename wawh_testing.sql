@@ -74,13 +74,13 @@ LOCK TABLES `degrees` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `grants`
+-- Table structure for table `funds`
 --
 
-DROP TABLE IF EXISTS `grants`;
+DROP TABLE IF EXISTS `funds`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `grants` (
+CREATE TABLE `funds` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `organization` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -93,13 +93,13 @@ CREATE TABLE `grants` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `grants`
+-- Dumping data for table `funds`
 --
 
-LOCK TABLES `grants` WRITE;
-/*!40000 ALTER TABLE `grants` DISABLE KEYS */;
-INSERT INTO `grants` VALUES (1,'Generic Grant','The American Psychiatric Association','$500','The most generic in show.','');
-/*!40000 ALTER TABLE `grants` ENABLE KEYS */;
+LOCK TABLES `funds` WRITE;
+/*!40000 ALTER TABLE `funds` DISABLE KEYS */;
+INSERT INTO `funds` VALUES (1,'Generic Grant','The American Psychiatric Association','$500','The most generic in show.','');
+/*!40000 ALTER TABLE `funds` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -114,7 +114,7 @@ CREATE TABLE `projects` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `organization` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `grant_id` int(11) DEFAULT NULL,
+  `fund_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

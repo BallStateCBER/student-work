@@ -12,16 +12,16 @@
         </div>
         <div class="col-lg-2">
             <label class="form-control-label">
-                Grant (if applicable)
+                Funding source (if applicable)
             </label>
-            <?= $this->Form->control('grant_id', [
+            <?= $this->Form->control('fund_id', [
                 'class' => 'form-control',
                 'default' => 'null',
                 'empty' => 'n/a',
                 'label' => false
             ]); ?>
             <small>
-                Don't see yours listed? <?= $this->Html->link('Add a new grant!', ['controller' => 'Grants', 'action' => 'add'], ['class' => 'text-danger']) ?>
+                Don't see yours listed? <?= $this->Html->link('Add a new fund!', ['controller' => 'Funds', 'action' => 'add'], ['class' => 'text-danger']) ?>
             </small>
         </div>
     </div>

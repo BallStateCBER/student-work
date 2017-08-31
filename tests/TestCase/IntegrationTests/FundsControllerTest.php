@@ -1,11 +1,11 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\GrantsController;
+use App\Controller\FundsController;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestCase;
 
-class GrantsControllerTest extends IntegrationTestCase
+class FundsControllerTest extends IntegrationTestCase
 {
     /**
      * setUp method
@@ -15,7 +15,7 @@ class GrantsControllerTest extends IntegrationTestCase
     public function setUp()
     {
         parent::setUp();
-        $classes = ['Grants', 'Users'];
+        $classes = ['Funds', 'Users'];
         foreach ($classes as $class) {
             $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\'.$class.'Table'];
             $this->$class = TableRegistry::get("$class", $config);
@@ -29,7 +29,7 @@ class GrantsControllerTest extends IntegrationTestCase
      */
     public function tearDown()
     {
-        $classes = ['Grants', 'Users'];
+        $classes = ['Funds', 'Users'];
         foreach ($classes as $class) {
             unset($this->$class);
         }
@@ -37,70 +37,70 @@ class GrantsControllerTest extends IntegrationTestCase
     }
 
     /**
-     * Test grant add page view & use
+     * Test fund add page view & use
      *
      * @return void
      */
-    public function testAddGrant()
+    public function testAddFund()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $this->session(['Auth.User.id' => $id]);
 
-        $this->get('/grants/add');
+        $this->get('/funds/add');
         $this->assertResponseOk();
 
-        $grant = [
-            'name' => 'Grant Win',
+        $fund = [
+            'name' => 'Fund Win',
             'organization' => 'American Placeholder Association',
             'amount' => '$500',
             'description' => 'Here is some text'
         ];
 
-        $this->post('/grants/add', $grant);
+        $this->post('/funds/add', $fund);
         $this->assertResponseOk();
 
-        $grant = $this->Grants->find()
-            ->where(['name' => $grant['name']])
+        $fund = $this->Funds->find()
+            ->where(['name' => $fund['name']])
             ->firstOrFail();
 
-        if ($grant) {
+        if ($fund) {
             $this->assertResponseOk();
             return;
         }
     }
 
     /**
-     * Test grant edit page
+     * Test fund edit page
      *
      * @return void
      */
-    public function testEditingGrants()
+    public function testEditingFunds()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $this->session(['Auth.User.id' => $id]);
 
-        $grant = $this->Grants->find()
-            ->where(['name' => 'Grant Win'])
+        $fund = $this->Funds->find()
+            ->where(['name' => 'Fund Win'])
             ->firstOrFail();
 
-        $this->get("/grants/edit/$grant->id");
+        $this->get("/funds/edit/$fund->id");
         $this->assertResponseOk();
 
-        $newGrant = [
-            'name' => 'Test Grant',
+        $newFund = [
+            'name' => 'Test Fund',
             'organization' => 'American Testing Association',
             'amount' => '$590',
             'description' => 'Here is some TEST'
         ];
 
-        $this->post("/grants/edit/$grant->id", $newGrant);
+        $this->post("/funds/edit/$fund->id", $newFund);
         $this->assertResponseOk();
 
-        $grant = $this->Grants->find()
-            ->where(['name' => $newGrant['name']])
+        $fund = $this->Funds->find()
+            ->where(['name' => $newFund['name']])
             ->firstOrFail();
 
-        if ($grant) {
+        if ($fund) {
             $this->assertResponseOk();
             return;
         }
@@ -109,20 +109,20 @@ class GrantsControllerTest extends IntegrationTestCase
     }
 
     /**
-     * Test deleting grants
+     * Test deleting funds
      *
      * @return void
      */
-    public function testDeletingGrants()
+    public function testDeletingFunds()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $this->session(['Auth.User.id' => $id]);
 
-        $grant = $this->Grants->find()
-            ->where(['name' => 'Test Grant'])
+        $fund = $this->Funds->find()
+            ->where(['name' => 'Test Fund'])
             ->firstOrFail();
 
-        $this->get("/grants/delete/$grant->id");
+        $this->get("/funds/delete/$fund->id");
         $this->assertResponseSuccess();
     }
 }

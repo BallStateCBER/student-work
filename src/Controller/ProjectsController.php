@@ -72,7 +72,7 @@ class ProjectsController extends AppController
         }
 
         $project = $this->Projects->patchEntity($project, $this->request->getData(), [
-            'fieldList' => ['name', 'description', 'grant_id', 'organization']
+            'fieldList' => ['name', 'description', 'fund_id', 'organization']
         ]);
 
         if ($this->Projects->save($project)) {
@@ -108,8 +108,8 @@ class ProjectsController extends AppController
         $project = $this->Projects->newEntity();
 
         $users = $this->Projects->Users->find('list');
-        $grants = $this->Projects->Grants->find('list');
-        $this->set(compact('grants', 'project', 'users'));
+        $funds = $this->Projects->Funds->find('list');
+        $this->set(compact('funds', 'project', 'users'));
         $this->set('_serialize', ['project']);
         $this->set(['titleForLayout' => 'Add a Project']);
 

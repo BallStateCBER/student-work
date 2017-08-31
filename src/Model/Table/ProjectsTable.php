@@ -42,7 +42,7 @@ class ProjectsTable extends Table
             'joinTable' => 'users_projects'
         ]);
 
-        $this->belongsTo('Grants');
+        $this->belongsTo('Funds');
     }
 
     /**

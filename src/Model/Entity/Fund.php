@@ -4,7 +4,7 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Grant Entity
+ * Fund Entity
  *
  * @property int $id
  * @property string $name
@@ -13,10 +13,8 @@ use Cake\ORM\Entity;
  * @property string $description
  *
  * @property \App\Model\Entity\Project[] $projects
- * @property \App\Model\Entity\Publication[] $publications
- * @property \App\Model\Entity\Site[] $sites
  */
-class Grant extends Entity
+class Fund extends Entity
 {
 
     /**
