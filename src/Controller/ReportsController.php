@@ -51,6 +51,169 @@ class ReportsController extends AppController
     }
 
     /**
+     * Current method
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function current()
+    {
+        $this->paginate;
+        $reports = $this->Reports->find()
+            ->where(['end_date >=' => date('Y-m-d')])
+            ->orWhere(['end_date IS' => null]);
+
+        $reports = $this->paginate($reports);
+
+        foreach ($reports as $report) {
+            $student = $this->Reports->Users->find()
+                ->where(['id' => $report->student_id])
+                ->first();
+
+            $report->student_id = $student->name;
+
+            $supervisor = $this->Reports->Users->find()
+                    ->where(['id' => $report->supervisor_id])
+                    ->first();
+
+            $report->supervisor_id = $supervisor->name;
+        }
+
+        $this->set(compact('reports'));
+        $this->set('_serialize', ['reports']);
+    }
+
+    /**
+     * Past method
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function past()
+    {
+        $this->paginate;
+        $reports = $this->Reports->find()
+            ->where(['end_date <' => date('Y-m-d')])
+            ->andWhere(['end_date IS NOT' => null])
+            ->andWhere(['end_date !=' => '0000-00-00 00:00:00']);
+
+        $reports = $this->paginate($reports);
+
+        foreach ($reports as $report) {
+            $student = $this->Reports->Users->find()
+                ->where(['id' => $report->student_id])
+                ->first();
+
+            $report->student_id = $student->name;
+
+            $supervisor = $this->Reports->Users->find()
+                    ->where(['id' => $report->supervisor_id])
+                    ->first();
+
+            $report->supervisor_id = $supervisor->name;
+        }
+
+        $this->set(compact('reports'));
+        $this->set('_serialize', ['reports']);
+    }
+
+    /**
+     * Student method
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function student($id = null)
+    {
+        $this->paginate;
+        $reports = $this->Reports->find()
+            ->where(['student_id' => $id]);
+
+        $reports = $this->paginate($reports);
+
+        foreach ($reports as $report) {
+            $student = $this->Reports->Users->find()
+                ->where(['id' => $report->student_id])
+                ->first();
+
+            $report->student_id = $student->name;
+
+            $supervisor = $this->Reports->Users->find()
+                    ->where(['id' => $report->supervisor_id])
+                    ->first();
+
+            $report->supervisor_id = $supervisor->name;
+        }
+
+        $this->set(compact('reports'));
+        $this->set('_serialize', ['reports']);
+    }
+
+    /**
+     * Supervisor method
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function supervisor($id = null)
+    {
+        $this->paginate;
+        $reports = $this->Reports->find()
+            ->where(['supervisor_id' => $id]);
+
+        $reports = $this->paginate($reports);
+
+        foreach ($reports as $report) {
+            $student = $this->Reports->Users->find()
+                ->where(['id' => $report->student_id])
+                ->first();
+
+            $report->student_id = $student->name;
+
+            $supervisor = $this->Reports->Users->find()
+                    ->where(['id' => $report->supervisor_id])
+                    ->first();
+
+            $report->supervisor_id = $supervisor->name;
+        }
+
+        $this->set(compact('reports'));
+        $this->set('_serialize', ['reports']);
+    }
+
+    /**
+     * Project method
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function project($id = null)
+    {
+        $project = $this->Reports->Projects->find()
+            ->where(['id' => $id])
+            ->first();
+
+        $this->paginate;
+
+        $reports = $this->Reports->find()
+            ->where(['project_name' => $project->name]);
+
+        $reports = $this->paginate($reports);
+
+        foreach ($reports as $report) {
+            $student = $this->Reports->Users->find()
+                ->where(['id' => $report->student_id])
+                ->first();
+
+            $report->student_id = $student->name;
+
+            $supervisor = $this->Reports->Users->find()
+                    ->where(['id' => $report->supervisor_id])
+                    ->first();
+
+            $report->supervisor_id = $supervisor->name;
+        }
+
+        $this->set(compact('project', 'reports'));
+        $this->set('_serialize', ['reports']);
+    }
+
+    /**
      * View method
      *
      * @param string|null $id Report id.
