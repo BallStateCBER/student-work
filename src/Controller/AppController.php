@@ -83,7 +83,7 @@ class AppController extends Controller
             'unauthorizedRedirect' => $this->referer() // If unauthorized, return them to page they were just on
             ]
         );
-        $this->set(['activeUser' => $this->request->session()->read('Auth.User.name')]);
+        $this->set(['activeUser' => $this->request->session()->read('Auth.User')]);
 
         /*
          * Enable the following components for recommended CakePHP security settings.

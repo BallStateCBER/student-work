@@ -17,9 +17,22 @@ class ReportsController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->deny([
-            'add', 'delete', 'edit'
-        ]);
+    }
+
+    private function __projectIds($allReports)
+    {
+        $projects = [];
+        foreach ($allReports as $report) {
+            $project = $this->Reports->Projects
+                ->find()
+                ->where(['name' => $report->project_name])
+                ->first();
+
+            $projects[] = $project;
+        }
+        $projects = array_unique($projects);
+
+        return $projects;
     }
 
     private function __reportIndexing($reports)
@@ -40,22 +53,6 @@ class ReportsController extends AppController
 
         $allReports = $this->Reports->find()->toArray();
         return $allReports;
-    }
-
-    private function __projectIds($allReports)
-    {
-        $projects = [];
-        foreach ($allReports as $report) {
-            $project = $this->Reports->Projects
-                ->find()
-                ->where(['name' => $report->project_name])
-                ->first();
-
-            $projects[] = $project;
-        }
-        $projects = array_unique($projects);
-
-        return $projects;
     }
 
     private function __students($allReports)
@@ -95,25 +92,6 @@ class ReportsController extends AppController
     }
 
     /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null
-     */
-    public function index()
-    {
-        $this->paginate;
-        $reports = $this->paginate($this->Reports);
-
-        $allReports = $this->__reportIndexing($reports);
-        $projects = $this->__projectIds($allReports);
-        $students = $this->__students($allReports);
-        $supervisors = $this->__supervisors($allReports);
-
-        $this->set(compact('allReports', 'projects', 'reports', 'students', 'supervisors'));
-        $this->set('_serialize', ['reports']);
-    }
-
-    /**
      * Current method
      *
      * @return \Cake\Http\Response|null
@@ -137,6 +115,25 @@ class ReportsController extends AppController
     }
 
     /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function index()
+    {
+        $this->paginate;
+        $reports = $this->paginate($this->Reports);
+
+        $allReports = $this->__reportIndexing($reports);
+        $projects = $this->__projectIds($allReports);
+        $students = $this->__students($allReports);
+        $supervisors = $this->__supervisors($allReports);
+
+        $this->set(compact('allReports', 'projects', 'reports', 'students', 'supervisors'));
+        $this->set('_serialize', ['reports']);
+    }
+
+    /**
      * Past method
      *
      * @return \Cake\Http\Response|null
@@ -148,6 +145,33 @@ class ReportsController extends AppController
             ->where(['end_date <' => date('Y-m-d')])
             ->andWhere(['end_date IS NOT' => null])
             ->andWhere(['end_date !=' => '0000-00-00 00:00:00']);
+
+        $reports = $this->paginate($reports);
+
+        $allReports = $this->__reportIndexing($reports);
+        $projects = $this->__projectIds($allReports);
+        $students = $this->__students($allReports);
+        $supervisors = $this->__supervisors($allReports);
+
+        $this->set(compact('allReports', 'projects', 'reports', 'students', 'supervisors'));
+        $this->set('_serialize', ['reports']);
+    }
+
+    /**
+     * Project method
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function project($id = null)
+    {
+        $project = $this->Reports->Projects->find()
+            ->where(['id' => $id])
+            ->first();
+
+        $this->paginate;
+
+        $reports = $this->Reports->find()
+            ->where(['project_name' => $project->name]);
 
         $reports = $this->paginate($reports);
 
@@ -192,33 +216,6 @@ class ReportsController extends AppController
         $this->paginate;
         $reports = $this->Reports->find()
             ->where(['supervisor_id' => $id]);
-
-        $reports = $this->paginate($reports);
-
-        $allReports = $this->__reportIndexing($reports);
-        $projects = $this->__projectIds($allReports);
-        $students = $this->__students($allReports);
-        $supervisors = $this->__supervisors($allReports);
-
-        $this->set(compact('allReports', 'projects', 'reports', 'students', 'supervisors'));
-        $this->set('_serialize', ['reports']);
-    }
-
-    /**
-     * Project method
-     *
-     * @return \Cake\Http\Response|null
-     */
-    public function project($id = null)
-    {
-        $project = $this->Reports->Projects->find()
-            ->where(['id' => $id])
-            ->first();
-
-        $this->paginate;
-
-        $reports = $this->Reports->find()
-            ->where(['project_name' => $project->name]);
 
         $reports = $this->paginate($reports);
 
@@ -325,6 +322,14 @@ class ReportsController extends AppController
         $this->set(compact('projectNames', 'report', 'routine', 'supervisors'));
         $this->set('_serialize', ['report']);
         $this->set(['titleForLayout' => "Edit Report: $report->project_name"]);
+
+        if ($report->student_id != $this->request->session()->read('Auth.User.id')) {
+            if ($report->supervisor_id != $this->request->session()->read('Auth.User.id')) {
+                if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
+                    return $this->Flash->error(__('You are not authorized to edit this.'));
+                }
+            }
+        }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $report = $this->Reports->patchEntity($report, $this->request->getData());

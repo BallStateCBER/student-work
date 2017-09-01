@@ -169,7 +169,11 @@ class UsersController extends AppController
 
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
-        $this->set(['titleForLayout' => 'Your Account Info']);
+        $this->set(['titleForLayout' => "Edit user: $user->name"]);
+
+        if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
+            return $this->Flash->error(__('Sorry, you are not authorized to edit other users.'));
+        }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
