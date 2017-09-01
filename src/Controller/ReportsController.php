@@ -22,16 +22,8 @@ class ReportsController extends AppController
         ]);
     }
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null
-     */
-    public function index()
+    private function __reportIndexing($reports)
     {
-        $this->paginate;
-        $reports = $this->paginate($this->Reports);
-
         foreach ($reports as $report) {
             $student = $this->Reports->Users->find()
                 ->where(['id' => $report->student_id])
@@ -46,7 +38,78 @@ class ReportsController extends AppController
             $report->supervisor_id = $supervisor->name;
         }
 
-        $this->set(compact('reports'));
+        $allReports = $this->Reports->find()->toArray();
+        return $allReports;
+    }
+
+    private function __projectIds($allReports)
+    {
+        $projects = [];
+        foreach ($allReports as $report) {
+            $project = $this->Reports->Projects
+                ->find()
+                ->where(['name' => $report->project_name])
+                ->first();
+
+            $projects[] = $project;
+        }
+        $projects = array_unique($projects);
+
+        return $projects;
+    }
+
+    private function __students($allReports)
+    {
+        $ids = [];
+        $names = [];
+        foreach ($allReports as $report) {
+            $student = $this->Reports->Users->find()
+                ->where(['id' => $report->student_id])
+                ->first();
+
+            $ids[] = $report->student_id;
+            $names[] = $student->name;
+        }
+        $students = array_combine($ids, $names);
+        $students = array_unique($students);
+
+        return $students;
+    }
+
+    private function __supervisors($allReports)
+    {
+        $ids = [];
+        $names = [];
+        foreach ($allReports as $report) {
+            $supervisor = $this->Reports->Users->find()
+                ->where(['id' => $report->supervisor_id])
+                ->first();
+
+            $ids[] = $report->supervisor_id;
+            $names[] = $supervisor->name;
+        }
+        $supervisors = array_combine($ids, $names);
+        $supervisors = array_unique($supervisors);
+
+        return $supervisors;
+    }
+
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function index()
+    {
+        $this->paginate;
+        $reports = $this->paginate($this->Reports);
+
+        $allReports = $this->__reportIndexing($reports);
+        $projects = $this->__projectIds($allReports);
+        $students = $this->__students($allReports);
+        $supervisors = $this->__supervisors($allReports);
+
+        $this->set(compact('allReports', 'projects', 'reports', 'students', 'supervisors'));
         $this->set('_serialize', ['reports']);
     }
 
@@ -64,21 +127,12 @@ class ReportsController extends AppController
 
         $reports = $this->paginate($reports);
 
-        foreach ($reports as $report) {
-            $student = $this->Reports->Users->find()
-                ->where(['id' => $report->student_id])
-                ->first();
+        $allReports = $this->__reportIndexing($reports);
+        $projects = $this->__projectIds($allReports);
+        $students = $this->__students($allReports);
+        $supervisors = $this->__supervisors($allReports);
 
-            $report->student_id = $student->name;
-
-            $supervisor = $this->Reports->Users->find()
-                    ->where(['id' => $report->supervisor_id])
-                    ->first();
-
-            $report->supervisor_id = $supervisor->name;
-        }
-
-        $this->set(compact('reports'));
+        $this->set(compact('allReports', 'projects', 'reports', 'students', 'supervisors'));
         $this->set('_serialize', ['reports']);
     }
 
@@ -97,21 +151,12 @@ class ReportsController extends AppController
 
         $reports = $this->paginate($reports);
 
-        foreach ($reports as $report) {
-            $student = $this->Reports->Users->find()
-                ->where(['id' => $report->student_id])
-                ->first();
+        $allReports = $this->__reportIndexing($reports);
+        $projects = $this->__projectIds($allReports);
+        $students = $this->__students($allReports);
+        $supervisors = $this->__supervisors($allReports);
 
-            $report->student_id = $student->name;
-
-            $supervisor = $this->Reports->Users->find()
-                    ->where(['id' => $report->supervisor_id])
-                    ->first();
-
-            $report->supervisor_id = $supervisor->name;
-        }
-
-        $this->set(compact('reports'));
+        $this->set(compact('allReports', 'projects', 'reports', 'students', 'supervisors'));
         $this->set('_serialize', ['reports']);
     }
 
@@ -128,21 +173,12 @@ class ReportsController extends AppController
 
         $reports = $this->paginate($reports);
 
-        foreach ($reports as $report) {
-            $student = $this->Reports->Users->find()
-                ->where(['id' => $report->student_id])
-                ->first();
+        $allReports = $this->__reportIndexing($reports);
+        $projects = $this->__projectIds($allReports);
+        $students = $this->__students($allReports);
+        $supervisors = $this->__supervisors($allReports);
 
-            $report->student_id = $student->name;
-
-            $supervisor = $this->Reports->Users->find()
-                    ->where(['id' => $report->supervisor_id])
-                    ->first();
-
-            $report->supervisor_id = $supervisor->name;
-        }
-
-        $this->set(compact('reports'));
+        $this->set(compact('allReports', 'projects', 'reports', 'students', 'supervisors'));
         $this->set('_serialize', ['reports']);
     }
 
@@ -159,21 +195,12 @@ class ReportsController extends AppController
 
         $reports = $this->paginate($reports);
 
-        foreach ($reports as $report) {
-            $student = $this->Reports->Users->find()
-                ->where(['id' => $report->student_id])
-                ->first();
+        $allReports = $this->__reportIndexing($reports);
+        $projects = $this->__projectIds($allReports);
+        $students = $this->__students($allReports);
+        $supervisors = $this->__supervisors($allReports);
 
-            $report->student_id = $student->name;
-
-            $supervisor = $this->Reports->Users->find()
-                    ->where(['id' => $report->supervisor_id])
-                    ->first();
-
-            $report->supervisor_id = $supervisor->name;
-        }
-
-        $this->set(compact('reports'));
+        $this->set(compact('allReports', 'projects', 'reports', 'students', 'supervisors'));
         $this->set('_serialize', ['reports']);
     }
 
@@ -195,21 +222,12 @@ class ReportsController extends AppController
 
         $reports = $this->paginate($reports);
 
-        foreach ($reports as $report) {
-            $student = $this->Reports->Users->find()
-                ->where(['id' => $report->student_id])
-                ->first();
+        $allReports = $this->__reportIndexing($reports);
+        $projects = $this->__projectIds($allReports);
+        $students = $this->__students($allReports);
+        $supervisors = $this->__supervisors($allReports);
 
-            $report->student_id = $student->name;
-
-            $supervisor = $this->Reports->Users->find()
-                    ->where(['id' => $report->supervisor_id])
-                    ->first();
-
-            $report->supervisor_id = $supervisor->name;
-        }
-
-        $this->set(compact('project', 'reports'));
+        $this->set(compact('allReports', 'projects', 'reports', 'students', 'supervisors'));
         $this->set('_serialize', ['reports']);
     }
 
