@@ -1,13 +1,24 @@
-<?= $this->Form->create($project); ?>
+<?= $this->Form->create($project, [
+    'templates' => [
+        'file' => '<input type="file" name="{{name}}" class="form-control" {{attrs}} />',
+    ],
+    'type' => 'file'
+]); ?>
 <fieldset>
+<?php if ($project->image) {
+    echo $this->Html->image('projects'.DS.$project->image, [
+        'alt' => $project->name,
+        'class' => 'img-account float-right'
+    ]);
+} ?>
     <h1>
         <?= $titleForLayout; ?>
     </h1>
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <?= $this->Form->control('name', ['class' => 'form-control', 'label' => 'Project name']); ?>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <?= $this->Form->control('organization', ['class' => 'form-control']); ?>
         </div>
         <div class="col-lg-2">
@@ -23,6 +34,18 @@
             <small>
                 Don't see yours listed? <?= $this->Html->link('Add a new fund!', ['controller' => 'Funds', 'action' => 'add'], ['class' => 'text-danger']) ?>
             </small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <label class="form-control-label">
+                Project image
+            </label>
+            <?= $this->Form->input('image', [
+                'type' => 'file',
+                'label' => false,
+                'required' => false
+            ]); ?>
         </div>
     </div>
     <div class="row">

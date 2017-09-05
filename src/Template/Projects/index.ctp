@@ -6,6 +6,21 @@
 <?php foreach ($projects as $project): ?>
     <?= $x % 3 == 0 || $x == 0 ? '<div class="row">' : ''; ?>
     <div class="col-lg-3 index text-center">
+        <?php if ($project->image): ?>
+            <?= $this->Html->link($this->Html->image('projects'.DS.$project->image, [
+                'alt' => $project->name,
+                'class' => 'img-index'
+            ]),
+            ['controller' => 'Projects', 'action' => 'view', $project->id],
+            ['escape' => false]); ?>
+        <?php else: ?>
+            <?= $this->Html->link($this->Html->image('cber-logo.png', [
+                'alt' => $project->name,
+                'class' => 'img-index'
+            ]),
+            ['controller' => 'Projects', 'action' => 'view', $project->id],
+            ['escape' => false]); ?>
+        <?php endif; ?>
         <h5>
             <?= $this->Html->link($project->name, [
                 'controller' => 'Projects', 'action' => 'view', $project->id

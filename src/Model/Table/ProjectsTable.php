@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\Core\Configure;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -36,6 +37,18 @@ class ProjectsTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
+        $this->addBehavior('Josegonzalez/Upload.Upload', [
+            'image' => [
+                'nameCallback' => function (array $data, array $settings) {
+                    $ext = pathinfo($data['name'], PATHINFO_EXTENSION);
+                    $salt = Configure::read('profile_salt');
+                    $newFilename = md5($data['name'].$salt);
+                    return $newFilename.'.'.$ext;
+                },
+                'path' => 'webroot'.DS.'img'.DS.'projects'
+            ]
+        ]);
+
         $this->belongsToMany('Users', [
             'foreignKey' => 'project_id',
             'targetForeignKey' => 'user_id',
@@ -68,6 +81,9 @@ class ProjectsTable extends Table
         $validator
             ->requirePresence('organization', 'create')
             ->notEmpty('organization');
+
+        $validator
+            ->allowEmpty('image');
 
         return $validator;
     }

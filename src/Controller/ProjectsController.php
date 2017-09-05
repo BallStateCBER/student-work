@@ -72,7 +72,7 @@ class ProjectsController extends AppController
         }
 
         $project = $this->Projects->patchEntity($project, $this->request->getData(), [
-            'fieldList' => ['name', 'description', 'fund_id', 'organization']
+            'fieldList' => ['name', 'description', 'fund_id', 'organization', 'image']
         ]);
 
         if ($this->Projects->save($project)) {
