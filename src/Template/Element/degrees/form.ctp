@@ -24,11 +24,18 @@
             </div>
             <div class="col-lg-2">
                 <label>For employee</label>
-                <?= $this->Form->text('user_id', [
-                    'class' => 'form-control',
-                    'disabled' => true,
-                    'value' => $activeUser['name']
-                ]); ?>
+                <?php if ($activeUser['role'] == 'Site Admin'): ?>
+                    <?= $this->Form->text('user_id', [
+                        'class' => 'form-control',
+                        'value' => $activeUser['name']
+                    ]); ?>
+                <?php else: ?>
+                    <?= $this->Form->text('user_id', [
+                        'class' => 'form-control',
+                        'disabled' => true,
+                        'value' => $activeUser['name']
+                    ]); ?>
+                <?php endif; ?>
             </div>
         </div>
         <div class="row">
