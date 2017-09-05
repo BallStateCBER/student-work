@@ -1,7 +1,6 @@
 <?php use Cake\Core\Configure;
 
 ?>
-<?= $this->Html->link('Add a New Project', ['controller' => 'Projects', 'action' => 'add'], ['class'=>'nav-link']); ?>
 <?php $x = 0; ?>
 <?php foreach ($projects as $project): ?>
     <?= $x % 3 == 0 || $x == 0 ? '<div class="row">' : ''; ?>

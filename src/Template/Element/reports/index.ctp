@@ -53,6 +53,13 @@
             <div class="card">
                 <div class="card-header" role="tab" id="headingOne">
                     <h6 class="mb-0">
+                        <?= $this->Html->link(__('All Projects'), ['action' => 'index']) ?>
+                    </h6>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="headingOne">
+                    <h6 class="mb-0">
                         <?= $this->Html->link(__('Current Projects'), ['action' => 'current']) ?>
                     </h6>
                 </div>
