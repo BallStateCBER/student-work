@@ -1,6 +1,4 @@
-<?php if ($this->request->session()->read('Auth.User.role') == 'Site Admin'): ?>
-    <?= $this->Html->link('Add a New User', ['controller' => 'Users', 'action' => 'register'], ['class'=>'nav-link']); ?>
-<?php endif; ?>
+
 <?php $x = 0; ?>
 <?php foreach ($users as $user): ?>
     <?= $x % 3 == 0 || $x == 0 ? '<div class="row">' : ''; ?>

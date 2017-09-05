@@ -15,13 +15,13 @@
         <?= $titleForLayout; ?>
     </h1>
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <?= $this->Form->control('name', ['class' => 'form-control', 'label' => 'Project name']); ?>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <?= $this->Form->control('organization', ['class' => 'form-control']); ?>
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-3">
             <label class="form-control-label">
                 Fund number (if applicable)
             </label>

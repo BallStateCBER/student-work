@@ -1,3 +1,9 @@
+<?php if ($project->image) {
+    echo $this->Html->image('projects'.DS.$project->image, [
+        'alt' => $project->name,
+        'class' => 'img-account float-right'
+    ]);
+} ?>
 <h1>
     <?= $project->name; ?>
 </h1>

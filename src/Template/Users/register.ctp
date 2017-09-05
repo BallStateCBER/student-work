@@ -37,6 +37,7 @@ $this->Form->setTemplates([
             'Site Admin' => 'Site Admin',
             'Student' => 'Student'
         ]); ?>
+        <br />
     </div>
 </fieldset>
 <div class="col-lg-6">

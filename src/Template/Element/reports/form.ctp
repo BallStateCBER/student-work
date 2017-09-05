@@ -21,7 +21,8 @@
                 <label>For student or employee</label>
                 <?= $this->Form->text('student_id', [
                     'class' => 'form-control',
-                    'value' => $activeUser
+                    'disabled' => true,
+                    'value' => $activeUser['name']
                 ]); ?>
             </div>
             <div class="col-lg-3">

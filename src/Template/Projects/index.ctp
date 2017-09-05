@@ -26,18 +26,13 @@
             ]) ?>
         </h5>
         <?= $project->organization; ?>
-        <p>
-            <?= $project->description; ?>
-        </p>
+        <br />
+        <?= $project->description; ?>
+        <br />
         <?php foreach ($project->users as $user): ?>
-            <ul>
-                <li>
-                    <?= $user->name; ?>, <?= $user->_joinData->role; ?>
-                    <?php if ($user->name == $this->request->session()->read('Auth.User.name')): ?>
-                        <br /><small>That's you. <?= $this->Html->link('Edit this project', ['controller' => 'Projects', 'action' => 'edit', $project->id], ['class' => 'text-danger']) ?></small>
-                    <?php endif; ?>
-                </li>
-            </ul>
+            <?php if ($user->name == $activeUser['name']): ?>
+                <small>You worked on this project! <?= $this->Html->link('Edit this project', ['controller' => 'Projects', 'action' => 'edit', $project->id], ['class' => 'text-danger']) ?></small>
+            <?php endif; ?>
         <?php endforeach; ?>
     </div>
     <?= $x % 3 == 2 ? '</div>' : ''; ?>
