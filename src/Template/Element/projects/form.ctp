@@ -62,6 +62,7 @@
             <?php if (!$project->users): ?>
                 (<a data-toggle="collapse" href="#employee0" aria-expanded="false" aria-controls="employee0">+</a>)
             <?php endif; ?>
+            (<a tabindex="0" id="help-popover" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">?</a>)
         </h3>
         <?php $y = 0; ?>
         <?php foreach ($project->users as $x => $user): ?>
@@ -141,3 +142,8 @@
         </small>
     </p>
 <?php endif; ?>
+<script>
+$('#help-popover').popover({
+  trigger: 'focus'
+})
+</script>

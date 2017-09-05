@@ -19,11 +19,18 @@
             </div>
             <div class="col-lg-2">
                 <label>For student or employee</label>
-                <?= $this->Form->text('student_id', [
-                    'class' => 'form-control',
-                    'disabled' => true,
-                    'value' => $activeUser['name']
-                ]); ?>
+                <?php if ($activeUser['role'] == 'Site Admin'): ?>
+                    <?= $this->Form->text('student_id', [
+                        'class' => 'form-control',
+                        'value' => $activeUser['name']
+                    ]); ?>
+                <?php else: ?>
+                    <?= $this->Form->text('student_id', [
+                        'class' => 'form-control',
+                        'disabled' => true,
+                        'value' => $activeUser['name']
+                    ]); ?>
+                <?php endif; ?>
             </div>
             <div class="col-lg-3">
                 <label class="form-control-label">

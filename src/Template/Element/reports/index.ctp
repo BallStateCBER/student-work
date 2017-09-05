@@ -81,8 +81,8 @@
                 </div>
                 <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="card-block">
-                        <?php foreach ($projects as $project): ?>
-                            <?= $this->Html->link(__($project->name), ['action' => 'project', $project->id]) ?><br />
+                        <?php foreach ($projects as $key => $project): ?>
+                            <?= $this->Html->link(__($project), ['action' => 'project', $key]) ?><br />
                         <?php endforeach; ?>
                     </div>
                 </div>

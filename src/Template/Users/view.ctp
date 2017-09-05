@@ -36,7 +36,7 @@ $firstName = $firstName[0];
     </div>
     <div class="col-lg-4">
         <h6>Current Position</h6>
-        <?= $user->position; ?>
+        <?= isset($user->position) ? $user->position : "<i>No position specified</i>"; ?>
     </div>
     <div class="col-lg-4">
         <h6>Role</h6>

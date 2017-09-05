@@ -19,22 +19,6 @@ class ReportsController extends AppController
         parent::beforeFilter($event);
     }
 
-    private function __projectIds($allReports)
-    {
-        $projects = [];
-        foreach ($allReports as $report) {
-            $project = $this->Reports->Projects
-                ->find()
-                ->where(['name' => $report->project_name])
-                ->first();
-
-            $projects[] = $project;
-        }
-        $projects = array_unique($projects);
-
-        return $projects;
-    }
-
     private function __reportIndexing($reports)
     {
         foreach ($reports as $report) {
@@ -106,7 +90,7 @@ class ReportsController extends AppController
         $reports = $this->paginate($reports);
 
         $allReports = $this->__reportIndexing($reports);
-        $projects = $this->__projectIds($allReports);
+        $projects = $this->Reports->Projects->find('list');
         $students = $this->__students($allReports);
         $supervisors = $this->__supervisors($allReports);
 
@@ -125,7 +109,7 @@ class ReportsController extends AppController
         $reports = $this->paginate($this->Reports);
 
         $allReports = $this->__reportIndexing($reports);
-        $projects = $this->__projectIds($allReports);
+        $projects = $this->Reports->Projects->find('list');
         $students = $this->__students($allReports);
         $supervisors = $this->__supervisors($allReports);
 
@@ -149,7 +133,7 @@ class ReportsController extends AppController
         $reports = $this->paginate($reports);
 
         $allReports = $this->__reportIndexing($reports);
-        $projects = $this->__projectIds($allReports);
+        $projects = $this->Reports->Projects->find('list');
         $students = $this->__students($allReports);
         $supervisors = $this->__supervisors($allReports);
 
@@ -176,7 +160,7 @@ class ReportsController extends AppController
         $reports = $this->paginate($reports);
 
         $allReports = $this->__reportIndexing($reports);
-        $projects = $this->__projectIds($allReports);
+        $projects = $this->Reports->Projects->find('list');
         $students = $this->__students($allReports);
         $supervisors = $this->__supervisors($allReports);
 
@@ -198,7 +182,7 @@ class ReportsController extends AppController
         $reports = $this->paginate($reports);
 
         $allReports = $this->__reportIndexing($reports);
-        $projects = $this->__projectIds($allReports);
+        $projects = $this->Reports->Projects->find('list');
         $students = $this->__students($allReports);
         $supervisors = $this->__supervisors($allReports);
 
@@ -220,7 +204,7 @@ class ReportsController extends AppController
         $reports = $this->paginate($reports);
 
         $allReports = $this->__reportIndexing($reports);
-        $projects = $this->__projectIds($allReports);
+        $projects = $this->Reports->Projects->find('list');
         $students = $this->__students($allReports);
         $supervisors = $this->__supervisors($allReports);
 
