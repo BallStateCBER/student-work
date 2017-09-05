@@ -37,7 +37,7 @@
                 <?php foreach ($project->users as $user): ?>
                     <h6><?= $user->name; ?></h6>
                     <p>
-                        <u>Website role:</u> <?= $user->_joinData->employee_role; ?><br />
+                        <u>Project role:</u> <?= $user->_joinData->role; ?><br />
                         <u>Job title:</u> <?= $this->Html->link($user->position, ['controller' => 'Users', 'action' => 'view', $user->id]); ?>
                     </p>
                 <?php endforeach; ?>
