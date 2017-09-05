@@ -22,8 +22,9 @@
         <?= $this->Text->autoLinkEmails($user->email); ?>
         <p>
             <?= $user->is_current == 1 ? 'Current' : 'Former'; ?> <?= $this->Html->link($user->position, ['controller' => 'Users', 'action' => 'view', $user->id]) ; ?>.
+            <br />
             <?php if ($this->request->session()->read('Auth.User.role') == 'Site Admin'): ?>
-                <?= $this->Html->link('Admin: edit user', ['controller' => 'Users', 'action' => 'edit', $user->id], ['class'=>'nav-link']); ?>
+                <small>Admin: <?= $this->Html->link('edit user', ['controller' => 'Users', 'action' => 'edit', $user->id], ['class'=>'text-danger']); ?></small>
             <?php endif; ?>
         </p>
     </div>

@@ -19,7 +19,7 @@
                     <td><?= h($report->student_id) ?></td>
                     <td><?= h($report->supervisor_id) ?></td>
                     <td><?= h(date('F j, Y', strtotime($report->start_date))) ?></td>
-                    <td class="<?= strtotime($report->end_date) > strtotime(date('Y-m-d')) ? 'alert alert-success' : 'alert alert-danger'; ?>"><?= !$report->end_date ? 'No end date' : h(date('F j, Y', strtotime($report->end_date))) ?></u></td>
+                    <td class="<?= strtotime($report->end_date) > strtotime(date('Y-m-d')) ? 'alert alert-danger' : 'alert alert-success'; ?>"><?= !$report->end_date ? 'No end date' : h(date('F j, Y', strtotime($report->end_date))) ?></u></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $report->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $report->id]) ?>

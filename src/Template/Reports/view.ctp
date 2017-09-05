@@ -33,7 +33,7 @@
             <h6>
                 End date
             </h6>
-            <div class="<?= strtotime($report->end_date) > strtotime(date('Y-m-d')) ? 'alert alert-success' : 'alert alert-danger'; ?>"><?= !$report->end_date ? 'No end date' : h(date('F j, Y', strtotime($report->end_date))) ?></u>
+            <div class="<?= strtotime($report->end_date) > strtotime(date('Y-m-d')) ? 'alert alert-danger' : 'alert alert-success'; ?>"><?= !$report->end_date ? 'No end date' : h(date('F j, Y', strtotime($report->end_date))) ?></u>
             </div>
         </div>
     </div>
