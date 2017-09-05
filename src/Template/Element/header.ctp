@@ -20,40 +20,41 @@ $name = $name[0];
       <li class="nav-item">
         <?php if ($loggedIn): ?>
             <?= $this->Html->link('Log out', ['controller' => 'Users', 'action' => 'logout'], ['class'=>'nav-link']); ?>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
+            <div class="dropdown-menu">
+                <?= $this->Html->link('Projects Index', ['controller' => 'Projects', 'action' => 'index'], ['class'=>'dropdown-item']); ?>
+                <?= $this->Html->link('Add a Project', ['controller' => 'Projects', 'action' => 'add'], ['class'=>'dropdown-item']); ?>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Student Reports</a>
+            <div class="dropdown-menu">
+                <?= $this->Html->link('Reports Index', ['controller' => 'Reports', 'action' => 'index'], ['class'=>'dropdown-item']); ?>
+                <?= $this->Html->link('Add a Report', ['controller' => 'Reports', 'action' => 'add'], ['class'=>'dropdown-item']); ?>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Students & Staff</a>
+            <div class="dropdown-menu">
+                <?= $this->Html->link('Users Index', ['controller' => 'Users', 'action' => 'index'], ['class'=>'dropdown-item']); ?>
+                <?php if ($this->request->session()->read('Auth.User.role') == 'Site Admin'): ?>
+                    <?= $this->Html->link('Add a User', ['controller' => 'Users', 'action' => 'register'], ['class'=>'dropdown-item']); ?>
+                <?php endif; ?>
+            </div>
+        </li>
+        <li class="nav-item">
+            <?php if ($loggedIn): ?>
+                <u>
+                    <?= $this->Html->link("$name: Edit Your Account", ['controller' => 'Users', 'action' => 'account'], ['class'=>'nav-link']); ?>
+                </u>
+            <?php endif; ?>
+        </li>
         <?php else: ?>
             <?= $this->Html->link('Log in', ['controller' => 'Users', 'action' => 'login'], ['class'=>'nav-link']); ?>
+        </li>
         <?php endif; ?>
-      </li>
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
-          <div class="dropdown-menu">
-              <?= $this->Html->link('Projects Index', ['controller' => 'Projects', 'action' => 'index'], ['class'=>'dropdown-item']); ?>
-              <?= $this->Html->link('Add a Project', ['controller' => 'Projects', 'action' => 'add'], ['class'=>'dropdown-item']); ?>
-          </div>
-      </li>
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Student Reports</a>
-          <div class="dropdown-menu">
-              <?= $this->Html->link('Reports Index', ['controller' => 'Reports', 'action' => 'index'], ['class'=>'dropdown-item']); ?>
-              <?= $this->Html->link('Add a Report', ['controller' => 'Reports', 'action' => 'add'], ['class'=>'dropdown-item']); ?>
-          </div>
-      </li>
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Students & Staff</a>
-          <div class="dropdown-menu">
-              <?= $this->Html->link('Users Index', ['controller' => 'Users', 'action' => 'index'], ['class'=>'dropdown-item']); ?>
-              <?php if ($this->request->session()->read('Auth.User.role') == 'Site Admin'): ?>
-                  <?= $this->Html->link('Add a User', ['controller' => 'Users', 'action' => 'register'], ['class'=>'dropdown-item']); ?>
-              <?php endif; ?>
-          </div>
-      </li>
-      <li class="nav-item">
-          <?php if ($loggedIn): ?>
-              <u>
-                  <?= $this->Html->link("$name: Edit Your Account", ['controller' => 'Users', 'action' => 'account'], ['class'=>'nav-link']); ?>
-              </u>
-          <?php endif; ?>
-      </li>
     </ul>
     <!--form class="form-inline my-2 my-lg-0">
         <!--?php
