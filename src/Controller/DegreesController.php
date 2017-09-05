@@ -64,6 +64,12 @@ class DegreesController extends AppController
         $this->set(compact('degree', 'degreeTypes'));
         $this->set('_serialize', ['degree']);
 
+        if ($degree['user_id'] != $this->request->session()->read('Auth.User.id')) {
+            if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
+                return $this->Flash->error('Sorry, you are not authorized to edit this degree.');
+            }
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $degree = $this->Degrees->patchEntity($degree, $this->request->getData());
             if ($this->Degrees->save($degree)) {

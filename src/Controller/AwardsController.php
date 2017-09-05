@@ -69,6 +69,12 @@ class AwardsController extends AppController
         $this->set('_serialize', ['award']);
         $this->set(['titleForLayout' => 'Edit Award: '.$award->name]);
 
+        if ($award['user_id'] != $this->request->session()->read('Auth.User.id')) {
+            if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
+                return $this->Flash->error('Sorry, you are not authorized to edit this award.');
+            }
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $award = $this->Awards->patchEntity($award, $this->request->getData());
             if ($this->Awards->save($award)) {

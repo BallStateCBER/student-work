@@ -19,24 +19,26 @@ $name = $name[0];
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <?php if ($loggedIn): ?>
-            <?= $this->Html->link('Edit Your Account', ['controller' => 'Users', 'action' => 'account'], ['class'=>'nav-link']); ?>
-        <?php endif; ?>
-      </li>
-      <li class="nav-item">
-        <?php if ($loggedIn): ?>
             <?= $this->Html->link('Log out', ['controller' => 'Users', 'action' => 'logout'], ['class'=>'nav-link']); ?>
         <?php else: ?>
             <?= $this->Html->link('Log in', ['controller' => 'Users', 'action' => 'login'], ['class'=>'nav-link']); ?>
         <?php endif; ?>
       </li>
       <li class="nav-item">
+        <?= $this->Html->link('Projects', ['controller' => 'Projects', 'action' => 'index'], ['class'=>'nav-link']); ?>
+      </li>
+      <li class="nav-item">
         <?= $this->Html->link('Student Reports', ['controller' => 'reports', 'action' => 'index'], ['class'=>'nav-link']); ?>
       </li>
       <li class="nav-item">
-        <?= $this->Html->link('Staff', ['controller' => 'Users', 'action' => 'index'], ['class'=>'nav-link']); ?>
+        <?= $this->Html->link('Staff Index', ['controller' => 'Users', 'action' => 'index'], ['class'=>'nav-link']); ?>
       </li>
       <li class="nav-item">
-        <?= $this->Html->link('Projects', ['controller' => 'Projects', 'action' => 'index'], ['class'=>'nav-link']); ?>
+          <?php if ($loggedIn): ?>
+              <u>
+                  <?= $this->Html->link("$name: Edit Your Account", ['controller' => 'Users', 'action' => 'account'], ['class'=>'nav-link']); ?>
+              </u>
+          <?php endif; ?>
       </li>
     </ul>
     <!--form class="form-inline my-2 my-lg-0">
