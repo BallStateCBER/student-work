@@ -34,9 +34,13 @@
             <label for="role">
                 Site Role
             </label>
-            <?= $this->Form->select('role', [
-                'Site Admin' => 'Site Admin',
-                'Student' => 'Student'
+            <?= $this->Form->control('role', [
+                'label' => false,
+                'options' => [
+                    'Site Admin' => 'Site Admin',
+                    'Student' => 'Student'
+                ],
+                'type' => 'radio'
             ]); ?>
             <br />
         </div>

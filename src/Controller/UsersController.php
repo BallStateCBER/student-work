@@ -126,9 +126,8 @@ class UsersController extends AppController
             }
             $user->email = strtolower(trim($user->email));
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('Thanks for registering with us!'));
-                $this->Auth->setUser($user);
-                return $this->redirect(['action' => 'account']);
+                $this->Flash->success(__("You have successfully registered user #$user->id."));
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('Sorry, we could not register you. Please try again.'));
         }
