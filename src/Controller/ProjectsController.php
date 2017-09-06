@@ -136,7 +136,24 @@ class ProjectsController extends AppController
 
     public function delete($id = null)
     {
-        $project = $this->Projects->get($id);
+        $project = $this->Projects->find()
+            ->where(['id' => $id])
+            ->contain(['Users'])
+            ->first();
+        $role = $this->request->session()->read('Auth.User.role');
+        $activeUser = $this->request->session()->read('Auth.User.id');
+        if ($role != 'Site Admin') {
+            $ok = 0;
+            foreach ($project->users as $user) {
+                if ($user->id == $activeUser) {
+                    $ok = 1;
+                }
+            }
+            if (!$ok) {
+                $this->Flash->error('You are not authorized to delete this.');
+                return $this->redirect(['action' => 'index']);
+            }
+        }
         if ($this->Projects->delete($project)) {
             $this->Flash->success(__('The project has been deleted.'));
         } else {

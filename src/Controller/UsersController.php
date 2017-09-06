@@ -118,10 +118,7 @@ class UsersController extends AppController
 
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            $oldUser = $this->Users->find()
-                ->where(['id' => $user->id])
-                ->first();
-            if (isset($oldUser->id)) {
+            if (!$user->isNew()) {
                 return $this->Flash->error('This user ID is already in use?');
             }
             $user->email = strtolower(trim($user->email));

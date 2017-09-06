@@ -346,6 +346,12 @@ class ReportsController extends AppController
     public function delete($id = null)
     {
         $report = $this->Reports->get($id);
+        $activeUser = $this->request->session()->read('Auth.User.id');
+        $role = $this->request->session()->read('Auth.User.role');
+        if ($role != 'Site Admin' or ($report->student_id != $activeUser or $report->supervisor_id != $activeUser)) {
+            $this->Flash->error('You are not authorized to delete this.');
+            return $this->redirect(['action' => 'index']);
+        }
         if ($this->Reports->delete($report)) {
             $this->Flash->success(__('The report has been deleted.'));
         } else {
