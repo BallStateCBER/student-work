@@ -100,4 +100,12 @@ class FundsController extends AppController
         }
         return $this->Flash->error(__('The fund could not be deleted. Please, try again.'));
     }
+
+    public function view($id = null)
+    {
+        $fund = $this->Funds->get($id);
+
+        $this->set('fund', $fund);
+        $this->set('_serialize', ['fund']);
+    }
 }
