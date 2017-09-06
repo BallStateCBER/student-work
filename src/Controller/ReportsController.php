@@ -274,7 +274,10 @@ class ReportsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $report->project_name = $this->request->data['project_name'];
-            $report->student_id = Router::getRequest()->session()->read('Auth.User.id');
+            $studentId = $this->Reports->Users->find()
+                ->where(['name' => $this->request->data['student_id']])
+                ->first();
+            $report->student_id = $studentId->id;
             if ($this->Reports->save($report)) {
                 return $this->Flash->success(__('The report has been saved.'));
             }
@@ -326,7 +329,6 @@ class ReportsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $report->project_name = $this->request->data['project_name'];
-            $report->student_id = Router::getRequest()->session()->read('Auth.User.id');
             if ($this->Reports->save($report)) {
                 return $this->Flash->success(__('The report has been saved.'));
             }
