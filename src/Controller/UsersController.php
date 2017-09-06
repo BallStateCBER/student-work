@@ -118,6 +118,12 @@ class UsersController extends AppController
 
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            $oldUser = $this->Users->find()
+                ->where(['id' => $user->id])
+                ->first();
+            if (isset($oldUser->id)) {
+                return $this->Flash->error('This user ID is already in use?');
+            }
             $user->email = strtolower(trim($user->email));
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Thanks for registering with us!'));
