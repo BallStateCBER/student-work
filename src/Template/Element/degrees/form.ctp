@@ -1,4 +1,4 @@
-<?php if ($this->request->action == 'edit' && ($degree['user_id'] == $activeUser['id'] or $activeUser['role'] == 'Site Admin')): ?>
+<?php if ($this->request->action == 'edit' && ($degree['user_id'] == $activeUser['id'] or $activeUser['role'] == 'Site Admin') or $this->request->action == 'add'): ?>
     <?= $this->Form->create($degree, [
         'templates' => [
             'select' => '<select class="form-control dates" name="{{name}}">{{content}}</select>'

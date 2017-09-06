@@ -1,4 +1,4 @@
-<?php if ($this->request->action == 'edit' && ($award['user_id'] == $activeUser['id'] or $activeUser['role'] == 'Site Admin')): ?>
+<?php if ($this->request->action == 'edit' && ($award['user_id'] == $activeUser['id'] or $activeUser['role'] == 'Site Admin') or $this->request->action == 'add'): ?>
     <?= $this->Form->create($award, [
         'templates' => [
             'select' => '<select class="form-control dates" name="{{name}}">{{content}}</select>'
