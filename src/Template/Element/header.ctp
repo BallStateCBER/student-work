@@ -1,8 +1,7 @@
 <?php
 
-$loggedIn = $this->request->session()->read('Auth.User');
-$name = $this->request->session()->read('Auth.User.name');
-$name = explode(' ', trim($name));
+$user = $this->request->session()->read('Auth.User');
+$name = explode(' ', trim($user['name']));
 $name = $name[0];
 
 ?>
@@ -18,9 +17,14 @@ $name = $name[0];
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <?php if ($loggedIn): ?>
+        <?php if ($user): ?>
             <?= $this->Html->link('Log out', ['controller' => 'Users', 'action' => 'logout'], ['class'=>'nav-link']); ?>
         </li>
+        <?php if ($user['role'] == 'Site Admin'): ?>
+            <li class="nav-item">
+                <?= $this->Html->link('Funding', ['controller' => 'Funds', 'action' => 'index'], ['class'=>'nav-link']); ?>
+            </li>
+        <?php endif; ?>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
             <div class="dropdown-menu">
@@ -45,7 +49,7 @@ $name = $name[0];
             </div>
         </li>
         <li class="nav-item">
-            <?php if ($loggedIn): ?>
+            <?php if ($user): ?>
                 <u>
                     <?= $this->Html->link("$name: Edit Your Account", ['controller' => 'Users', 'action' => 'account'], ['class'=>'nav-link']); ?>
                 </u>

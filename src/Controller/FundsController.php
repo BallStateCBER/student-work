@@ -16,9 +16,10 @@ class FundsController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->deny([
-            'add', 'delete', 'edit'
-        ]);
+        if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
+            $this->Flash->error('Only admins can access funding details.');
+            return $this->redirect(['controller' => 'Projects', 'action' => 'index']);
+        }
     }
 
     /**
@@ -95,7 +96,7 @@ class FundsController extends AppController
         $fund = $this->Funds->get($id);
         if ($this->Funds->delete($fund)) {
             $this->Flash->success(__('The fund has been deleted.'));
-            return $this->redirect(['controller' => 'Users', 'action' => 'account']);
+            return $this->redirect(['action' => 'index']);
         }
         return $this->Flash->error(__('The fund could not be deleted. Please, try again.'));
     }

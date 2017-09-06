@@ -278,6 +278,10 @@ class ReportsController extends AppController
                 ->where(['name' => $this->request->data['student_id']])
                 ->first();
             $report->student_id = $studentId->id;
+            if ($project == null) {
+                $this->Flash->error(__('That project was not found. Please enter a new project to make a report about it.'));
+                return $this->redirect(['action' => 'index']);
+            }
             if ($this->Reports->save($report)) {
                 return $this->Flash->success(__('The report has been saved.'));
             }
