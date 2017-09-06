@@ -13,5 +13,5 @@
     Why Are <i>You</i> Here?
 </h1>
 <p>
-    To get started, simply create an account using your @bsu.edu email address. From there, you'll be able to create your own profile with your degrees, projects, and achievements. You'll also be able to browse other employee's profiles, look through our publications, and see who's responsible for our websites. (Spoiler alert: it's probably Graham.)
+    To get started, an account will need to be created for you with your @bsu.edu email address. From there, you'll be able to create your own profile with your degrees, projects, and achievements. You'll also be able to browse other employee's profiles, look through our publications, and see who's responsible for our websites. (Spoiler alert: it's probably Graham.)
 </p>

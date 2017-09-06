@@ -108,6 +108,9 @@ class UsersController extends AppController
      */
     public function register()
     {
+        if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
+            return $this->Flash->error('Sorry, you must be an admin to register new users.');
+        }
         $this->set(['titleForLayout' => 'Register']);
         $user = $this->Users->newEntity();
         $this->set(compact('user', 'projects'));
