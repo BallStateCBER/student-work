@@ -69,7 +69,7 @@ class ReportsControllerTest extends IntegrationTestCase
         ];
 
         $this->post('/reports/add', $report);
-        $this->assertResponseOk();
+        $this->assertResponseContains('Anything');
 
         $report = $this->Reports->find()
             ->where(['learned' => $report['learned']])
