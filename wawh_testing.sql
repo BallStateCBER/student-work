@@ -127,7 +127,7 @@ CREATE TABLE `projects` (
 
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` VALUES (2,'The Raven Who Refused to Sing','Sing to me raven.','Steven Wilson',NULL,NULL),(47,'Project Win','Here is some text','American Placeholder Association',1,NULL,NULL);
+INSERT INTO `projects` VALUES (2,'The Raven Who Refused to Sing','Sing to me raven.','Steven Wilson',NULL,NULL,NULL),(47,'Project Win','Here is some text','American Placeholder Association',1,NULL,NULL);
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 
