@@ -51,8 +51,8 @@ class ReportsControllerTest extends IntegrationTestCase
         $this->assertResponseOk();
 
         $report = [
-            'student_id' => $id,
-            'supervisor_id' => $id,
+            'student_id' => $user->name,
+            'supervisor_id' => $user->name,
             'project_name' => 'The Raven Who Refused to Sing',
             'start_date' => [
                 'year' => date('Y'),

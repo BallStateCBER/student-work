@@ -44,7 +44,8 @@ class FundsControllerTest extends IntegrationTestCase
     public function testAddFund()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $this->get('/funds/add');
         $this->assertResponseOk();
@@ -78,7 +79,8 @@ class FundsControllerTest extends IntegrationTestCase
     public function testEditingFunds()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $fund = $this->Funds->find()
             ->where(['name' => 'ABCDEF11'])
@@ -117,7 +119,8 @@ class FundsControllerTest extends IntegrationTestCase
     public function testDeletingFunds()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $fund = $this->Funds->find()
             ->where(['name' => 'ABCDEF91'])
