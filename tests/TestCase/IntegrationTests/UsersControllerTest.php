@@ -44,7 +44,8 @@ class UsersControllerTest extends IntegrationTestCase
     public function testRegistrationFormCorrectly()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
         $this->get('/register');
 
         $this->assertResponseOk();
@@ -59,7 +60,9 @@ class UsersControllerTest extends IntegrationTestCase
 
         $this->assertResponseSuccess();
 
-        $this->session(['Auth.User.id' => 123456789]);
+        $id = $this->Users->getIdFromEmail('mblum@bsu.edu');
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
         $this->get('/account');
 
         $moreData = [
@@ -135,7 +138,8 @@ class UsersControllerTest extends IntegrationTestCase
     public function testAccountInfoForUsers()
     {
         $id = $this->Users->getIdFromEmail('mblum@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $this->get('/account');
 
@@ -282,7 +286,9 @@ class UsersControllerTest extends IntegrationTestCase
      */
     public function testDeletingUsers()
     {
-        $this->session(['Auth.User.id' => 1]);
+        $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         // delete the new user
         $id = $this->Users->getIdFromEmail('mblum@bsu.edu');

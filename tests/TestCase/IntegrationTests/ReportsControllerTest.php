@@ -44,7 +44,8 @@ class ReportsControllerTest extends IntegrationTestCase
     public function testAddReport()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $this->get('/reports/add');
         $this->assertResponseOk();
@@ -69,7 +70,8 @@ class ReportsControllerTest extends IntegrationTestCase
         ];
 
         $this->post('/reports/add', $report);
-        $this->assertResponseContains('Anything');
+        $this->assertResponseOk();
+        $this->assertResponseContains("The report has been saved.");
 
         $report = $this->Reports->find()
             ->where(['learned' => $report['learned']])
@@ -89,7 +91,8 @@ class ReportsControllerTest extends IntegrationTestCase
     public function testEditingReports()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $report = $this->Reports->find()
             ->where(['learned' => 'Cos I deserve to occupy this space without feeling like I don\'t belong.'])
@@ -140,7 +143,8 @@ class ReportsControllerTest extends IntegrationTestCase
     public function testDeletingReports()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $report = $this->Reports->find()
             ->where(['learned' => "I'm sorry I'm sorry I'm sorry is gone"])

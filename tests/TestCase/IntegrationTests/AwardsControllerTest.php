@@ -44,7 +44,8 @@ class AwardsControllerTest extends IntegrationTestCase
     public function testAddAnAward()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $this->get('/awards/add');
         $this->assertResponseOk();
@@ -80,7 +81,8 @@ class AwardsControllerTest extends IntegrationTestCase
     public function testEditingAwards()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $award = $this->Awards->find()
             ->where(['name' => 'Test Awards'])
@@ -120,7 +122,8 @@ class AwardsControllerTest extends IntegrationTestCase
     public function testDeletingAwards()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $award = $this->Awards->find()
             ->where(['name' => 'Test Awards Part Three'])

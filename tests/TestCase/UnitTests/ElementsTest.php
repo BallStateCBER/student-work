@@ -59,7 +59,8 @@ class ElementsTest extends IntegrationTestCase
         $this->assertResponseContains('Log in');
 
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $this->get('/');
         $this->assertResponseContains('Log out');

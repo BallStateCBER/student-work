@@ -47,7 +47,7 @@ class FundsControllerTest extends IntegrationTestCase
         $this->session(['Auth.User.id' => $id]);
 
         $this->get('/funds/add');
-        #$this->assertResponseOk();
+        $this->assertResponseOk();
 
         $fund = [
             'name' => 'ABCDEF11',
@@ -58,6 +58,7 @@ class FundsControllerTest extends IntegrationTestCase
 
         $this->post('/funds/add', $fund);
         $this->assertResponseOk();
+        $this->assertResponseContains("The fund has been saved.");
 
         $fund = $this->Funds->find()
             ->where(['name' => $fund['name']])

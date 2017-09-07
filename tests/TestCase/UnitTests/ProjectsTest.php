@@ -44,7 +44,8 @@ class ProjectsTest extends IntegrationTestCase
     public function testAddProjectsPage()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $this->get('/projects/add');
         $this->assertResponseOk();
@@ -58,7 +59,8 @@ class ProjectsTest extends IntegrationTestCase
     public function testIndexProjects()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $this->get('/projects');
         $this->assertResponseOk();

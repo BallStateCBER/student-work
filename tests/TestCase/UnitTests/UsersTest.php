@@ -122,7 +122,8 @@ class UsersTest extends IntegrationTestCase
     public function testViewingAnEmployee()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $user = $this->Users->find()
             ->where(['name' => 'Erica Dee Fox'])
@@ -144,7 +145,8 @@ class UsersTest extends IntegrationTestCase
     public function testViewingEmployeeIndex()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $user = $this->Users->find()
             ->where(['name' => 'Erica Dee Fox'])
