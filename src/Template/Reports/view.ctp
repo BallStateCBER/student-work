@@ -48,7 +48,13 @@
             <h6>
                 Was this a routine activity?
             </h6>
-            <?= $report->routine ?>
+            <?php if ($report->routine == 0): ?>
+                No
+            <?php elseif ($report->routine == 1): ?>
+                Yes
+            <?php elseif ($report->routine == 2): ?>
+                Not sure
+            <?php endif; ?>
         </div>
     </div>
     <div class="row">
