@@ -115,6 +115,7 @@ CREATE TABLE `projects` (
   `organization` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `fund_id` int(11) DEFAULT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `funding_details` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -126,7 +127,7 @@ CREATE TABLE `projects` (
 
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` VALUES (2,'The Raven Who Refused to Sing','Sing to me raven.','Steven Wilson',NULL,NULL),(47,'Project Win','Here is some text','American Placeholder Association',1,NULL);
+INSERT INTO `projects` VALUES (2,'The Raven Who Refused to Sing','Sing to me raven.','Steven Wilson',NULL,NULL),(47,'Project Win','Here is some text','American Placeholder Association',1,NULL,NULL);
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 

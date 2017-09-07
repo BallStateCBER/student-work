@@ -58,6 +58,16 @@
             <?= $this->CKEditor->replace('description'); ?>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <label class="form-control-label">
+                Funding Details
+            </label>
+            <?= $this->CKEditor->loadJs(); ?>
+            <?= $this->Form->textarea('funding_details', ['class' => 'form-control']); ?>
+            <?= $this->CKEditor->replace('funding_details'); ?>
+        </div>
+    </div>
     <?php if ($this->request->getParam('action') == 'edit'): ?>
         <h3>
             Edit contributors

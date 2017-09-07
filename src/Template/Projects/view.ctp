@@ -30,6 +30,14 @@
         <?= isset($project->fund_id) ? $this->Html->link($fundNumber, ['controller' => 'Funds', 'action' => 'view', $project->fund_id]) : 'None/not applicable'; ?>
     </div>
 </div>
+<?php if ($project->funding_details): ?>
+    <div class="row">
+        <div class="col-lg-6">
+            <h6>Funding details</h6>
+            <?= $project->funding_details ?>
+        </div>
+    </div>
+<?php endif; ?>
 <?php if ($project->users): ?>
     <div class="row">
         <div class="col-sm-9">
