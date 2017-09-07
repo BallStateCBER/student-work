@@ -84,7 +84,9 @@
                 <label class="form-control-label">
                     What activities did you perform for this project?
                 </label>
+                <?= $this->CKEditor->loadJs(); ?>
                 <?= $this->Form->textarea('work_performed', ['class' => 'form-control']); ?>
+                <?= $this->CKEditor->replace('work_performed'); ?>
             </div>
             <div class="col-lg-3">
                 <label class="form-control-label">
@@ -105,6 +107,7 @@
                     What did you learn from this task?
                 </label>
                 <?= $this->Form->textarea('learned', ['class' => 'form-control']); ?>
+                <?= $this->CKEditor->replace('learned'); ?>
             </div>
         </div>
     </fieldset>
