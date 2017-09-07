@@ -47,7 +47,8 @@ class ProjectsControllerTest extends IntegrationTestCase
     public function testAddProject()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $this->get('/projects/add');
         $this->assertResponseOk();
@@ -80,7 +81,8 @@ class ProjectsControllerTest extends IntegrationTestCase
     public function testEditingProjects()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $project = $this->Projects->find()
             ->where(['name' => 'Project Win'])
@@ -119,7 +121,8 @@ class ProjectsControllerTest extends IntegrationTestCase
     public function testAddingUsersToProject()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $project = $this->Projects->find()
             ->where(['name' => 'Test Project'])
@@ -157,7 +160,8 @@ class ProjectsControllerTest extends IntegrationTestCase
     public function testRemovingUsersFromProject()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $project = $this->Projects->find()
             ->where(['name' => 'Test Project'])
@@ -203,7 +207,8 @@ class ProjectsControllerTest extends IntegrationTestCase
     public function testDeletingProjects()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
-        $this->session(['Auth.User.id' => $id]);
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
 
         $project = $this->Projects->find()
             ->where(['name' => 'Test Project'])
