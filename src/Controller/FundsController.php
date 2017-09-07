@@ -18,7 +18,7 @@ class FundsController extends AppController
         parent::beforeFilter($event);
         if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
             $this->Flash->error('Only admins can access funding details.');
-            return $this->redirect(['controller' => 'Projects', 'action' => 'index']);
+            return $this->redirect(['controller' => 'Reports', 'action' => 'index']);
         }
     }
 

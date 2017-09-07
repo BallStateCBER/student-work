@@ -17,14 +17,12 @@ class ProjectsController extends AppController
     {
         parent::initialize();
         $this->loadModel('UsersProjects');
-    }
-
-    public function beforeFilter(Event $event)
-    {
-        parent::beforeFilter($event);
-        $this->Auth->deny([
-            'add', 'delete', 'edit'
-        ]);
+        if ($this->request->getParam('action') != 'index' and $this->request->getParam('action') != 'view') {
+            if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
+                $this->Flash->error('Only admins can access project details.');
+                return $this->redirect(['controller' => 'Projects', 'action' => 'index']);
+            }
+        }
     }
 
     private function uponFormSubmissionPr($project)
@@ -72,7 +70,7 @@ class ProjectsController extends AppController
         }
 
         $project = $this->Projects->patchEntity($project, $this->request->getData(), [
-            'fieldList' => ['name', 'description', 'fund_id', 'organization', 'image']
+            'fieldList' => ['name', 'description', 'fund_id', 'organization', 'image', 'funding_details']
         ]);
 
         if ($this->Projects->save($project)) {

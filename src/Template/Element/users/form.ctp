@@ -214,23 +214,31 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <h4>Your projects (<?= $this->Html->link('+', ['controller' => 'Projects', 'action' => 'add']) ?>)</h4>
+            <h4>Your projects
+                <?php if ($activeUser['role'] == 'Site Admin'): ?>
+                    (<?= $this->Html->link('+', ['controller' => 'Projects', 'action' => 'add']) ?>)
+                <?php endif; ?>
+            </h4>
             <?php if ($user->projects): ?>
                 <?php foreach ($user->projects as $project): ?>
                     <h6><?= $project->name; ?></h6>
                     <p class="exp-description">
                         <u>Project role:</u> <?= $project->_joinData->role; ?><br />
                         <?= $project->organization ? 'With '.$project->organization.'<br />' : ''; ?>
-                        <?php
-                            $descriptionArray = explode(' ', trim($project->description));
-                            $wordCount = count($descriptionArray);
-                            $halfCount = $wordCount / 2;
-                        ?>
-                        <?php for ($x = 0; $x <= $halfCount; $x++): ?>
-                            <?= $descriptionArray[$x]; ?>
-                        <?php endfor; ?>
-                        ...
-                        <em class="text-muted"><?= $this->Html->link('Edit project', ['controller' => 'Projects', 'action' => 'edit', $project->id]) ?></em>
+                        <?php if ($activeUser['role'] == 'Site Admin'): ?>
+                            <?php
+                                $descriptionArray = explode(' ', trim($project->description));
+                                $wordCount = count($descriptionArray);
+                                $halfCount = $wordCount / 2;
+                            ?>
+                            <?php for ($x = 0; $x <= $halfCount; $x++): ?>
+                                <?= $descriptionArray[$x]; ?>
+                            <?php endfor; ?>
+                            ...
+                            <em class="text-muted"><?= $this->Html->link('Edit project', ['controller' => 'Projects', 'action' => 'edit', $project->id]) ?></em>
+                        <?php else: ?>
+                            <?= $project->description ?>
+                        <?php endif; ?>
                     </p>
                 <?php endforeach; ?>
             <?php else: ?>

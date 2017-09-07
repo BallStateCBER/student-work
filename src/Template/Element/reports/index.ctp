@@ -60,15 +60,16 @@
             <div class="card">
                 <div class="card-header" role="tab" id="headingOne">
                     <h6 class="mb-0">
-                        <?= $this->Html->link(__('Current Projects'), ['action' => 'current']) ?>
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Reports by project status
+                        </a>
                     </h6>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-header" role="tab" id="headingOne">
-                    <h6 class="mb-0">
-                        <?= $this->Html->link(__('Past Projects'), ['action' => 'past']) ?>
-                    </h6>
+                <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="card-block">
+                        <?= $this->Html->link(__("Current Projects"), ['action' => 'current']) ?><br />
+                        <?= $this->Html->link(__("Past Projects"), ['action' => 'past']) ?><br />
+                    </div>
                 </div>
             </div>
             <div class="card">

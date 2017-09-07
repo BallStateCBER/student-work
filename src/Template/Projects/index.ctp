@@ -29,13 +29,9 @@
         <br />
         <?= $project->description; ?>
         <br />
-        <?php foreach ($project->users as $user): ?>
-            <?php if ($user->name == $activeUser['name']): ?>
-                <small>You worked on this project! <?= $this->Html->link('Edit this project', ['controller' => 'Projects', 'action' => 'edit', $project->id], ['class' => 'text-danger']) ?></small>
-            <?php elseif ($activeUser['role'] == 'Site Admin'): ?>
-                <small>Admin: <?= $this->Html->link('Edit this project', ['controller' => 'Projects', 'action' => 'edit', $project->id], ['class' => 'text-danger']) ?></small>
-            <?php endif; ?>
-        <?php endforeach; ?>
+        <?php if ($activeUser['role'] == 'Site Admin'): ?>
+            <small>Admin: <?= $this->Html->link('Edit this project', ['controller' => 'Projects', 'action' => 'edit', $project->id], ['class' => 'text-danger']) ?></small>
+        <?php endif; ?>
     </div>
     <?= $x % 3 == 2 ? '</div>' : ''; ?>
     <?php $x = $x + 1; ?>
