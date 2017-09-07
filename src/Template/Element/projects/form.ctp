@@ -53,7 +53,9 @@
             <label class="form-control-label">
                 Project description
             </label>
+            <?= $this->CKEditor->loadJs(); ?>
             <?= $this->Form->textarea('description', ['class' => 'form-control']); ?>
+            <?= $this->CKEditor->replace('description'); ?>
         </div>
     </div>
     <?php if ($this->request->getParam('action') == 'edit'): ?>

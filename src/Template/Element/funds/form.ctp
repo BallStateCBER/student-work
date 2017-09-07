@@ -29,7 +29,9 @@
             <label class="form-control-label">
                 Funding details
             </label>
+            <?= $this->CKEditor->loadJs(); ?>
             <?= $this->Form->textarea('funding_details', ['class' => 'form-control']); ?>
+            <?= $this->CKEditor->replace('funding_details'); ?>
         </div>
     </div>
 </fieldset>
