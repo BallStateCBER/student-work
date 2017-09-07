@@ -99,7 +99,9 @@ class ProjectsController extends AppController
             'contain' => ['Users']
         ]);
 
-        $this->set('project', $project);
+        $fundNumber = $this->Projects->Funds->get($project->fund_id);
+        $this->set(compact('project'));
+        $this->set('fundNumber', $fundNumber->name);
         $this->set('_serialize', ['project']);
     }
 
@@ -125,7 +127,8 @@ class ProjectsController extends AppController
         ]);
 
         $users = $this->Projects->Users->find('list');
-        $this->set(compact('project', 'users'));
+        $funds = $this->Projects->Funds->find('list');
+        $this->set(compact('funds', 'project', 'users'));
         $this->set('_serialize', ['project']);
         $this->set(['titleForLayout' => 'Edit Project: '.$project->title]);
 

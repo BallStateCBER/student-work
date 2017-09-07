@@ -1,6 +1,7 @@
 <h1>
     Fund: <?= $fund->name; ?>
 </h1>
+<small>Admin: <?= $this->Html->link('Edit this funding source', ['controller' => 'Funds', 'action' => 'edit', $fund->id], ['class' => 'text-danger']) ?></small>
 <div class="row">
     <div class="col-lg-3">
         <label class="form-control-label">

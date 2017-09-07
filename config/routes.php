@@ -66,9 +66,15 @@ Router::scope('/', function (RouteBuilder $routes) {
         $routes->connect('/', ['action' => 'index']);
     });
 
-    // viewing individual action pages
+    // viewing individual project pages
     $routes->connect('/project/:id',
         ['controller' => 'Projects', 'action' => 'view'],
+        ['id' => '[0-9]+', 'pass' => ['id']]
+    );
+
+    // viewing individual funding pages
+    $routes->connect('/fund/:id',
+        ['controller' => 'Funds', 'action' => 'view'],
         ['id' => '[0-9]+', 'pass' => ['id']]
     );
 

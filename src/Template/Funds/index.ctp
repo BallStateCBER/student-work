@@ -6,7 +6,6 @@
             <th scope="col"><?= $this->Paginator->sort('name', 'Fund Number') ?></th>
             <th scope="col"><?= $this->Paginator->sort('organization') ?></th>
             <th scope="col"><?= $this->Paginator->sort('amount') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('funding_details') ?></th>
             <th scope="col" class="actions"><?= __('Actions') ?></th>
         </tr>
     </thead>
@@ -16,8 +15,8 @@
             <td><?= h($fund->name) ?></td>
             <td><?= h($fund->organization) ?></td>
             <td><?= h($fund->amount) ?></td>
-            <td><?= h($fund->funding_details) ?></td>
             <td class="actions">
+                <?= $this->Html->link(__('View'), ['action' => 'view', $fund->id]) ?>
                 <?= $this->Html->link(__('Edit'), ['action' => 'edit', $fund->id]) ?>
                 <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $fund->id], ['confirm' => __('Are you sure you want to delete # {0}?', $fund->id)]) ?>
             </td>

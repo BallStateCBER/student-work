@@ -197,6 +197,7 @@ Type::build('timestamp')
  * advanced ways of loading plugins
  */
 
+Plugin::load('AkkaCKEditor', ['bootstrap' => false, 'routes' => true]);
 Plugin::load('CakeJs');
 Plugin::load('Josegonzalez/Upload');
 Plugin::load('Search');
