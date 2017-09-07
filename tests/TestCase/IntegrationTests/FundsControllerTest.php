@@ -50,10 +50,10 @@ class FundsControllerTest extends IntegrationTestCase
         $this->assertResponseOk();
 
         $fund = [
-            'name' => 'Fund Win',
+            'name' => 'ABCDEF11',
             'organization' => 'American Placeholder Association',
             'amount' => '$500',
-            'description' => 'Here is some text'
+            'funding_details' => 'Here is some text'
         ];
 
         $this->post('/funds/add', $fund);
@@ -80,17 +80,17 @@ class FundsControllerTest extends IntegrationTestCase
         $this->session(['Auth.User.id' => $id]);
 
         $fund = $this->Funds->find()
-            ->where(['name' => 'Fund Win'])
+            ->where(['name' => 'ABCDEF11'])
             ->firstOrFail();
 
         $this->get("/funds/edit/$fund->id");
         $this->assertResponseOk();
 
         $newFund = [
-            'name' => 'Test Fund',
+            'name' => 'ABCDEF91',
             'organization' => 'American Testing Association',
             'amount' => '$590',
-            'description' => 'Here is some TEST'
+            'funding_details' => 'Here is some TEST'
         ];
 
         $this->post("/funds/edit/$fund->id", $newFund);
@@ -119,7 +119,7 @@ class FundsControllerTest extends IntegrationTestCase
         $this->session(['Auth.User.id' => $id]);
 
         $fund = $this->Funds->find()
-            ->where(['name' => 'Test Fund'])
+            ->where(['name' => 'ABCDEF91'])
             ->firstOrFail();
 
         $this->get("/funds/delete/$fund->id");

@@ -43,6 +43,8 @@ class UsersControllerTest extends IntegrationTestCase
      */
     public function testRegistrationFormCorrectly()
     {
+        $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
+        $this->session(['Auth.User.id' => $id]);
         $this->get('/register');
 
         $this->assertResponseOk();
@@ -56,9 +58,8 @@ class UsersControllerTest extends IntegrationTestCase
         $this->post('/register', $data);
 
         $this->assertResponseSuccess();
-        $this->assertRedirect('/account');
-        $this->assertSession(123456789, 'Auth.User.id');
 
+        $this->session(['Auth.User.id' => 123456789]);
         $this->get('/account');
 
         $moreData = [
@@ -87,8 +88,7 @@ class UsersControllerTest extends IntegrationTestCase
         $this->assertResponseSuccess();
 
         $id = $this->Users->getIdFromEmail('mblum@bsu.edu');
-#        $this->assertSession($id, 'Auth.User.id');
-        $this->markTestIncomplete();
+        $this->assertSession($id, 'Auth.User.id');
     }
 
     /**
