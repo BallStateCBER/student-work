@@ -263,6 +263,20 @@ class ReportsController extends AppController
         $this->set('_serialize', ['report']);
         $this->set(['titleForLayout' => 'Add a Report']);
 
+        if ($this->request->session()->read('Auth.User.role') == 'Site Admin') {
+            $id = $this->request->session()->read('Auth.User.id');
+            $reports = $this->Reports->getAllStudentWorkReports($id);
+
+            foreach ($reports as $report) {
+                if (!isset($report->end_date)) {
+                    $this->Flash->duplicates("Hey! Before you continue, make sure you're not duplicating work reports. Your report for $report->project_name has no end date.");
+                }
+                if (isset($report->end_date)) {
+                    $this->Flash->duplicates("Hey! Before you continue, make sure you're not duplicating work reports. Your report for $report->project_name ends on $report->end_date.");
+                }
+            }
+        }
+
         if ($this->request->is('post')) {
             $report = $this->Reports->patchEntity($report, $this->request->getData());
             $project = $this->Reports->Projects->find()

@@ -94,4 +94,18 @@ class ReportsTable extends Table
 
         return $rules;
     }
+
+    /**
+     * returns all a student's current work reports
+     */
+    public function getAllStudentWorkReports($id)
+    {
+        $reports = $this->find()
+            ->where(['student_id' => $id])
+            ->andWhere(['end_date >=' => date('Y-m-d')])
+            ->orWhere(['end_date IS' => null])
+            ->toArray();
+
+        return $reports;
+    }
 }
