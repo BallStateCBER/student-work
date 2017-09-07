@@ -98,12 +98,28 @@ class ReportsTable extends Table
     /**
      * returns all a student's current work reports
      */
-    public function getAllStudentWorkReports($id)
+    public function getStudentCurrentReports($id)
     {
         $reports = $this->find()
-            ->where(['student_id' => $id])
-            ->andWhere(['end_date >=' => date('Y-m-d')])
+            ->where(['end_date >=' => date('Y-m-d')])
             ->orWhere(['end_date IS' => null])
+            ->andWhere(['student_id' => $id])
+            ->toArray();
+
+        return $reports;
+    }
+
+    /**
+     * returns all a student's current work reports
+     * by name
+     */
+    public function getStudentCurrentReportsByName($id, $name)
+    {
+        $reports = $this->find()
+            ->where(['end_date >=' => date('Y-m-d')])
+            ->orWhere(['end_date IS' => null])
+            ->andWhere(['student_id' => $id])
+            ->andWhere(['project_name' => $name])
             ->toArray();
 
         return $reports;

@@ -263,9 +263,9 @@ class ReportsController extends AppController
         $this->set('_serialize', ['report']);
         $this->set(['titleForLayout' => 'Add a Report']);
 
-        if ($this->request->session()->read('Auth.User.role') == 'Site Admin') {
+        if ($this->request->session()->read('Auth.User.role') == 'Student') {
             $id = $this->request->session()->read('Auth.User.id');
-            $reports = $this->Reports->getAllStudentWorkReports($id);
+            $reports = $this->Reports->getStudentCurrentReports($id);
 
             foreach ($reports as $report) {
                 if (!isset($report->end_date)) {
@@ -292,9 +292,16 @@ class ReportsController extends AppController
                 ->where(['name' => $this->request->data['student_id']])
                 ->first();
             $report->student_id = $studentId->id;
-            if ($project == null) {
-                $this->Flash->error(__('That project was not found. Please enter a new project to make a report about it.'));
-                return $this->redirect(['action' => 'index']);
+            if ($this->request->session()->read('Auth.User.role') == 'Site Admin') {
+                $id = $this->request->session()->read('Auth.User.id');
+                $name = $report->project_name;
+                $reports = $this->Reports->getStudentCurrentReportsByName($id, $name);
+                if (!empty($reports)) {
+                    foreach ($reports as $report) {
+                        $this->Flash->duplicates("Sorry, you cannot create this report. You've already got a current report for the project $report->project_name.");
+                    }
+                    return $this->redirect(['action' => 'index']);
+                }
             }
             if ($this->Reports->save($report)) {
                 return $this->Flash->success(__('The report has been saved.'));
