@@ -43,15 +43,20 @@ $name = $name[0];
                 <?= $this->Html->link('Add a Report', ['controller' => 'Reports', 'action' => 'add'], ['class'=>'dropdown-item']); ?>
             </div>
         </li>
+        <?php if ($this->request->session()->read('Auth.User.role') == 'Site Admin'): ?>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Students & Staff</a>
             <div class="dropdown-menu">
                 <?= $this->Html->link('Users Index', ['controller' => 'Users', 'action' => 'index'], ['class'=>'dropdown-item']); ?>
-                <?php if ($this->request->session()->read('Auth.User.role') == 'Site Admin'): ?>
-                    <?= $this->Html->link('Add a User', ['controller' => 'Users', 'action' => 'register'], ['class'=>'dropdown-item']); ?>
-                <?php endif; ?>
+                <?= $this->Html->link('Add a User', ['controller' => 'Users', 'action' => 'register'], ['class'=>'dropdown-item']); ?>
+
             </div>
         </li>
+        <?php else: ?>
+            <li class="nav-item">
+                <?= $this->Html->link('Students & Staff', ['controller' => 'Users', 'action' => 'index'], ['class'=>'nav-link']); ?>
+            </li>
+        <?php endif; ?>
         <li class="nav-item">
             <?php if ($user): ?>
                 <u>
