@@ -24,14 +24,18 @@ $name = $name[0];
             <li class="nav-item">
                 <?= $this->Html->link('Funding', ['controller' => 'Funds', 'action' => 'index'], ['class'=>'nav-link']); ?>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
+                <div class="dropdown-menu">
+                    <?= $this->Html->link('Projects Index', ['controller' => 'Projects', 'action' => 'index'], ['class'=>'dropdown-item']); ?>
+                    <?= $this->Html->link('Add a Project', ['controller' => 'Projects', 'action' => 'add'], ['class'=>'dropdown-item']); ?>
+                </div>
+            </li>
+        <?php else: ?>
+            <li class="nav-item">
+                <?= $this->Html->link('Projects', ['controller' => 'Projects', 'action' => 'index'], ['class'=>'nav-link']); ?>
+            </li>
         <?php endif; ?>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
-            <div class="dropdown-menu">
-                <?= $this->Html->link('Projects Index', ['controller' => 'Projects', 'action' => 'index'], ['class'=>'dropdown-item']); ?>
-                <?= $this->Html->link('Add a Project', ['controller' => 'Projects', 'action' => 'add'], ['class'=>'dropdown-item']); ?>
-            </div>
-        </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Student Reports</a>
             <div class="dropdown-menu">
