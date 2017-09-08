@@ -86,4 +86,20 @@ class AwardsTable extends Table
 
         return $rules;
     }
+
+    public function getAwards($userId)
+    {
+        $awards = $this->find('all');
+        $awards
+            ->select()
+            ->where(['user_id' => $userId])
+            ->order(['awarded_on' => 'ASC'])
+            ->toArray();
+
+        if (!iterator_count($awards)) {
+            $awards = null;
+        }
+
+        return $awards;
+    }
 }

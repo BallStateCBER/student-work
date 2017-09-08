@@ -25,43 +25,36 @@ class UsersController extends AppController
         parent::initialize();
         $this->loadModel('Awards');
         $this->loadModel('Degrees');
-        /*$this->loadComponent('Search.Prg', [
-            'actions' => ['search']
-        ]);*/
+        if (!$this->isAuthorized($this->request->session()->read('Auth.User'))) {
+            if ($this->request->getParam('action') == 'edit') {
+                $this->Flash->error('Only admins can edit accounts.');
+                return $this->redirect(['controller' => 'Users', 'action' => 'index']);
+            }
+            if ($this->request->getParam('action') == 'register') {
+                $this->Flash->error('Only admins can create accounts.');
+                return $this->redirect(['controller' => 'Users', 'action' => 'index']);
+            }
+            if ($this->request->getParam('action') == 'delete') {
+                $this->Flash->error('Only admins can delete accounts.');
+                return $this->redirect(['controller' => 'Users', 'action' => 'index']);
+            }
+        }
     }
 
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
         $this->Auth->allow([
-            'forgotPassword', 'login', 'register', 'resetPassword'
+            'forgotPassword', 'login', 'resetPassword'
         ]);
     }
 
     // gets all the employee's related work, education, etc. experience
     private function getUserVarsPr($id = null)
     {
-        $awards = $this->Awards->find('all');
-        $awards
-            ->select()
-            ->where(['user_id' => $id])
-            ->order(['awarded_on' => 'ASC'])
-            ->toArray();
+        $awards = $this->Awards->getAwards($id);
 
-        if (!iterator_count($awards)) {
-            $awards = null;
-        }
-
-        $degrees = $this->Degrees->find('all');
-        $degrees
-            ->select()
-            ->where(['user_id' => $id])
-            ->order(['date' => 'DESC'])
-            ->toArray();
-
-        if (!iterator_count($degrees)) {
-            $degrees = null;
-        }
+        $degrees = $this->Degrees->getDegrees($id);
 
         $this->set(compact('awards', 'degrees'));
     }
@@ -176,10 +169,6 @@ class UsersController extends AppController
         $this->set('_serialize', ['user']);
         $this->set(['titleForLayout' => "Edit user: $user->name"]);
 
-        if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
-            return $this->Flash->error(__('Sorry, you are not authorized to edit other users.'));
-        }
-
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
@@ -198,18 +187,13 @@ class UsersController extends AppController
      */
     public function delete($id = null)
     {
-        $role = Router::getRequest()->session()->read('Auth.User.id');
-        if ($role == 'Site Admin') {
-            $this->request->allowMethod(['get']);
-            $user = $this->Users->get($id);
-            if ($this->Users->delete($user)) {
-                $this->Flash->success(__('The user has been deleted.'));
-            } else {
-                $this->Flash->error(__('The user could not be deleted. Please, try again.'));
-            }
-            return $this->redirect(['action' => 'index']);
+        $this->request->allowMethod(['get']);
+        $user = $this->Users->get($id);
+        if ($this->Users->delete($user)) {
+            $this->Flash->success(__('The user has been deleted.'));
+        } else {
+            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
         }
-        $this->Flash->error('Sorry, you are not authorized to delete users.');
         return $this->redirect(['action' => 'index']);
     }
 

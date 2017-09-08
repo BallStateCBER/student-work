@@ -288,7 +288,7 @@ class ReportsController extends AppController
 
         if ($report->student_id != $this->request->session()->read('Auth.User.id')) {
             if ($report->supervisor_id != $this->request->session()->read('Auth.User.id')) {
-                if (!$this->isAuthorized($this->request->session()->read('Auth.User.role'))) {
+                if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
                     return $this->Flash->error(__('You are not authorized to edit this.'));
                 }
             }

@@ -134,4 +134,20 @@ class DegreesTable extends Table
 
         return $degreeTypes;
     }
+
+    public function getDegrees($userId)
+    {
+        $degrees = $this->find('all');
+        $degrees
+            ->select()
+            ->where(['user_id' => $userId])
+            ->order(['date' => 'DESC'])
+            ->toArray();
+
+        if (!iterator_count($degrees)) {
+            $degrees = null;
+        }
+
+        return $degrees;
+    }
 }
