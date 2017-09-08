@@ -58,7 +58,6 @@ class AppController extends Controller
     public function initialize()
     {
         parent::initialize();
-
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
@@ -87,7 +86,10 @@ class AppController extends Controller
             'unauthorizedRedirect' => $this->referer() // If unauthorized, return them to page they were just on
             ]
         );
-        $this->set(['activeUser' => $this->request->session()->read('Auth.User')]);
+
+        $activeUser = $this->request->session()->read('Auth.User');
+        $this->set(compact('activeUser'));
+        $this->Auth->allow(['home']);
 
         /*
          * Enable the following components for recommended CakePHP security settings.
@@ -110,6 +112,10 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
-        $this->Auth->allow(['home']);
+    }
+
+    public function isAuthorized($user)
+    {
+        return (bool)($user['role'] === 'Site Admin');
     }
 }

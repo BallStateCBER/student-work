@@ -129,4 +129,27 @@ class FundsControllerTest extends IntegrationTestCase
         $this->get("/funds/delete/$fund->id");
         $this->assertResponseSuccess();
     }
+
+    /**
+     * Test indexing funds
+     *
+     * @return void
+     */
+    public function testIndexingFunds()
+    {
+        $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
+
+        $this->get('/funds');
+        $this->assertResponseOk();
+        $this->assertResponseContains('Generic');
+
+        $id = $this->Users->getIdFromEmail('mblum@bsu.edu');
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
+
+        $this->get('/funds');
+        $this->assertRedirect();
+    }
 }

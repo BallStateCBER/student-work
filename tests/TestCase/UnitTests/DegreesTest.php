@@ -59,11 +59,14 @@ class DegreesTest extends IntegrationTestCase
      */
     public function testGetAllTheDegrees()
     {
+        $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
         $degrees = $this->Degrees->getDegreeTypes();
 
-        if ($degrees['Associate of Applied Arts']) {
+        foreach ($degrees as $degree) {
             $this->get('/degrees/add');
-            $this->assertResponseSuccess();
+            $this->assertResponseContains($degree);
         }
     }
 }
