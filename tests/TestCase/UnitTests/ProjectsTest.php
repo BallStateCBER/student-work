@@ -76,4 +76,17 @@ class ProjectsTest extends IntegrationTestCase
 
         $this->assertResponseContains("This probably suggests a problem.");
     }
+
+    /**
+     * Test getting projects by name
+     *
+     * @return void
+     */
+    public function testGetProjectByName()
+    {
+        $name = $this->Projects->find()
+            ->first();
+        $project = $this->Projects->getProjectByName($name->name);
+        $this->assertEquals($name->name, $project->name);
+    }
 }

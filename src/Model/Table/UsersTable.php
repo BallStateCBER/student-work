@@ -162,6 +162,28 @@ class UsersTable extends Table
         return md5($userId.$email.$salt.$month);
     }
 
+    public function getUser($userId)
+    {
+        $user = $this->find()
+            ->where(['id' => $userId])
+            ->first();
+        return $user;
+    }
+
+    public function getUserByName($name)
+    {
+        $user = $this->find()
+            ->where(['name' => $name])
+            ->first();
+        return $user;
+    }
+
+    public function getUserNameFromId($userId)
+    {
+        $user = $this->getUser($userId);
+        return $user->name;
+    }
+
     public function sendPasswordResetEmail($userId, $email)
     {
         $resetPasswordHash = $this->getResetPasswordHash($userId, $email);

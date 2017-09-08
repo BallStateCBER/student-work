@@ -87,4 +87,13 @@ class ProjectsTable extends Table
 
         return $validator;
     }
+
+    public function getProjectByName($name)
+    {
+        $project = $this->find()
+            ->where(['name' => $name])
+            ->first();
+
+        return $project;
+    }
 }

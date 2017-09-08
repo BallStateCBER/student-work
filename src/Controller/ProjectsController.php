@@ -18,8 +18,8 @@ class ProjectsController extends AppController
         parent::initialize();
         $this->loadModel('UsersProjects');
         if ($this->request->getParam('action') != 'index' and $this->request->getParam('action') != 'view') {
-            if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
-                $this->Flash->error('Only admins can access project details.');
+            if (!$this->isAuthorized($this->request->session()->read('Auth.User'))) {
+                $this->Flash->error('Only admins can change project details.');
                 return $this->redirect(['controller' => 'Projects', 'action' => 'index']);
             }
         }
@@ -137,24 +137,10 @@ class ProjectsController extends AppController
 
     public function delete($id = null)
     {
-        $project = $this->Projects->find()
-            ->where(['id' => $id])
-            ->contain(['Users'])
-            ->first();
-        $role = $this->request->session()->read('Auth.User.role');
-        $activeUser = $this->request->session()->read('Auth.User.id');
-        if ($role != 'Site Admin') {
-            $ok = 0;
-            foreach ($project->users as $user) {
-                if ($user->id == $activeUser) {
-                    $ok = 1;
-                }
-            }
-            if (!$ok) {
-                $this->Flash->error('You are not authorized to delete this.');
-                return $this->redirect(['action' => 'index']);
-            }
-        }
+        $project = $this->Projects->get($id, [
+            'contain' => ['Users']
+        ]);
+
         if ($this->Projects->delete($project)) {
             $this->Flash->success(__('The project has been deleted.'));
         } else {

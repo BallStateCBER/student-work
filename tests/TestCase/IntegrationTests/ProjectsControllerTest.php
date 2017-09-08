@@ -63,6 +63,13 @@ class ProjectsControllerTest extends IntegrationTestCase
         $this->post('/projects/add', $project);
         $this->assertResponseSuccess();
 
+        $id = $this->Users->getIdFromEmail('mblum@bsu.edu');
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
+
+        $this->get('/projects/add');
+        $this->assertRedirect();
+
         $project = $this->Projects->find()
             ->where(['name' => $project['name']])
             ->firstOrFail();
@@ -100,6 +107,13 @@ class ProjectsControllerTest extends IntegrationTestCase
 
         $this->post("/projects/edit/$project->id", $newProject);
         $this->assertResponseSuccess();
+
+        $id = $this->Users->getIdFromEmail('mblum@bsu.edu');
+        $user = $this->Users->get($id);
+        $this->session(['Auth.User' => $user]);
+
+        $this->get("/projects/edit/$project->id");
+        $this->assertRedirect();
 
         $project = $this->Projects->find()
             ->where(['name' => $newProject['name']])
