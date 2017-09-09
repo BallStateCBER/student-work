@@ -16,9 +16,7 @@ class DegreesController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->deny([
-            'add', 'delete', 'edit'
-        ]);
+        $this->loadModel('Users');
     }
 
     /**
@@ -37,7 +35,8 @@ class DegreesController extends AppController
 
         if ($this->request->is('post')) {
             $degree = $this->Degrees->patchEntity($degree, $this->request->getData());
-            $degree->user_id = $this->request->session()->read('Auth.User.id');
+            $grad = $this->Users->getUserByName($this->request->data['user_id']);
+            $degree->user_id = $grad->id;
             if ($this->Degrees->save($degree)) {
                 return $this->Flash->success(__('The degree has been saved.'));
             }
@@ -64,14 +63,16 @@ class DegreesController extends AppController
         $this->set(compact('degree', 'degreeTypes'));
         $this->set('_serialize', ['degree']);
 
-        if ($degree['user_id'] != $this->request->session()->read('Auth.User.id')) {
-            if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
+        if ($degree['user_id'] != $this->Auth->user('id')) {
+            if (!$this->isAuthorized()) {
                 return $this->Flash->error('Sorry, you are not authorized to edit this degree.');
             }
         }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $degree = $this->Degrees->patchEntity($degree, $this->request->getData());
+            $grad = $this->Users->getUserByName($this->request->data['user_id']);
+            $degree->user_id = $grad->id;
             if ($this->Degrees->save($degree)) {
                 return $this->Flash->success(__('The degree has been saved.'));
             }

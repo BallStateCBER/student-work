@@ -18,7 +18,7 @@ class ProjectsController extends AppController
         parent::initialize();
         $this->loadModel('UsersProjects');
         if ($this->request->getParam('action') != 'index' and $this->request->getParam('action') != 'view') {
-            if (!$this->isAuthorized($this->request->session()->read('Auth.User'))) {
+            if (!$this->isAuthorized()) {
                 $this->Flash->error('Only admins can change project details.');
                 return $this->redirect(['controller' => 'Projects', 'action' => 'index']);
             }

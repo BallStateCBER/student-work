@@ -17,13 +17,14 @@ class ReportsController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
+        $this->loadModel('Users');
     }
 
     private function __reportIndexing($reports)
     {
         foreach ($reports as $report) {
-            $report->student_id = $this->Reports->Users->getUserNameFromId($report->student_id);
-            $report->supervisor_id = $this->Reports->Users->getUserNameFromId($report->supervisor_id);
+            $report->student_id = $this->Users->getUserNameFromId($report->student_id);
+            $report->supervisor_id = $this->Users->getUserNameFromId($report->supervisor_id);
         }
 
         $allReports = $this->Reports->find()->toArray();
@@ -35,7 +36,7 @@ class ReportsController extends AppController
         $ids = [];
         $names = [];
         foreach ($allReports as $report) {
-            $student = $this->Reports->Users->getUser($report->student_id);
+            $student = $this->Users->getUser($report->student_id);
 
             $ids[] = $report->student_id;
             $names[] = $student->name;
@@ -51,7 +52,7 @@ class ReportsController extends AppController
         $ids = [];
         $names = [];
         foreach ($allReports as $report) {
-            $supervisor = $this->Reports->Users->getUser($report->supervisor_id);
+            $supervisor = $this->Users->getUser($report->supervisor_id);
 
             $ids[] = $report->supervisor_id;
             $names[] = $supervisor->name;
@@ -187,8 +188,8 @@ class ReportsController extends AppController
     {
         $report = $this->Reports->get($id);
 
-        $report->student_id = $this->Reports->Users->getUserNameFromId($report->student_id);
-        $report->supervisor_id = $this->Reports->Users->getUserNameFromId($report->supervisor_id);
+        $report->student_id = $this->Users->getUserNameFromId($report->student_id);
+        $report->supervisor_id = $this->Users->getUserNameFromId($report->supervisor_id);
 
         $this->set('report', $report);
         $this->set('_serialize', ['report']);
@@ -208,7 +209,7 @@ class ReportsController extends AppController
         foreach ($projects as $project) {
             $projectNames += [$project->name => $project->name];
         }
-        $supervisors = $this->Reports->Users->find('list');
+        $supervisors = $this->Users->find('list');
 
         $report = $this->Reports->newEntity();
 
@@ -217,7 +218,7 @@ class ReportsController extends AppController
         $this->set(['titleForLayout' => 'Add a Report']);
 
         if ($this->request->session()->read('Auth.User.role') == 'Student') {
-            $id = $this->request->session()->read('Auth.User.id');
+            $id = $this->Auth->user('id');
             $reports = $this->Reports->getStudentCurrentReports($id);
 
             foreach ($reports as $report) {
@@ -240,11 +241,11 @@ class ReportsController extends AppController
             }
 
             $report->project_name = $this->request->data['project_name'];
-            $student = $this->Reports->Users->getUserByName($this->request->data['student_id']);
+            $student = $this->Users->getUserByName($this->request->data['student_id']);
             $report->student_id = $student->id;
 
             if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
-                $id = $this->request->session()->read('Auth.User.id');
+                $id = $this->Auth->user('id');
                 $name = $report->project_name;
                 $reports = $this->Reports->getStudentCurrentReportsByName($id, $name);
                 if (!empty($reports)) {
@@ -280,14 +281,14 @@ class ReportsController extends AppController
         foreach ($projects as $project) {
             $projectNames += [$project->name => $project->name];
         }
-        $supervisors = $this->Reports->Users->find('list');
+        $supervisors = $this->Users->find('list');
 
         $this->set(compact('projectNames', 'report', 'routine', 'supervisors'));
         $this->set('_serialize', ['report']);
         $this->set(['titleForLayout' => "Edit Report: $report->project_name"]);
 
-        if ($report->student_id != $this->request->session()->read('Auth.User.id')) {
-            if ($report->supervisor_id != $this->request->session()->read('Auth.User.id')) {
+        if ($report->student_id != $this->Auth->user('id')) {
+            if ($report->supervisor_id != $this->Auth->user('id')) {
                 if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
                     return $this->Flash->error(__('You are not authorized to edit this.'));
                 }
@@ -319,7 +320,7 @@ class ReportsController extends AppController
     public function delete($id = null)
     {
         $report = $this->Reports->get($id);
-        $activeUser = $this->request->session()->read('Auth.User.id');
+        $activeUser = $this->Auth->user('id');
         $role = $this->request->session()->read('Auth.User.role');
         if ($role != 'Site Admin' or ($report->student_id != $activeUser or $report->supervisor_id != $activeUser)) {
             $this->Flash->error('You are not authorized to delete this.');

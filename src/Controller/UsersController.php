@@ -25,7 +25,7 @@ class UsersController extends AppController
         parent::initialize();
         $this->loadModel('Awards');
         $this->loadModel('Degrees');
-        if (!$this->isAuthorized($this->request->session()->read('Auth.User'))) {
+        if (!$this->isAuthorized()) {
             if ($this->request->getParam('action') == 'edit') {
                 $this->Flash->error('Only admins can edit accounts.');
                 return $this->redirect(['controller' => 'Users', 'action' => 'index']);
@@ -101,9 +101,6 @@ class UsersController extends AppController
      */
     public function register()
     {
-        if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
-            return $this->Flash->error('Sorry, you must be an admin to register new users.');
-        }
         $this->set(['titleForLayout' => 'Register']);
         $user = $this->Users->newEntity();
         $this->set(compact('user', 'projects'));
@@ -132,7 +129,7 @@ class UsersController extends AppController
      */
     public function account($id = null)
     {
-        $id = Router::getRequest()->session()->read('Auth.User.id');
+        $id = $this->Auth->user('id');
         $user = $this->Users->get($id, [
             'contain' => ['Projects']
         ]);

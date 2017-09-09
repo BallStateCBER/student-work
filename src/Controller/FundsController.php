@@ -21,7 +21,7 @@ class FundsController extends AppController
     public function initialize()
     {
         parent::initialize();
-        if (!$this->isAuthorized($this->request->session()->read('Auth.User'))) {
+        if (!$this->isAuthorized()) {
             $this->Flash->error('Only admins can access funding details.');
             return $this->redirect(['controller' => 'Reports', 'action' => 'index']);
         }

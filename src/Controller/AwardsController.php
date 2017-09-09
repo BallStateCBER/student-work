@@ -16,14 +16,12 @@ class AwardsController extends AppController
     public function initialize()
     {
         parent::initialize();
+        $this->loadModel('Users');
     }
 
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->deny([
-            'add', 'delete', 'edit'
-        ]);
     }
 
     /**
@@ -42,7 +40,8 @@ class AwardsController extends AppController
 
         if ($this->request->is('post')) {
             $award = $this->Awards->patchEntity($award, $this->request->getData());
-            $award->user_id = $this->request->session()->read('Auth.User.id');
+            $awardee = $this->Users->getUserByName($this->request->data['user_id']);
+            $award->user_id = $awardee->id;
             if ($this->Awards->save($award)) {
                 return $this->Flash->success(__('The award has been saved.'));
             }
@@ -69,14 +68,16 @@ class AwardsController extends AppController
         $this->set('_serialize', ['award']);
         $this->set(['titleForLayout' => 'Edit Award: '.$award->name]);
 
-        if ($award['user_id'] != $this->request->session()->read('Auth.User.id')) {
-            if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
+        if ($award['user_id'] != $this->Auth->user('id')) {
+            if (!$this->isAuthorized()) {
                 return $this->Flash->error('Sorry, you are not authorized to edit this award.');
             }
         }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $award = $this->Awards->patchEntity($award, $this->request->getData());
+            $awardee = $this->Users->getUserByName($this->request->data['user_id']);
+            $award->user_id = $awardee->id;
             if ($this->Awards->save($award)) {
                 return $this->Flash->success(__('The award has been saved.'));
             }

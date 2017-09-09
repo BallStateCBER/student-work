@@ -89,7 +89,6 @@ class AppController extends Controller
 
         $activeUser = $this->request->session()->read('Auth.User');
         $this->set(compact('activeUser'));
-        $this->Auth->allow(['home']);
 
         /*
          * Enable the following components for recommended CakePHP security settings.
@@ -114,8 +113,9 @@ class AppController extends Controller
         }
     }
 
-    public function isAuthorized($user)
+    public function isAuthorized()
     {
+        $user = $this->request->session()->read('Auth.User');
         return (bool)($user['role'] === 'Site Admin');
     }
 }

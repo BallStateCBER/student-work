@@ -37,9 +37,7 @@ class PagesController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow([
-            'home'
-        ]);
+        $this->Auth->allow(['home']);
     }
     /**
      * Displays a view
