@@ -51,7 +51,7 @@ class DegreesControllerTest extends IntegrationTestCase
         $this->assertResponseOk();
 
         $degree = [
-            'user_id' => $id,
+            'user_id' => $user->name,
             'type' => 'Doctor of Pharmacy',
             'name' => 'Test Degree',
             'location' => 'Muncie, Indiana',
@@ -96,7 +96,7 @@ class DegreesControllerTest extends IntegrationTestCase
         $this->assertResponseOk();
 
         $newDegree = [
-            'user_id' => $id,
+            'user_id' => $user->name,
             'type' => 'Doctor of Pharmacy',
             'name' => 'Test Degree',
             'location' => 'Madison, Wisconsin',

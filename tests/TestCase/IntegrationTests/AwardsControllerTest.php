@@ -49,9 +49,8 @@ class AwardsControllerTest extends IntegrationTestCase
 
         $this->get('/awards/add');
         $this->assertResponseOk();
-
         $award = [
-            'user_id' => $id,
+            'user_id' => $user->name,
             'name' => 'Test Awards',
             'awarded_on' => date('Y-m-d'),
             'awarded_by' => 'This Test',
@@ -60,6 +59,7 @@ class AwardsControllerTest extends IntegrationTestCase
 
         $this->post('/awards/add', $award);
         $this->assertResponseOk();
+
 
         $award = $this->Awards->find()
             ->where(['name' => $award['name']])
@@ -92,7 +92,7 @@ class AwardsControllerTest extends IntegrationTestCase
         $this->assertResponseOk();
 
         $newAward = [
-            'user_id' => $id,
+            'user_id' => $user->name,
             'name' => 'Test Awards Part Three',
             'awarded_on' => date('Y-m-d'),
             'awarded_by' => 'That Test',
