@@ -1,5 +1,10 @@
 # Why Are We Here?
 
+[![Build Status](https://travis-ci.org/BallStateCBER/whyarewehere.svg?branch=master)](https://travis-ci.org/BallStateCBER/whyarewehere)
+[![Code Climate](https://codeclimate.com/repos/59122df4f56aa70286000081/badges/e5ac1151f8bfac929549/gpa.svg)](https://codeclimate.com/repos/59122df4f56aa70286000081/feed)
+[![Test Coverage](https://codeclimate.com/repos/59122df4f56aa70286000081/badges/e5ac1151f8bfac929549/coverage.svg)](https://codeclimate.com/repos/59122df4f56aa70286000081/coverage)
+[![Issue Count](https://codeclimate.com/repos/59122df4f56aa70286000081/badges/e5ac1151f8bfac929549/issue_count.svg)](https://codeclimate.com/repos/59122df4f56aa70286000081/feed)
+
 ## Site objective:
 Why Are You Here? will act as a repository of work for all the faculty, staff, and students who work or have worked for CBER. The site will showcase everything about what CBER employees do at and for CBER and Ball State/Muncie at large, including projects, publications, sites, designs, credentials, academic accomplishments, and community engagement. By consolidating all of our employees and their work into a neat little catch-all repository, Why Are You Here? will allow all of us at CBER to serve as professional and personal references for each other if and when we seek work elsewhere, if anyone wants to nominate any of us for any awards, writing bios for speaking engagements, and any number of things that would require us to know *why we’re here*.
 
