@@ -165,15 +165,15 @@ class ReportsTest extends IntegrationTestCase
     }
 
     /**
-     * Test getStudentCurrentReportsByName method
+     * Test getStudentCurrentReportsByProject method
      *
      * @return void
      */
-    public function testGetStudentCurrentReportsByName()
+    public function testGetStudentCurrentReportsByProject()
     {
         $id = $this->Users->getIdFromEmail('edfox@bsu.edu');
         $project = $this->Projects->find()->first();
-        $reports = $this->Reports->getStudentCurrentReportsByName($id, $project->name);
+        $reports = $this->Reports->getStudentCurrentReportsByProject($id, $project->id);
         $this->assertEquals([], $reports);
     }
 }

@@ -27,7 +27,7 @@ class ReportsController extends AppController
             $report->supervisor_id = $this->Users->getUserNameFromId($report->supervisor_id);
         }
 
-        $allReports = $this->Reports->find()->toArray();
+        $allReports = $this->Reports->find()->contain(['Projects'])->toArray();
         return $allReports;
     }
 
@@ -66,7 +66,16 @@ class ReportsController extends AppController
     private function __setIndexVars($reports)
     {
         $allReports = $this->__reportIndexing($reports);
-        $projects = $this->Reports->Projects->find('list');
+
+        $ids = [];
+        $projects = [];
+        foreach ($allReports as $report) {
+            $ids[] = $report->project['id'];
+            $projects[] = $report->project['name'];
+        }
+        $projects = array_combine($ids, $projects);
+        $projects = array_unique($projects);
+
         $students = $this->__students($allReports);
         $supervisors = $this->__supervisors($allReports);
 
@@ -83,7 +92,8 @@ class ReportsController extends AppController
         $this->paginate;
         $reports = $this->Reports->find()
             ->where(['end_date >=' => date('Y-m-d')])
-            ->orWhere(['end_date IS' => null]);
+            ->orWhere(['end_date IS' => null])
+            ->contain(['Projects']);
 
         $reports = $this->paginate($reports);
         $this->__setIndexVars($reports);
@@ -99,7 +109,7 @@ class ReportsController extends AppController
     public function index()
     {
         $this->paginate;
-        $reports = $this->paginate($this->Reports);
+        $reports = $this->paginate($this->Reports->find()->contain(['Projects']));
 
         $this->__setIndexVars($reports);
 
@@ -117,7 +127,8 @@ class ReportsController extends AppController
         $reports = $this->Reports->find()
             ->where(['end_date <' => date('Y-m-d')])
             ->andWhere(['end_date IS NOT' => null])
-            ->andWhere(['end_date !=' => '0000-00-00 00:00:00']);
+            ->andWhere(['end_date !=' => '0000-00-00 00:00:00'])
+            ->contain(['Projects']);
 
         $reports = $this->paginate($reports);
         $this->__setIndexVars($reports);
@@ -135,7 +146,8 @@ class ReportsController extends AppController
 
         $this->paginate;
         $reports = $this->Reports->find()
-            ->where(['project_name' => $project->name]);
+            ->where(['project_id' => $id])
+            ->contain(['Projects']);
 
         $reports = $this->paginate($reports);
         $this->__setIndexVars($reports);
@@ -152,7 +164,8 @@ class ReportsController extends AppController
     {
         $this->paginate;
         $reports = $this->Reports->find()
-            ->where(['student_id' => $id]);
+            ->where(['student_id' => $id])
+            ->contain(['Projects']);
 
         $reports = $this->paginate($reports);
         $this->__setIndexVars($reports);
@@ -169,7 +182,8 @@ class ReportsController extends AppController
     {
         $this->paginate;
         $reports = $this->Reports->find()
-            ->where(['supervisor_id' => $id]);
+            ->where(['supervisor_id' => $id])
+            ->contain(['Projects']);
 
         $reports = $this->paginate($reports);
         $this->__setIndexVars($reports);
@@ -186,14 +200,17 @@ class ReportsController extends AppController
      */
     public function view($id = null)
     {
-        $report = $this->Reports->get($id);
+        $report = $this->Reports->get($id, [
+            'contain' => 'Projects'
+        ]);
 
         $report->student_id = $this->Users->getUserNameFromId($report->student_id);
         $report->supervisor_id = $this->Users->getUserNameFromId($report->supervisor_id);
 
+        $title = $report->project['name'];
         $this->set('report', $report);
         $this->set('_serialize', ['report']);
-        $this->set(['titleForLayout' => "Report: $report->project_name"]);
+        $this->set(['titleForLayout' => "Report: $title"]);
     }
 
     /**
@@ -240,17 +257,17 @@ class ReportsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
 
-            $report->project_name = $this->request->data['project_name'];
+            $report->project_id = $this->request->data['project_name'];
             $student = $this->Users->getUserByName($this->request->data['student_id']);
             $report->student_id = $student->id;
 
             if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
                 $id = $this->Auth->user('id');
-                $name = $report->project_name;
-                $reports = $this->Reports->getStudentCurrentReportsByName($id, $name);
+                $project = $this->Projects->get($this->request->data['project_name']);
+                $reports = $this->Reports->getStudentCurrentReportsByProject($id, $project->id);
                 if (!empty($reports)) {
                     foreach ($reports as $report) {
-                        $this->Flash->duplicates("Sorry, you cannot create this report. You've already got a current report for the project $report->project_name.");
+                        $this->Flash->duplicates("Sorry, you cannot create this report. You've already got a current report for the project $project->name.");
                     }
                     return $this->redirect(['action' => 'index']);
                 }
@@ -277,9 +294,9 @@ class ReportsController extends AppController
 
         $projectNames = [];
         $projects = $this->Reports->Projects->find()
-            ->select('name');
+            ->select();
         foreach ($projects as $project) {
-            $projectNames += [$project->name => $project->name];
+            $projectNames += [$project->id => $project->name];
         }
         $supervisors = $this->Users->find('list');
 

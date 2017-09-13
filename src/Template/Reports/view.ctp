@@ -17,7 +17,7 @@
             <h6>
                 Project name
             </h6>
-            <?= $report->project_name ?>
+            <?= $report->project['name'] ?>
         </div>
     </div>
     <div class="row">

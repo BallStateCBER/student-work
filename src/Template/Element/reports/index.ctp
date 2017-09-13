@@ -15,7 +15,7 @@
             <tbody>
                 <?php foreach ($reports as $report): ?>
                 <tr>
-                    <td><?= h($report->project_name) ?></td>
+                    <td><?= h($report->project['name']) ?></td>
                     <td><?= h($report->student_id) ?></td>
                     <td><?= h($report->supervisor_id) ?></td>
                     <td><?= h(date('F j, Y', strtotime($report->start_date))) ?></td>

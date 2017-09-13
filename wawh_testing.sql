@@ -142,7 +142,7 @@ CREATE TABLE `reports` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` int(11) NOT NULL,
   `supervisor_id` int(11) NOT NULL,
-  `project_name` int(11) NOT NULL,
+  `project_id` int NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime NOT NULL,
   `work_performed` text COLLATE utf8mb4_unicode_ci,

@@ -48,6 +48,8 @@ class ReportsTable extends Table
             'joinType' => 'INNER'
         ]);
 
+        $this->belongsTo('Projects');
+
         $this->Projects = TableRegistry::get('Projects');
     }
 
@@ -113,13 +115,13 @@ class ReportsTable extends Table
      * returns all a student's current work reports
      * by name
      */
-    public function getStudentCurrentReportsByName($id, $name)
+    public function getStudentCurrentReportsByProject($id, $project)
     {
         $reports = $this->find()
             ->where(['end_date >=' => date('Y-m-d')])
             ->orWhere(['end_date IS' => null])
             ->andWhere(['student_id' => $id])
-            ->andWhere(['project_name' => $name])
+            ->andWhere(['project_id' => $project])
             ->toArray();
 
         return $reports;
