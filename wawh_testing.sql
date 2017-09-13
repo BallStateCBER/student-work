@@ -84,7 +84,7 @@ CREATE TABLE `funds` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `organization` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `amount` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `funding_details` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)

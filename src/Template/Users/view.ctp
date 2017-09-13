@@ -1,6 +1,8 @@
 <?php
-$firstName = explode(' ', trim($user->name));
-$firstName = $firstName[0];
+if (isset($user->name)) {
+    $firstName = explode(' ', trim($user->name));
+    $firstName = $firstName[0];
+}
 ?>
 <?php if ($user->image): ?>
     <?= $this->Html->image('users'.DS.$user->image, [
@@ -14,7 +16,7 @@ $firstName = $firstName[0];
     ]); ?>
 <?php endif; ?>
 <h1>
-    <?= $user->name; ?>
+    <?= $user->name ?: "Unnamed employee #$user->id"; ?>
 </h1>
 <div class="row">
     <div class="col-lg-8">
@@ -24,7 +26,7 @@ $firstName = $firstName[0];
             </p>
         <?php else: ?>
             <p>
-                <?= $firstName ?> has not written a bio yet. Are you <?= $firstName ?>? You should write your bio. No, like, how are we supposed to know you're a real person if you don't talk about it on the Internet?
+                <?= $firstName ?: 'This employee' ?> has not written a bio yet. Are you <?= $firstName ?: 'this employee' ?>? You should write your bio. No, like, how are we supposed to know you're a real person if you don't talk about it on the Internet?
             </p>
         <?php endif; ?>
     </div>
@@ -36,7 +38,7 @@ $firstName = $firstName[0];
     </div>
     <div class="col-lg-4">
         <h6>Current Position</h6>
-        <?= isset($user->position) ? $user->position : "<i>No position specified</i>"; ?>
+        <?= $user->position ?: "<i>Not specified</i>"; ?>
     </div>
     <div class="col-lg-4">
         <h6>Role</h6>
@@ -46,13 +48,11 @@ $firstName = $firstName[0];
 <div class="row">
     <div class="col-lg-4">
         <h6>Birthday</h6>
-        <?php $date = strtotime($user->birth_date); ?>
-        <?= date('F jS, Y', $date); ?>
+        <?= $user->birth_date ? date('F jS, Y', strtotime($user->birth_date)) : '<i>Not specifiied</i>'; ?>
     </div>
     <div class="col-lg-4">
         <h6>Start Date</h6>
-        <?php $date = strtotime($user->start_date); ?>
-        <?= date('F jS, Y', $date); ?>
+        <?= $user->start_date ? date('F jS, Y', strtotime($user->start_date)) : '<i>Not specified</i>'; ?>
     </div>
     <div class="col-lg-4">
         <?php if ($user->end_date): ?>
@@ -68,27 +68,39 @@ $firstName = $firstName[0];
 <div class="row">
     <div class="col-lg-3">
         <h6>Emergency Contact</h6>
-        <?= $user->ice_name; ?>
+        <?= $user->ice_name ?: "<i>Not specified</i>"; ?>
     </div>
     <div class="col-lg-3">
         <h6>Emergency Contact Number</h6>
-        <?php $iceNumber = $this->Users->numberConvert($user->ice_phone); ?>
-        <?= '<a href="tel:'.$iceNumber.'">'.$user->ice_phone.'</a>'; ?>
+        <?php if (isset($user->ice_phone)): ?>
+            <?php $iceNumber = $this->Users->numberConvert($user->ice_phone); ?>
+            <?= '<a href="tel:'.$iceNumber.'">'.$user->ice_phone.'</a>'; ?>
+        <?php else: ?>
+            <i>Not specified</i>
+        <?php endif; ?>
     </div>
     <div class="col-lg-3">
         <h6>Relationship</h6>
-        <?= $user->ice_relationship; ?>
+        <?= $user->ice_relationship ?: "<i>Not specified</i>"; ?>
     </div>
 </div>
 <div class="row">
     <div class="col-lg-4">
         <h6>Alternate Email</h6>
-        <?= $this->Text->autoLinkEmails($user->alt_email); ?>
+        <?php if (isset($user->alt_email)): ?>
+            <?= $this->Text->autoLinkEmails($user->alt_email); ?>
+        <?php else: ?>
+            <i>Not specified</i>
+        <?php endif; ?>
     </div>
     <div class="col-lg-4">
         <h6>Cell Number</h6>
-        <?php $cellNumber = $this->Users->numberConvert($user->cell); ?>
-        <?= '<a href="tel:'.$cellNumber.'">'.$user->cell.'</a>'; ?>
+        <?php if (isset($user->cell)): ?>
+            <?php $cellNumber = $this->Users->numberConvert($user->cell); ?>
+            <?= '<a href="tel:'.$cellNumber.'">'.$user->cell.'</a>'; ?>
+        <?php else: ?>
+            <i>Not specified</i>
+        <?php endif; ?>
     </div>
 </div>
 <div class="row">

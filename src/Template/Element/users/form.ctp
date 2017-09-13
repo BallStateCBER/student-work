@@ -1,4 +1,4 @@
-<?php if ($activeUser['role'] == 'Site Admin'): ?>
+<?php if ($this->request->action == 'account' || $activeUser['role'] == 'Site Admin'): ?>
     <?php
     $firstName = explode(' ', trim($user->name));
     $firstName = $firstName[0];
@@ -103,6 +103,21 @@
             <div class="col-lg-4">
                 <?= $this->Form->control('cell', ['class' => 'form-control']); ?>
             </div>
+            <?php if ($this->request->action == 'edit'): ?>
+                <div class="col-lg-4">
+                    <label for="role">
+                        Site Role
+                    </label>
+                    <?= $this->Form->control('role', [
+                        'label' => false,
+                        'options' => [
+                            'Site Admin' => 'Site Admin',
+                            'Student' => 'Student'
+                        ],
+                        'type' => 'radio'
+                    ]); ?>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="row">
             <div class="col-lg-6">

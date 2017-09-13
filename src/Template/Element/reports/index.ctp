@@ -53,7 +53,7 @@
             <div class="card">
                 <div class="card-header" role="tab" id="headingOne">
                     <h6 class="mb-0">
-                        <?= $this->Html->link(__('All Projects'), ['action' => 'index']) ?>
+                        <?= $this->Html->link(__('All Reports'), ['action' => 'index']) ?>
                     </h6>
                 </div>
             </div>
