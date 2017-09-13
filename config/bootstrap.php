@@ -39,6 +39,7 @@ use Cake\Core\Plugin;
 use Cake\Database\Type;
 use Cake\Datasource\ConnectionManager;
 use Cake\Error\ErrorHandler;
+use Cake\I18n\Time;
 use Cake\Log\Log;
 use Cake\Mailer\Email;
 use Cake\Network\Request;
@@ -180,6 +181,9 @@ Type::build('datetime')
     ->useImmutable();
 Type::build('timestamp')
     ->useImmutable();
+
+Time::setToStringFormat('YYYY-MM-dd');
+Type::build('date')->useLocaleParser();
 
 /*
  * Custom Inflector rules, can be set to correctly pluralize or singularize

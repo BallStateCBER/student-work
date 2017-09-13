@@ -15,7 +15,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Award newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Award[] newEntities(array $data, array $options = [])
  * @method \App\Model\Entity\Award|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Award patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Award
+ *  patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Award[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Award findOrCreate($search, callable $callback = null, $options = [])
  */

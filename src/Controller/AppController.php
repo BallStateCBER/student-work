@@ -17,11 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Database\Type;
 use Cake\Event\Event;
-use Cake\I18n\Time;
 use Cake\Routing\Router;
-
-Time::setToStringFormat('YYYY-MM-dd');
-Type::build('date')->useLocaleParser();
 
 /**
  * Application Controller
@@ -47,7 +43,8 @@ class AppController extends Controller
     public $helpers = [
         'AkkaCKEditor.CKEditor' => [
             'version' => '4.4.7', // Default Option
-            'distribution' => 'basic' // Default Option / Other options => 'basic', 'standard', 'standard-all', 'full-all'
+            'distribution' => 'basic'
+            // Default Option / Other options => 'basic', 'standard', 'standard-all', 'full-all'
         ],
         'CakeJs.Js',
         'Flash',

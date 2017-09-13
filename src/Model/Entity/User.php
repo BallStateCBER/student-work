@@ -38,7 +38,7 @@ class User extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
+    protected $accessible = [
         '*' => true
     ];
 
@@ -47,11 +47,11 @@ class User extends Entity
      *
      * @var array
      */
-    protected $_hidden = [
+    protected $hidden = [
         'password'
     ];
 
-    protected function _setPassword($password)
+    protected function setPassword($password)
     {
         return (new DefaultPasswordHasher)->hash($password);
     }

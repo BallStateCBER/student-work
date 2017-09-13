@@ -27,7 +27,7 @@ class Award extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
+    protected $accessible = [
         '*' => true,
         'id' => false
     ];

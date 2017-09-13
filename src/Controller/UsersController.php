@@ -256,9 +256,15 @@ class UsersController extends AppController
             $userId = $this->Users->getIdFromEmail($email);
             if ($userId) {
                 if ($this->Users->sendPasswordResetEmail($userId, $email)) {
-                    return $this->Flash->success('Message sent. You should be shortly receiving an email with a link to reset your password.');
+                    return $this->Flash->success(
+                        'Message sent. You should be shortly receiving an email with a link to reset your password.'
+                    );
                 }
-                $this->Flash->error('Whoops. There was an error sending your password-resetting email out. Please try again, and if it continues to not work, email <a href="mailto:'.$adminEmail.'">'.$adminEmail.'</a> for assistance.');
+                $this->Flash->error(
+                    'Whoops. There was an error sending your password-resetting email out.
+                    Please try again, and if it continues to not work,
+                    email <a href="mailto:'.$adminEmail.'">'.$adminEmail.'</a> for assistance.'
+                );
             }
             if (!$userId) {
                 $this->Flash->error('We couldn\'t find an account registered with the email address '.$email.'.');
@@ -285,7 +291,10 @@ class UsersController extends AppController
         $expectedHash = $this->Users->getResetPasswordHash($userId, $email);
 
         if ($resetPasswordHash != $expectedHash) {
-            $this->Flash->error('Invalid password-resetting code. Make sure that you entered the correct address and that the link emailed to you hasn\'t expired.');
+            $this->Flash->error(
+                'Invalid password-resetting code. Make sure that you entered the correct address
+                and that the link emailed to you hasn\'t expired.'
+            );
             $this->redirect('/');
         }
 
@@ -300,7 +309,10 @@ class UsersController extends AppController
                 $this->Auth->setUser($data);
                 return $this->Flash->success('Password changed. You are now logged in.');
             }
-            $this->Flash->error('There was an error changing your password. Please check to make sure they\'ve been entered correctly.');
+            $this->Flash->error(
+                'There was an error changing your password.
+                Please check to make sure they\'ve been entered correctly.'
+            );
             return $this->redirect('/');
         }
     }

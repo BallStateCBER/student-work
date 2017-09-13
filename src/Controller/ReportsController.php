@@ -240,10 +240,16 @@ class ReportsController extends AppController
 
             foreach ($reports as $report) {
                 if (!isset($report->end_date)) {
-                    $this->Flash->duplicates("Hey! Before you continue, make sure you're not duplicating work reports. Your report for $report->project_name has no end date.");
+                    $this->Flash->duplicates(
+                        "Hey! Before you continue, make sure you're not duplicating work reports.
+                        Your report for $report->project_name has no end date."
+                    );
                 }
                 if (isset($report->end_date)) {
-                    $this->Flash->duplicates("Hey! Before you continue, make sure you're not duplicating work reports. Your report for $report->project_name ends on $report->end_date.");
+                    $this->Flash->duplicates(
+                        "Hey! Before you continue, make sure you're not duplicating work reports.
+                        Your report for $report->project_name ends on $report->end_date."
+                    );
                 }
             }
         }
@@ -253,7 +259,10 @@ class ReportsController extends AppController
             $project = $this->Reports->Projects->getProjectByName($this->request->data['project_name']);
 
             if ($project == null) {
-                $this->Flash->error(__('That project was not found. Please enter a new project to make a report about it.'));
+                $this->Flash->error(__(
+                    'That project was not found.
+                    Please enter a new project to make a report about it.'
+                ));
                 return $this->redirect(['action' => 'index']);
             }
 
@@ -267,7 +276,10 @@ class ReportsController extends AppController
                 $reports = $this->Reports->getStudentCurrentReportsByProject($id, $project->id);
                 if (!empty($reports)) {
                     foreach ($reports as $report) {
-                        $this->Flash->duplicates("Sorry, you cannot create this report. You've already got a current report for the project $project->name.");
+                        $this->Flash->duplicates(
+                            "Sorry, you cannot create this report.
+                            You've already got a current report for the project $project->name."
+                        );
                     }
                     return $this->redirect(['action' => 'index']);
                 }
@@ -316,7 +328,9 @@ class ReportsController extends AppController
             $report = $this->Reports->patchEntity($report, $this->request->getData());
             $project = $this->Reports->Projects->getProjectByName($this->request->data['project_name']);
             if ($project == null) {
-                $this->Flash->error(__('That project was not found. Please enter a new project to make a report about it.'));
+                $this->Flash->error(__(
+                    'That project was not found.
+                    Please enter a new project to make a report about it.'));
                 return $this->redirect(['action' => 'index']);
             }
             $report->project_name = $this->request->data['project_name'];
