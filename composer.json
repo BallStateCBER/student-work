@@ -14,7 +14,8 @@
         "oldskool/cakephp-js": "dev-master",
         "josegonzalez/cakephp-upload": "^3.6",
         "friendsofcake/search": "^3.1",
-        "akkaweb/cakephp-ckeditor": "dev-master"
+        "akkaweb/cakephp-ckeditor": "dev-master",
+        "ballstatecber/datacenter-plugin-cakephp3": "dev-master"
     },
     "require-dev": {
         "psy/psysh": "@stable",

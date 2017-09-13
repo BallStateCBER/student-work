@@ -83,10 +83,13 @@ class ProjectsController extends AppController
 
     public function index()
     {
+        $this->paginate;
         $projects = $this->Projects->find('all', [
             'contain' => ['Users'],
             'order' => ['name' => 'ASC']
         ]);
+
+        $projects = $this->paginate($projects);
 
         $this->set(compact('projects'));
         $this->set('_serialize', ['projects']);

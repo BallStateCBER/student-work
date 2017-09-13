@@ -55,9 +55,14 @@ class AppController extends Controller
         'Html'
     ];
 
+    public $components = [
+        'Auth'
+    ];
+
     public function initialize()
     {
         parent::initialize();
+        $this->loadComponent('Paginator');
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
