@@ -1,8 +1,8 @@
 
 <?php $x = 0; ?>
 <?php foreach ($users as $user): ?>
-    <?= $x % 3 == 0 || $x == 0 ? '<div class="row">' : ''; ?>
-    <div class="col-lg-3 index text-center">
+    <?= $x % 5 == 0 || $x == 0 ? '<div class="row">' : ''; ?>
+    <div class="col-lg-2 index text-center">
         <?php if ($user->image): ?>
             <?= $this->Html->link($this->Html->image('users'.DS.$user->image, [
                 'alt' => $user->name,
@@ -32,7 +32,7 @@
             <?php endif; ?>
         </p>
     </div>
-    <?= $x % 3 == 2 ? '</div>' : ''; ?>
+    <?= $x % 5 == 4 ? '</div>' : ''; ?>
     <?php $x = $x + 1; ?>
 <?php endforeach; ?>
 <?php if (count($users) < 1): ?>
