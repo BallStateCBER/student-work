@@ -29,7 +29,7 @@ class ReportsController extends AppController
     /**
      * indexing reports
      *
-     * @param object $reports
+     * @param ResultSet $reports This is a set of Report entities
      * @return array $allReports
      */
     private function reportIndexing($reports)
@@ -47,7 +47,7 @@ class ReportsController extends AppController
     /**
      * setting ids & names of students
      *
-     * @param object $allReports
+     * @param ResultSet $allReports This is a set of Report entities
      * @return array $students
      */
     private function students($allReports)
@@ -69,7 +69,7 @@ class ReportsController extends AppController
     /**
      * setting ids & names of supervisors
      *
-     * @param object $allReports
+     * @param ResultSet $allReports This is a set of Report entities
      * @return array $supervisors
      */
     private function supervisors($allReports)
@@ -91,7 +91,7 @@ class ReportsController extends AppController
     /**
      * setting the vars for the index
      *
-     * @param object $reports
+     * @param ResultSet $allReports This is a set of Report entities
      * @return void
      */
     private function setIndexVars($reports)

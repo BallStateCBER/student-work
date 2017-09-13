@@ -133,10 +133,10 @@ class UsersTable extends Table
 
     /**
      * get email from id $userId
-     * @param  int $userId
+     * @param  int|null $userId
      * @return string $email
      */
-    public function getEmailFromId($userId)
+    public function getEmailFromId($userId = null)
     {
         $query = TableRegistry::get('Users')->find()->select(['email'])->where(['id' => $userId]);
         $result = $query->all();
@@ -151,10 +151,10 @@ class UsersTable extends Table
 
     /**
      * get user->id from $email
-     * @param  string $email
+     * @param string|null $email
      * @return object property $result->id or bool
      */
-    public function getIdFromEmail($email)
+    public function getIdFromEmail($email = null)
     {
         $result = $this->find()
             ->select(['id'])
@@ -169,11 +169,11 @@ class UsersTable extends Table
 
     /**
      * get reset password hash
-     * @param int $userId
-     * @param string $email
+     * @param int|null $userId
+     * @param string|null $email
      * @return string hash
      */
-    public function getResetPasswordHash($userId, $email)
+    public function getResetPasswordHash($userId = null, $email = null)
     {
         $salt = Configure::read('password_reset_salt');
         $month = date('my');
@@ -183,10 +183,10 @@ class UsersTable extends Table
 
     /**
      * get user with id $userId
-     * @param  int $userId
+     * @param int|null $userId
      * @return object $user
      */
-    public function getUser($userId)
+    public function getUser($userId = null)
     {
         $user = $this->find()
             ->where(['id' => $userId])
@@ -197,10 +197,10 @@ class UsersTable extends Table
 
     /**
      * get user from name $name
-     * @param  string $name
+     * @param string|null $name
      * @return object $user
      */
-    public function getUserByName($name)
+    public function getUserByName($name = null)
     {
         $user = $this->find()
             ->where(['name' => $name])
@@ -211,10 +211,10 @@ class UsersTable extends Table
 
     /**
      * get user-> name from id $userId
-     * @param  int $userId
+     * @param int|null $userId
      * @return object property $user->name
      */
-    public function getUserNameFromId($userId)
+    public function getUserNameFromId($userId = null)
     {
         $user = $this->getUser($userId);
 
@@ -223,11 +223,11 @@ class UsersTable extends Table
 
     /**
      * send password reset email
-     * @param int $userId
-     * @param email object $email
+     * @param int|null $userId
+     * @param string|null $email
      * @return $resetEmail
      */
-    public function sendPasswordResetEmail($userId, $email)
+    public function sendPasswordResetEmail($userId = null, $email = null)
     {
         $resetPasswordHash = $this->getResetPasswordHash($userId, $email);
         $resetEmail = new Email('default');

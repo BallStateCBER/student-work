@@ -9,10 +9,10 @@ class UsersHelper extends Helper
     /**
      * conver cellular numbers
      *
-     * @param $num
-     * @return $num
+     * @param string|null $num
+     * @return string $num
      */
-    public function numberConvert($num)
+    public function numberConvert($num = null)
     {
         $num = '+1' . $num;
         $num = str_replace(['(', ')', ' '], '-', $num);

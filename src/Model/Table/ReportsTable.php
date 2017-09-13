@@ -99,10 +99,10 @@ class ReportsTable extends Table
 
     /**
      * returns all a student's current work reports
-     * @param int $id
+     * @param int|null $id
      * @return object $reports
      */
-    public function getStudentCurrentReports($id)
+    public function getStudentCurrentReports($id = null)
     {
         $reports = $this->find()
             ->where(['end_date >=' => date('Y-m-d')])
@@ -116,11 +116,11 @@ class ReportsTable extends Table
     /**
      * returns all a student's current work reports
      * by name
-     * @param int $id
-     * @param string $project
+     * @param int|null $id
+     * @param string|null $project
      * @return $reports
      */
-    public function getStudentCurrentReportsByProject($id, $project)
+    public function getStudentCurrentReportsByProject($id = null, $project = null)
     {
         $reports = $this->find()
             ->where(['end_date >=' => date('Y-m-d')])

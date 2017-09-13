@@ -313,11 +313,11 @@ class UsersController extends AppController
     /**
      * resetting a password after getting the hash
      *
-     * @param int $userId
-     * @param string $resetPasswordHash
+     * @param int|null $userId
+     * @param string|null $resetPasswordHash
      * @return \Cake\Http\Response|null Redirect
      */
-    public function resetPassword($userId, $resetPasswordHash)
+    public function resetPassword($userId = null, $resetPasswordHash = null)
     {
         $user = $this->Users->get($userId);
         $email = $user->email;

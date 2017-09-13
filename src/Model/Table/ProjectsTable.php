@@ -92,10 +92,10 @@ class ProjectsTable extends Table
 
     /**
      * get project with name $name
-     * @param string $name
+     * @param string|null $name
      * @return object $project
      */
-    public function getProjectByName($name)
+    public function getProjectByName($name = null)
     {
         $project = $this->find()
             ->where(['name' => $name])

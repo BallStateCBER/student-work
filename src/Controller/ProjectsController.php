@@ -34,7 +34,7 @@ class ProjectsController extends AppController
     /**
      * process form data
      *
-     * @param object $project
+     * @param ResultSet $project This is a Project entity
      * @return redirect
      */
     private function uponFormSubmission($project)

@@ -90,10 +90,10 @@ class AwardsTable extends Table
 
     /**
      * get all awards of user $userId
-     * @param int $userId
+     * @param int|null $userId
      * @return $awards
      */
-    public function getAwards($userId)
+    public function getAwards($userId = null)
     {
         $awards = $this->find('all');
         $awards

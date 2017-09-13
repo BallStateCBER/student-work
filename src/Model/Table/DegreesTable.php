@@ -141,10 +141,10 @@ class DegreesTable extends Table
 
     /**
      * get all the degrees of user $userId
-     * @param int $userId
+     * @param int|null $userId
      * @return $degrees
      */
-    public function getDegrees($userId)
+    public function getDegrees($userId = null)
     {
         $degrees = $this->find('all');
         $degrees
