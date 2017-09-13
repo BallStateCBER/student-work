@@ -88,6 +88,9 @@ class AwardsTable extends Table
         return $rules;
     }
 
+    /**
+     * get all the awards of user $userId
+     */
     public function getAwards($userId)
     {
         $awards = $this->find('all');

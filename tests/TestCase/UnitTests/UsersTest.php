@@ -83,7 +83,7 @@ class UsersTest extends IntegrationTestCase
 
         $hash = $this->Users->getResetPasswordHash($user->id, $user->email);
 
-        $this->assertEquals(md5($user->id.$user->email.Configure::read('password_reset_salt').date('my')), $hash);
+        $this->assertEquals(md5($user->id . $user->email . Configure::read('password_reset_salt') . date('my')), $hash);
     }
 
     /**

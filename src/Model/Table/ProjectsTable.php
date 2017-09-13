@@ -42,10 +42,10 @@ class ProjectsTable extends Table
                 'nameCallback' => function (array $data, array $settings) {
                     $ext = pathinfo($data['name'], PATHINFO_EXTENSION);
                     $salt = Configure::read('profile_salt');
-                    $newFilename = md5($data['name'].$salt);
-                    return $newFilename.'.'.$ext;
+                    $newFilename = md5($data['name'] . $salt);
+                    return $newFilename . '.' . $ext;
                 },
-                'path' => 'webroot'.DS.'img'.DS.'projects'
+                'path' => 'webroot' . DS . 'img' . DS . 'projects'
             ]
         ]);
 
@@ -89,6 +89,9 @@ class ProjectsTable extends Table
         return $validator;
     }
 
+    /**
+     * get project with name $name
+     */
     public function getProjectByName($name)
     {
         $project = $this->find()

@@ -55,7 +55,7 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $userActions = ['account', 'login', 'logout', 'register'];
     foreach ($userActions as $action) {
-        $routes->connect('/'.$action, ['controller' => 'Users', 'action' => $action]);
+        $routes->connect('/' . $action, ['controller' => 'Users', 'action' => $action]);
     }
 
     // master controller
@@ -67,13 +67,15 @@ Router::scope('/', function (RouteBuilder $routes) {
     });
 
     // viewing individual project pages
-    $routes->connect('/project/:id',
+    $routes->connect(
+        '/project/:id',
         ['controller' => 'Projects', 'action' => 'view'],
         ['id' => '[0-9]+', 'pass' => ['id']]
     );
 
     // viewing individual funding pages
-    $routes->connect('/fund/:id',
+    $routes->connect(
+        '/fund/:id',
         ['controller' => 'Funds', 'action' => 'view'],
         ['id' => '[0-9]+', 'pass' => ['id']]
     );

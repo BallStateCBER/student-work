@@ -29,16 +29,23 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class PagesController extends AppController
 {
+    /**
+     * initialize controller and load models
+     */
     public function initialize()
     {
         parent::initialize();
     }
 
+    /**
+     * controller beforeFilter
+     */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
         $this->Auth->allow(['home']);
     }
+
     /**
      * Displays a view
      *
@@ -77,6 +84,9 @@ class PagesController extends AppController
         }
     }
 
+    /**
+     * define home page
+     */
     public function home()
     {
         $this->set([

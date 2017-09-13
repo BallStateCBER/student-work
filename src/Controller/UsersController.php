@@ -4,8 +4,8 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Core\Configure;
 use Cake\Event\Event;
-use Cake\Routing\Router;
 use Cake\I18n\Time;
+use Cake\Routing\Router;
 
 /**
  * Users Controller
@@ -20,6 +20,9 @@ class UsersController extends AppController
         'Search.Prg'
     ];*/
 
+    /**
+     * initialize controller and load models
+     */
     public function initialize()
     {
         parent::initialize();
@@ -41,6 +44,9 @@ class UsersController extends AppController
         }
     }
 
+    /**
+     * controller beforeFilter and auth setting
+     */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
@@ -49,7 +55,9 @@ class UsersController extends AppController
         ]);
     }
 
-    // gets all the employee's related work, education, etc. experience
+    /**
+     * gets all the employee's related work, education, etc. experience
+     */
     private function getUserVarsPr($id = null)
     {
         $awards = $this->Awards->getAwards($id);
@@ -61,8 +69,6 @@ class UsersController extends AppController
 
     /**
      * Index method
-     *
-     * @return \Cake\Http\Response|null
      */
     public function index()
     {
@@ -79,7 +85,6 @@ class UsersController extends AppController
      * View method
      *
      * @param string|null $id User id.
-     * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
@@ -114,6 +119,7 @@ class UsersController extends AppController
             $user->email = strtolower(trim($user->email));
             if ($this->Users->save($user)) {
                 $this->Flash->success(__("You have successfully registered user #$user->id."));
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('Sorry, we could not register you. Please try again.'));
@@ -144,6 +150,7 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 return $this->Flash->success(__('Your information has been saved!'));
             }
+
             return $this->Flash->error(__('Your information could not be saved. Please, try again.'));
         }
     }
@@ -171,6 +178,7 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 return $this->Flash->success(__('Your information has been saved!'));
             }
+
             return $this->Flash->error(__('Your information could not be saved. Please, try again.'));
         }
     }
@@ -191,9 +199,13 @@ class UsersController extends AppController
         } else {
             $this->Flash->error(__('The user could not be deleted. Please, try again.'));
         }
+
         return $this->redirect(['action' => 'index']);
     }
 
+    /**
+     * user login
+     */
     public function login()
     {
         $this->set('titleForLayout', 'Log In');
@@ -213,6 +225,7 @@ class UsersController extends AppController
                         'password' => $this->request->data('password')
                     ]);
                 }
+
                 return $this->redirect($this->Auth->redirectUrl());
             }
             if (!$user) {
@@ -221,6 +234,9 @@ class UsersController extends AppController
         }
     }
 
+    /**
+     * user logout
+     */
     public function logout()
     {
         return $this->redirect($this->Auth->logout());
@@ -244,6 +260,9 @@ class UsersController extends AppController
         ]);
     } */
 
+    /**
+     * forgot password form for users
+     */
     public function forgotPassword()
     {
         $this->set([
@@ -263,11 +282,11 @@ class UsersController extends AppController
                 $this->Flash->error(
                     'Whoops. There was an error sending your password-resetting email out.
                     Please try again, and if it continues to not work,
-                    email <a href="mailto:'.$adminEmail.'">'.$adminEmail.'</a> for assistance.'
+                    email <a href="mailto:' . $adminEmail . '">' . $adminEmail . '</a> for assistance.'
                 );
             }
             if (!$userId) {
-                $this->Flash->error('We couldn\'t find an account registered with the email address '.$email.'.');
+                $this->Flash->error('We couldn\'t find an account registered with the email address ' . $email . '.');
             }
 
             if (!isset($email)) {
@@ -276,6 +295,9 @@ class UsersController extends AppController
         }
     }
 
+    /**
+     * reset user password
+     */
     public function resetPassword($userId, $resetPasswordHash)
     {
         $user = $this->Users->get($userId);
@@ -306,6 +328,7 @@ class UsersController extends AppController
 
             if ($this->Users->save($user)) {
                 $data = $user->toArray();
+
                 $this->Auth->setUser($data);
                 return $this->Flash->success('Password changed. You are now logged in.');
             }
@@ -313,6 +336,7 @@ class UsersController extends AppController
                 'There was an error changing your password.
                 Please check to make sure they\'ve been entered correctly.'
             );
+
             return $this->redirect('/');
         }
     }

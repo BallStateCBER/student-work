@@ -29,17 +29,6 @@ use Cake\Routing\Router;
  */
 class AppController extends Controller
 {
-
-    /**
-     * Initialization hook method.
-     *
-     * Use this method to add common initialization code like loading components.
-     *
-     * e.g. `$this->loadComponent('Security');`
-     *
-     * @return void
-     */
-
     public $helpers = [
         'AkkaCKEditor.CKEditor' => [
             'version' => '4.4.7', // Default Option
@@ -56,6 +45,15 @@ class AppController extends Controller
         'Auth'
     ];
 
+    /**
+     * Initialization hook method.
+     *
+     * Use this method to add common initialization code like loading components.
+     *
+     * e.g. `$this->loadComponent('Security');`
+     *
+     * @return void
+     */
     public function initialize()
     {
         parent::initialize();
@@ -115,6 +113,9 @@ class AppController extends Controller
         }
     }
 
+    /**
+     * Check if user is admin or not
+     */
     public function isAuthorized()
     {
         $user = $this->request->session()->read('Auth.User');

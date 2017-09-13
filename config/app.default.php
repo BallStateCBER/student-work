@@ -9,7 +9,7 @@ try {
         'toServer' => false,
         'skipExisting' => ['toServer'],
         'raiseExceptions' => true
-   ]);
+    ]);
 } catch (InvalidArgumentException $e) {
     // If there's a problem loading the .env file - load .env.default
     // That means the code can assume appropriate env config always exists

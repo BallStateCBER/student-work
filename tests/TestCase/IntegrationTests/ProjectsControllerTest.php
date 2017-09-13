@@ -17,7 +17,7 @@ class ProjectsControllerTest extends IntegrationTestCase
         parent::setUp();
         $classes = ['Projects', 'Users'];
         foreach ($classes as $class) {
-            $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\'.$class.'Table'];
+            $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\' . $class . 'Table'];
             $this->$class = TableRegistry::get("$class", $config);
         }
 
@@ -76,6 +76,7 @@ class ProjectsControllerTest extends IntegrationTestCase
 
         if ($project) {
             $this->assertResponseSuccess();
+
             return;
         }
     }
@@ -121,6 +122,7 @@ class ProjectsControllerTest extends IntegrationTestCase
 
         if ($project) {
             $this->assertResponseSuccess();
+
             return;
         }
 
@@ -207,6 +209,7 @@ class ProjectsControllerTest extends IntegrationTestCase
 
         if (!isset($project->id)) {
             $this->assertResponseSuccess();
+
             return;
         }
 

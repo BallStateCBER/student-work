@@ -17,7 +17,7 @@ class AwardsControllerTest extends IntegrationTestCase
         parent::setUp();
         $classes = ['Awards', 'Users'];
         foreach ($classes as $class) {
-            $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\'.$class.'Table'];
+            $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\' . $class . 'Table'];
             $this->$class = TableRegistry::get("$class", $config);
         }
     }
@@ -60,13 +60,13 @@ class AwardsControllerTest extends IntegrationTestCase
         $this->post('/awards/add', $award);
         $this->assertResponseOk();
 
-
         $award = $this->Awards->find()
             ->where(['name' => $award['name']])
             ->firstOrFail();
 
         if ($award) {
             $this->assertResponseOk();
+
             return;
         }
 
@@ -108,6 +108,7 @@ class AwardsControllerTest extends IntegrationTestCase
 
         if ($award) {
             $this->assertResponseOk();
+
             return;
         }
 

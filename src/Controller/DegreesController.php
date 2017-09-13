@@ -13,6 +13,9 @@ use Cake\Event\Event;
  */
 class DegreesController extends AppController
 {
+    /**
+     * controller beforeFilter
+     */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
@@ -92,6 +95,7 @@ class DegreesController extends AppController
         $degree = $this->Degrees->get($id);
         if ($this->Degrees->delete($degree)) {
             $this->Flash->success(__('The degree has been deleted.'));
+
             return $this->redirect(['controller' => 'Users', 'action' => 'account']);
         } else {
             $this->Flash->error(__('The degree could not be deleted. Please, try again.'));

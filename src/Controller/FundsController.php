@@ -13,16 +13,23 @@ use Cake\Event\Event;
  */
 class FundsController extends AppController
 {
+    /**
+     * controller beforeFilter
+     */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
     }
 
+    /**
+     * initialize controller and set auth
+     */
     public function initialize()
     {
         parent::initialize();
         if (!$this->isAuthorized()) {
             $this->Flash->error('Only admins can access funding details.');
+
             return $this->redirect(['controller' => 'Reports', 'action' => 'index']);
         }
     }
@@ -30,7 +37,6 @@ class FundsController extends AppController
     /**
      * Index method
      *
-     * @return \Cake\Http\Response|null
      */
     public function index()
     {
@@ -101,11 +107,17 @@ class FundsController extends AppController
         $fund = $this->Funds->get($id);
         if ($this->Funds->delete($fund)) {
             $this->Flash->success(__('The fund has been deleted.'));
+
             return $this->redirect(['action' => 'index']);
         }
+
         return $this->Flash->error(__('The fund could not be deleted. Please, try again.'));
     }
 
+    /**
+     * viewing fund details
+     * in individual pages
+     */
     public function view($id = null)
     {
         $fund = $this->Funds->get($id);

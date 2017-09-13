@@ -13,20 +13,28 @@ use Cake\Event\Event;
  */
 class ProjectsController extends AppController
 {
+    /**
+     * initialize controller and load models
+     */
     public function initialize()
     {
         parent::initialize();
         $this->loadModel('Reports');
         $this->loadModel('UsersProjects');
-        if ($this->request->getParam('action') != 'index' and $this->request->getParam('action') != 'view') {
+        if ($this->request->getParam('action') != 'index' && $this->request->getParam('action') != 'view') {
             if (!$this->isAuthorized()) {
                 $this->Flash->error('Only admins can change project details.');
+
                 return $this->redirect(['controller' => 'Projects', 'action' => 'index']);
             }
         }
     }
 
-    private function uponFormSubmissionPr($project)
+    /**
+     * manipulate user & project _joinData
+     * after form has been submitted
+     */
+    private function uponFormSubmission($project)
     {
         if ($this->request->getParam('action') == 'edit') {
             if (!empty($this->request->data['users'])) {
@@ -76,11 +84,15 @@ class ProjectsController extends AppController
 
         if ($this->Projects->save($project)) {
             $this->Flash->success(__('The project has been saved.'));
+
             return $this->redirect(['action' => 'index']);
         }
         $this->Flash->error(__('The project could not be saved. Please, try again.'));
     }
 
+    /**
+     * project inputs
+     */
     public function index()
     {
         $this->paginate;
@@ -95,6 +107,9 @@ class ProjectsController extends AppController
         $this->set('_serialize', ['projects']);
     }
 
+    /**
+     * view individual project pages
+     */
     public function view($id = null)
     {
         $project = $this->Projects->get($id, [
@@ -107,6 +122,9 @@ class ProjectsController extends AppController
         $this->set('_serialize', ['project']);
     }
 
+    /**
+     * add projects
+     */
     public function add()
     {
         $project = $this->Projects->newEntity();
@@ -122,6 +140,9 @@ class ProjectsController extends AppController
         }
     }
 
+    /**
+     * edit projects
+     */
     public function edit($id = null)
     {
         $project = $this->Projects->get($id, [
@@ -136,13 +157,16 @@ class ProjectsController extends AppController
         $funds = $this->Projects->Funds->find('list');
         $this->set(compact('funds', 'project', 'report', 'users'));
         $this->set('_serialize', ['project']);
-        $this->set(['titleForLayout' => 'Edit Project: '.$project->title]);
+        $this->set(['titleForLayout' => 'Edit Project: ' . $project->title]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $this->uponFormSubmissionPr($project);
         }
     }
 
+    /**
+     * delete projects
+     */
     public function delete($id = null)
     {
         $project = $this->Projects->get($id, [
@@ -155,6 +179,7 @@ class ProjectsController extends AppController
 
         if (isset($report->project_id)) {
             $this->Flash->error(__("You can't delete this project until its related reports are deleted."));
+
             return $this->redirect(['action' => 'index']);
         }
 

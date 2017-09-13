@@ -47,10 +47,11 @@ class UsersTable extends Table
                 'nameCallback' => function (array $data, array $settings) {
                     $ext = pathinfo($data['name'], PATHINFO_EXTENSION);
                     $salt = Configure::read('profile_salt');
-                    $newFilename = md5($data['name'].$salt);
-                    return $newFilename.'.'.$ext;
+                    $newFilename = md5($data['name'] . $salt);
+
+                    return $newFilename . '.' . $ext;
                 },
-                'path' => 'webroot'.DS.'img'.DS.'users'
+                'path' => 'webroot' . DS . 'img' . DS . 'users'
             ]
         ]);
 
@@ -130,6 +131,9 @@ class UsersTable extends Table
         return $rules;
     }
 
+    /**
+     * get email from id $userId
+     */
     public function getEmailFromId($userId)
     {
         $query = TableRegistry::get('Users')->find()->select(['email'])->where(['id' => $userId]);
@@ -143,6 +147,9 @@ class UsersTable extends Table
         return $email;
     }
 
+    /**
+     * get user->id from $email
+     */
     public function getIdFromEmail($email)
     {
         $result = $this->find()
@@ -152,38 +159,58 @@ class UsersTable extends Table
         if ($result) {
             return $result->id;
         }
+
         return false;
     }
 
+    /**
+     * get reset password hash
+     */
     public function getResetPasswordHash($userId, $email)
     {
         $salt = Configure::read('password_reset_salt');
         $month = date('my');
-        return md5($userId.$email.$salt.$month);
+
+        return md5($userId . $email . $salt . $month);
     }
 
+    /**
+     * get user with id $userId
+     */
     public function getUser($userId)
     {
         $user = $this->find()
             ->where(['id' => $userId])
             ->first();
+
         return $user;
     }
 
+    /**
+     * get user from name $name
+     */
     public function getUserByName($name)
     {
         $user = $this->find()
             ->where(['name' => $name])
             ->first();
+
         return $user;
     }
 
+    /**
+     * get user-> name from id $userId
+     */
     public function getUserNameFromId($userId)
     {
         $user = $this->getUser($userId);
+
         return $user->name;
     }
 
+    /**
+     * send password reset email
+     */
     public function sendPasswordResetEmail($userId, $email)
     {
         $resetPasswordHash = $this->getResetPasswordHash($userId, $email);
@@ -204,6 +231,7 @@ class UsersTable extends Table
                 'email',
                 'resetUrl'
             ));
+
         return $resetEmail->send();
     }
 }

@@ -17,7 +17,7 @@ class ReportsTest extends IntegrationTestCase
         parent::setUp();
         $classes = ['Projects', 'Reports', 'Users'];
         foreach ($classes as $class) {
-            $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\'.$class.'Table'];
+            $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\' . $class . 'Table'];
             $this->$class = TableRegistry::get("$class", $config);
         }
     }
@@ -71,6 +71,7 @@ class ReportsTest extends IntegrationTestCase
             foreach ($reports as $report) {
                 $this->assertResponseContains("$report");
             }
+
             return;
         }
     }

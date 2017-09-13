@@ -13,12 +13,18 @@ use Cake\Event\Event;
  */
 class AwardsController extends AppController
 {
+    /**
+     * initialize controller and load models
+     */
     public function initialize()
     {
         parent::initialize();
         $this->loadModel('Users');
     }
 
+    /**
+     * controller beforeFilter
+     */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
@@ -46,6 +52,7 @@ class AwardsController extends AppController
                 return $this->Flash->success(__('The award has been saved.'));
             }
             $this->Flash->error(__('The award could not be saved. Please, try again.'));
+
             return $this->redirect('/users');
         }
     }
@@ -66,7 +73,7 @@ class AwardsController extends AppController
         $users = $this->Awards->Users->find('list', ['limit' => 200]);
         $this->set(compact('award', 'users'));
         $this->set('_serialize', ['award']);
-        $this->set(['titleForLayout' => 'Edit Award: '.$award->name]);
+        $this->set(['titleForLayout' => 'Edit Award: ' . $award->name]);
 
         if ($award['user_id'] != $this->Auth->user('id')) {
             if (!$this->isAuthorized()) {
@@ -82,6 +89,7 @@ class AwardsController extends AppController
                 return $this->Flash->success(__('The award has been saved.'));
             }
             $this->Flash->error(__('The award could not be saved. Please, try again.'));
+
             return $this->redirect('/users');
         }
     }
@@ -98,6 +106,7 @@ class AwardsController extends AppController
         $award = $this->Awards->get($id);
         if ($this->Awards->delete($award)) {
             $this->Flash->success(__('The award has been deleted.'));
+
             return $this->redirect(['controller' => 'Users', 'action' => 'account']);
         } else {
             $this->Flash->error(__('The award could not be deleted. Please, try again.'));

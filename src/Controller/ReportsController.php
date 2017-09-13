@@ -14,13 +14,19 @@ use Cake\Routing\Router;
  */
 class ReportsController extends AppController
 {
+    /**
+     * controller beforeFilter and loading models
+     */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
         $this->loadModel('Users');
     }
 
-    private function __reportIndexing($reports)
+    /**
+     * indexing the reports
+     */
+    private function reportIndexing($reports)
     {
         foreach ($reports as $report) {
             $report->student_id = $this->Users->getUserNameFromId($report->student_id);
@@ -28,10 +34,14 @@ class ReportsController extends AppController
         }
 
         $allReports = $this->Reports->find()->contain(['Projects'])->toArray();
+
         return $allReports;
     }
 
-    private function __students($allReports)
+    /**
+     * setting ids & names for students
+     */
+    private function students($allReports)
     {
         $ids = [];
         $names = [];
@@ -47,7 +57,10 @@ class ReportsController extends AppController
         return $students;
     }
 
-    private function __supervisors($allReports)
+    /**
+     * setting ids & names for supervisors
+     */
+    private function supervisors($allReports)
     {
         $ids = [];
         $names = [];
@@ -63,7 +76,10 @@ class ReportsController extends AppController
         return $supervisors;
     }
 
-    private function __setIndexVars($reports)
+    /**
+     * setting index variables
+     */
+    private function setIndexVars($reports)
     {
         $allReports = $this->__reportIndexing($reports);
 
@@ -84,8 +100,6 @@ class ReportsController extends AppController
 
     /**
      * Current method
-     *
-     * @return \Cake\Http\Response|null
      */
     public function current()
     {
@@ -103,8 +117,6 @@ class ReportsController extends AppController
 
     /**
      * Index method
-     *
-     * @return \Cake\Http\Response|null
      */
     public function index()
     {
@@ -118,8 +130,6 @@ class ReportsController extends AppController
 
     /**
      * Past method
-     *
-     * @return \Cake\Http\Response|null
      */
     public function past()
     {
@@ -138,7 +148,7 @@ class ReportsController extends AppController
     /**
      * Project method
      *
-     * @return \Cake\Http\Response|null
+     * @param string|null $id Project id.
      */
     public function project($id = null)
     {
@@ -158,7 +168,7 @@ class ReportsController extends AppController
     /**
      * Student method
      *
-     * @return \Cake\Http\Response|null
+     * @param string|null $id Student id.
      */
     public function student($id = null)
     {
@@ -175,8 +185,7 @@ class ReportsController extends AppController
 
     /**
      * Supervisor method
-     *
-     * @return \Cake\Http\Response|null
+     * @param string|null $id Supervisor id.
      */
     public function supervisor($id = null)
     {
@@ -195,7 +204,6 @@ class ReportsController extends AppController
      * View method
      *
      * @param string|null $id Report id.
-     * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
@@ -263,6 +271,7 @@ class ReportsController extends AppController
                     'That project was not found.
                     Please enter a new project to make a report about it.'
                 ));
+
                 return $this->redirect(['action' => 'index']);
             }
 
@@ -281,12 +290,14 @@ class ReportsController extends AppController
                             You've already got a current report for the project $project->name."
                         );
                     }
+
                     return $this->redirect(['action' => 'index']);
                 }
             }
             if ($this->Reports->save($report)) {
                 return $this->Flash->success(__('The report has been saved.'));
             }
+
             return $this->Flash->error(__('The report could not be saved. Please, try again.'));
         }
     }
@@ -330,13 +341,16 @@ class ReportsController extends AppController
             if ($project == null) {
                 $this->Flash->error(__(
                     'That project was not found.
-                    Please enter a new project to make a report about it.'));
+                    Please enter a new project to make a report about it.')
+                );
+
                 return $this->redirect(['action' => 'index']);
             }
             $report->project_name = $this->request->data['project_name'];
             if ($this->Reports->save($report)) {
                 return $this->Flash->success(__('The report has been saved.'));
             }
+
             return $this->Flash->error(__('The report could not be saved. Please, try again.'));
         }
     }
@@ -353,8 +367,9 @@ class ReportsController extends AppController
         $report = $this->Reports->get($id);
         $activeUser = $this->Auth->user('id');
         $role = $this->request->session()->read('Auth.User.role');
-        if ($role != 'Site Admin' or ($report->student_id != $activeUser or $report->supervisor_id != $activeUser)) {
+        if ($role != 'Site Admin' || ($report->student_id != $activeUser || $report->supervisor_id != $activeUser)) {
             $this->Flash->error('You are not authorized to delete this.');
+
             return $this->redirect(['action' => 'index']);
         }
         if ($this->Reports->delete($report)) {
