@@ -14,10 +14,9 @@ php:
 matrix:
   fast_finish: true
 
-# removing PHPCS from travis while testing is still in its beginning...
   include:
     - php: 7.0.8
-#      env: PHPCS=1
+      env: PHPCS=1
 
 before_script:
   - if [[ $PHPCS = 1 ]]; then composer require cakephp/cakephp-codesniffer:~2.1; fi
