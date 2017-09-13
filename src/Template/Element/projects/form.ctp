@@ -147,7 +147,7 @@
     <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-secondary btn-md']); ?>
     <?= $this->Form->end() ?>
 </div>
-<?php if ($this->request->params['action'] == 'edit'): ?>
+<?php if ($this->request->params['action'] == 'edit' && !isset($report)): ?>
     <p class="float-right">
         <small>
             <?= $this->Html->link('Delete project?', ['controller' => 'Projects', 'action' => 'delete', $project->id], ['class' => 'text-danger']) ?>

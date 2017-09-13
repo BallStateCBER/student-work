@@ -16,6 +16,7 @@ class ProjectsController extends AppController
     public function initialize()
     {
         parent::initialize();
+        $this->loadModel('Reports');
         $this->loadModel('UsersProjects');
         if ($this->request->getParam('action') != 'index' and $this->request->getParam('action') != 'view') {
             if (!$this->isAuthorized()) {
@@ -124,9 +125,13 @@ class ProjectsController extends AppController
             'contain' => ['Users']
         ]);
 
+        $report = $this->Reports->find()
+            ->where(['project_id' => $project->id])
+            ->first();
+
         $users = $this->Projects->Users->find('list');
         $funds = $this->Projects->Funds->find('list');
-        $this->set(compact('funds', 'project', 'users'));
+        $this->set(compact('funds', 'project', 'report', 'users'));
         $this->set('_serialize', ['project']);
         $this->set(['titleForLayout' => 'Edit Project: '.$project->title]);
 
@@ -140,6 +145,15 @@ class ProjectsController extends AppController
         $project = $this->Projects->get($id, [
             'contain' => ['Users']
         ]);
+
+        $report = $this->Reports->find()
+            ->where(['project_id' => $project->id])
+            ->first();
+
+        if (isset($report->project_id)) {
+            $this->Flash->error(__("You can't delete this project until its related reports are deleted."));
+            return $this->redirect(['action' => 'index']);
+        }
 
         if ($this->Projects->delete($project)) {
             $this->Flash->success(__('The project has been deleted.'));
