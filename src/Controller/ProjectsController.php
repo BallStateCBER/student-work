@@ -101,9 +101,9 @@ class ProjectsController extends AppController
             'contain' => ['Users']
         ]);
 
-        $fund = $this->Projects->Funds->get($project->fund_id);
-        $this->set(compact('project'));
-        $this->set('fundNumber', $fund->name);
+        $fund = isset($project->fund_id) ? $this->Projects->Funds->get($project->fund_id) : null;
+        $fundNumber = isset($fund) ? $fund->name : null;
+        $this->set(compact('fundNumber', 'project'));
         $this->set('_serialize', ['project']);
     }
 

@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-lg-12">
         <h3><?= __('Reports') ?></h3>
-        <table cellpadding="15" cellspacing="0">
+        <table cellpadding="5" cellspacing="0" class="col-lg-12">
             <thead>
                 <tr>
                     <th scope="col"><?= $this->Paginator->sort('image') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('description') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('users', ['label' => 'Contributors']) ?></th>
                     <th scope="col" class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -19,19 +19,28 @@
                                 'alt' => $project->name,
                                 'class' => 'img-thumb'
                             ]),
-                            ['controller' => 'Users', 'action' => 'view', $project->id],
+                            ['controller' => 'Projects', 'action' => 'view', $project->id],
                             ['escape' => false]); ?>
                         <?php else: ?>
                             <?= $this->Html->link($this->Html->image('cber-logo.png', [
                                 'alt' => $project->name,
                                 'class' => 'img-thumb'
                             ]),
-                            ['controller' => 'Users', 'action' => 'view', $project->id],
+                            ['controller' => 'Projects', 'action' => 'view', $project->id],
                             ['escape' => false]); ?>
                         <?php endif; ?>
                     </td>
                     <td><?= h($project->name) ?></td>
-                    <td><?= h($project->description) ?></td>
+                    <td>
+                        <?php if (empty($project->users)): ?>
+                            <i>No users set.</i>
+                        <?php endif; ?>
+                        <?php
+                            foreach ($project->users as $user) {
+                                echo '<span class="project-users">' . $user->name . ': ' . $user->_joinData['role'] . '</span>';
+                            }
+                        ?>
+                    </td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $project->id]) ?>
                         <?= $activeUser['role'] == 'Site Admin' ? $this->Html->link(__('Edit'), ['action' => 'edit', $project->id]) : '' ?>
