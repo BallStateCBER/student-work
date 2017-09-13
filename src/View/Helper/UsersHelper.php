@@ -9,7 +9,7 @@ class UsersHelper extends Helper
     /**
      * conver cellular numbers
      *
-     * @param string|null $num
+     * @param string|null $num User cell number
      * @return string $num
      */
     public function numberConvert($num = null)

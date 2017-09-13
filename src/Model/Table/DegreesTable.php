@@ -141,7 +141,7 @@ class DegreesTable extends Table
 
     /**
      * get all the degrees of user $userId
-     * @param int|null $userId
+     * @param int|null $userId User ID
      * @return $degrees
      */
     public function getDegrees($userId = null)

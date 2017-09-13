@@ -133,7 +133,7 @@ class UsersTable extends Table
 
     /**
      * get email from id $userId
-     * @param  int|null $userId
+     * @param  int|null $userId User ID
      * @return string $email
      */
     public function getEmailFromId($userId = null)
@@ -151,7 +151,7 @@ class UsersTable extends Table
 
     /**
      * get user->id from $email
-     * @param string|null $email
+     * @param string|null $email User email
      * @return object property $result->id or bool
      */
     public function getIdFromEmail($email = null)
@@ -169,8 +169,8 @@ class UsersTable extends Table
 
     /**
      * get reset password hash
-     * @param int|null $userId
-     * @param string|null $email
+     * @param int|null $userId User ID
+     * @param string|null $email User email
      * @return string hash
      */
     public function getResetPasswordHash($userId = null, $email = null)
@@ -183,7 +183,7 @@ class UsersTable extends Table
 
     /**
      * get user with id $userId
-     * @param int|null $userId
+     * @param int|null $userId User ID
      * @return object $user
      */
     public function getUser($userId = null)
@@ -197,7 +197,7 @@ class UsersTable extends Table
 
     /**
      * get user from name $name
-     * @param string|null $name
+     * @param string|null $name User name
      * @return object $user
      */
     public function getUserByName($name = null)
@@ -211,7 +211,7 @@ class UsersTable extends Table
 
     /**
      * get user-> name from id $userId
-     * @param int|null $userId
+     * @param int|null $userId User ID
      * @return object property $user->name
      */
     public function getUserNameFromId($userId = null)
@@ -223,8 +223,8 @@ class UsersTable extends Table
 
     /**
      * send password reset email
-     * @param int|null $userId
-     * @param string|null $email
+     * @param int|null $userId User ID
+     * @param string|null $email User email
      * @return $resetEmail
      */
     public function sendPasswordResetEmail($userId = null, $email = null)

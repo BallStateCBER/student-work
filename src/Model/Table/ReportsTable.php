@@ -99,7 +99,7 @@ class ReportsTable extends Table
 
     /**
      * returns all a student's current work reports
-     * @param int|null $id
+     * @param int|null $id Student ID
      * @return object $reports
      */
     public function getStudentCurrentReports($id = null)
@@ -116,8 +116,8 @@ class ReportsTable extends Table
     /**
      * returns all a student's current work reports
      * by name
-     * @param int|null $id
-     * @param string|null $project
+     * @param int|null $id Student ID
+     * @param string|null $project Project ID
      * @return $reports
      */
     public function getStudentCurrentReportsByProject($id = null, $project = null)

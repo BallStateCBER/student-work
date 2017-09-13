@@ -91,7 +91,7 @@ class ReportsController extends AppController
     /**
      * setting the vars for the index
      *
-     * @param ResultSet $allReports This is a set of Report entities
+     * @param ResultSet $reports This is a set of Report entities
      * @return void
      */
     private function setIndexVars($reports)
