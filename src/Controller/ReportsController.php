@@ -81,7 +81,7 @@ class ReportsController extends AppController
      */
     private function setIndexVars($reports)
     {
-        $allReports = $this->__reportIndexing($reports);
+        $allReports = $this->reportIndexing($reports);
 
         $ids = [];
         $projects = [];
@@ -92,8 +92,8 @@ class ReportsController extends AppController
         $projects = array_combine($ids, $projects);
         $projects = array_unique($projects);
 
-        $students = $this->__students($allReports);
-        $supervisors = $this->__supervisors($allReports);
+        $students = $this->students($allReports);
+        $supervisors = $this->supervisors($allReports);
 
         $this->set(compact('allReports', 'projects', 'reports', 'students', 'supervisors'));
     }
@@ -110,7 +110,7 @@ class ReportsController extends AppController
             ->contain(['Projects']);
 
         $reports = $this->paginate($reports);
-        $this->__setIndexVars($reports);
+        $this->setIndexVars($reports);
 
         $this->set('_serialize', ['reports']);
     }
@@ -123,7 +123,7 @@ class ReportsController extends AppController
         $this->paginate;
         $reports = $this->paginate($this->Reports->find()->contain(['Projects']));
 
-        $this->__setIndexVars($reports);
+        $this->setIndexVars($reports);
 
         $this->set('_serialize', ['reports']);
     }
@@ -141,7 +141,7 @@ class ReportsController extends AppController
             ->contain(['Projects']);
 
         $reports = $this->paginate($reports);
-        $this->__setIndexVars($reports);
+        $this->setIndexVars($reports);
         $this->set('_serialize', ['reports']);
     }
 
@@ -160,7 +160,7 @@ class ReportsController extends AppController
             ->contain(['Projects']);
 
         $reports = $this->paginate($reports);
-        $this->__setIndexVars($reports);
+        $this->setIndexVars($reports);
 
         $this->set('_serialize', ['reports']);
     }
@@ -178,7 +178,7 @@ class ReportsController extends AppController
             ->contain(['Projects']);
 
         $reports = $this->paginate($reports);
-        $this->__setIndexVars($reports);
+        $this->setIndexVars($reports);
 
         $this->set('_serialize', ['reports']);
     }
@@ -195,7 +195,7 @@ class ReportsController extends AppController
             ->contain(['Projects']);
 
         $reports = $this->paginate($reports);
-        $this->__setIndexVars($reports);
+        $this->setIndexVars($reports);
 
         $this->set('_serialize', ['reports']);
     }

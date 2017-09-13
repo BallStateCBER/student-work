@@ -136,7 +136,7 @@ class ProjectsController extends AppController
         $this->set(['titleForLayout' => 'Add a Project']);
 
         if ($this->request->is('post')) {
-            $this->uponFormSubmissionPr($project);
+            $this->uponFormSubmission($project);
         }
     }
 
@@ -160,7 +160,7 @@ class ProjectsController extends AppController
         $this->set(['titleForLayout' => 'Edit Project: ' . $project->title]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $this->uponFormSubmissionPr($project);
+            $this->uponFormSubmission($project);
         }
     }
 
