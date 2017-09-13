@@ -1,5 +1,5 @@
 <h1 class="page_title">
-    <?= $titleForLayout; ?>
+    <?= $titleForLayout ?>
 </h1>
 
 <div class='form-group'>
@@ -10,9 +10,9 @@
         <?= $this->Html->link('contact us', [
             'controller' => 'Pages',
             'url' => 'contact'
-        ]); ?>.
+        ]) ?>.
     </p>
-    <?= $this->Form->create('User', ['url' => ['controller' => 'Users', 'action' => 'forgotPassword']]); ?>
+    <?= $this->Form->create('User', ['url' => ['controller' => 'Users', 'action' => 'forgotPassword']]) ?>
     <div class="col-lg-6">
         <?php
             echo $this->Form->input('email', ['class' => 'form-control', 'label' => false]);

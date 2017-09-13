@@ -3,13 +3,13 @@
     <head>
     <link rel="dns-prefetch" href="//ajax.googleapis.com" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= $this->Html->charset(); ?>
+    <?= $this->Html->charset() ?>
     <title>
         Why Are We Here?
         <?php if (isset($titleForLayout)): ?>
             - <?= $titleForLayout ?>
         <?php else: ?>
-        <?php endif; ?>
+        <?php endif ?>
     </title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link href="https://fonts.googleapis.com/css?family=Inknut+Antiqua|Roboto:100" rel="stylesheet">
@@ -30,11 +30,11 @@
 </head>
 <body>
     <div id="header">
-        <?= $this->element('header'); ?>
+        <?= $this->element('header') ?>
     </div>
     <div class="container-fluid">
         <div class="row">
-            <?= $this->fetch('content'); ?>
+            <?= $this->fetch('content') ?>
         </div>
     </div>
 

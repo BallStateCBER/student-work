@@ -19,14 +19,14 @@
                     <td><?= h($report->student_id) ?></td>
                     <td><?= h($report->supervisor_id) ?></td>
                     <td><?= h(date('F j, Y', strtotime($report->start_date))) ?></td>
-                    <td class="<?= strtotime($report->end_date) > strtotime(date('Y-m-d')) || strtotime($report->end_date) == null ? 'alert alert-danger' : 'alert alert-success'; ?>"><?= !$report->end_date ? 'No end date' : h(date('F j, Y', strtotime($report->end_date))) ?></u></td>
+                    <td class="<?= strtotime($report->end_date) > strtotime(date('Y-m-d')) || strtotime($report->end_date) == null ? 'alert alert-danger' : 'alert alert-success' ?>"><?= !$report->end_date ? 'No end date' : h(date('F j, Y', strtotime($report->end_date))) ?></u></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $report->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $report->id]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $report->id], ['confirm' => __('Are you sure you want to delete # {0}?', $report->id)]) ?>
                     </td>
                 </tr>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </tbody>
         </table>
         <div class="paginator">
@@ -84,7 +84,7 @@
                     <div class="card-block">
                         <?php foreach ($projects as $key => $project): ?>
                             <?= $this->Html->link(__($project), ['action' => 'project', $key]) ?><br />
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                     <div class="card-block">
                         <?php foreach ($students as $key => $name): ?>
                             <?= $this->Html->link(__($name), ['action' => 'student', $key]) ?>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
                     <div class="card-block">
                         <?php foreach ($supervisors as $key => $name): ?>
                             <?= $this->Html->link(__($name), ['action' => 'supervisor', $key]) ?>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </div>
                 </div>
             </div>

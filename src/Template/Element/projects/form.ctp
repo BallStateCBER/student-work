@@ -3,7 +3,7 @@
         'file' => '<input type="file" name="{{name}}" class="form-control" {{attrs}} />',
     ],
     'type' => 'file'
-]); ?>
+]) ?>
 <fieldset>
 <?php if ($project->image) {
     echo $this->Html->image('projects'.DS.$project->image, [
@@ -12,14 +12,14 @@
     ]);
 } ?>
     <h1>
-        <?= $titleForLayout; ?>
+        <?= $titleForLayout ?>
     </h1>
     <div class="row">
         <div class="col-lg-4">
-            <?= $this->Form->control('name', ['class' => 'form-control', 'label' => 'Project name']); ?>
+            <?= $this->Form->control('name', ['class' => 'form-control', 'label' => 'Project name']) ?>
         </div>
         <div class="col-lg-4">
-            <?= $this->Form->control('organization', ['class' => 'form-control']); ?>
+            <?= $this->Form->control('organization', ['class' => 'form-control']) ?>
         </div>
         <div class="col-lg-3">
             <label class="form-control-label">
@@ -30,7 +30,7 @@
                 'default' => 'null',
                 'empty' => 'n/a',
                 'label' => false
-            ]); ?>
+            ]) ?>
             <small>
                 Don't see yours listed? <?= $this->Html->link('Add a new fund!', ['controller' => 'Funds', 'action' => 'add'], ['class' => 'text-danger']) ?>
             </small>
@@ -45,7 +45,7 @@
                 'type' => 'file',
                 'label' => false,
                 'required' => false
-            ]); ?>
+            ]) ?>
         </div>
     </div>
     <div class="row">
@@ -53,9 +53,9 @@
             <label class="form-control-label">
                 Project description
             </label>
-            <?= $this->CKEditor->loadJs(); ?>
-            <?= $this->Form->textarea('description', ['class' => 'form-control']); ?>
-            <?= $this->CKEditor->replace('description'); ?>
+            <?= $this->CKEditor->loadJs() ?>
+            <?= $this->Form->textarea('description', ['class' => 'form-control']) ?>
+            <?= $this->CKEditor->replace('description') ?>
         </div>
     </div>
     <div class="row">
@@ -63,9 +63,9 @@
             <label class="form-control-label">
                 Funding Details
             </label>
-            <?= $this->CKEditor->loadJs(); ?>
-            <?= $this->Form->textarea('funding_details', ['class' => 'form-control']); ?>
-            <?= $this->CKEditor->replace('funding_details'); ?>
+            <?= $this->CKEditor->loadJs() ?>
+            <?= $this->Form->textarea('funding_details', ['class' => 'form-control']) ?>
+            <?= $this->CKEditor->replace('funding_details') ?>
         </div>
     </div>
     <?php if ($this->request->getParam('action') == 'edit'): ?>
@@ -73,30 +73,30 @@
             Edit contributors
             <?php if (!$project->users): ?>
                 (<a data-toggle="collapse" href="#employee0" aria-expanded="false" aria-controls="employee0">+</a>)
-            <?php endif; ?>
+            <?php endif ?>
             (<a tabindex="0" id="help-popover" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">?</a>)
         </h3>
-        <?php $y = 0; ?>
+        <?php $y = 0 ?>
         <?php foreach ($project->users as $x => $user): ?>
             <div class="collapse show" id="employee<?= $x ?>">
                 <div class="row">
                     <div class="col-lg-4">
-                        <?php $bool = isset($user->name) ? true : false; ?>
+                        <?php $bool = isset($user->name) ? true : false ?>
                         <?= $this->Form->control('users.'.$x.'._joinData.user_id', [
                             'class' => 'form-control select-box',
                             'label' => 'Contributor Name',
                             'multiple' => false,
                             'type' => 'select',
                             'disabled' => $bool
-                        ]); ?>
+                        ]) ?>
                     </div>
                     <div class="col-lg-4">
-                        <?php $bool = isset($user->role) ? true : false; ?>
+                        <?php $bool = isset($user->role) ? true : false ?>
                         <?= $this->Form->control('users.'.$x.'._joinData.role', [
                             'class' => 'form-control',
                             'label' => 'Contributor Role',
                             'disabled' => $bool
-                        ]); ?>
+                        ]) ?>
                     </div>
                     <div class="col-lg-4">
                         <br />
@@ -106,8 +106,8 @@
                     </div>
                 </div>
             </div>
-            <?php $x = $x; ?>
-        <?php endforeach; ?>
+            <?php $x = $x ?>
+        <?php endforeach ?>
         <?php
             if (!isset($x)) {
                 $x = 0;
@@ -124,27 +124,27 @@
                             'empty' => true,
                             'multiple' => false,
                             'type' => 'select'
-                        ]); ?>
+                        ]) ?>
                     </div>
                     <div class="col-lg-4">
                         <?= $this->Form->control('users.'.$x.'._joinData.role', [
                             'class' => 'form-control',
                             'label' => 'Contributor Role'
-                        ]); ?>
+                        ]) ?>
                     </div>
                     <div class="col-lg-4">
                         <br />
                         <label>Delete This Role?</label>
-                        <?= $this->Form->checkbox('users.'.$x.'._joinData.delete'); ?><br />
+                        <?= $this->Form->checkbox('users.'.$x.'._joinData.delete') ?><br />
                         <a class="text-muted" data-toggle="collapse" href="#employee<?= $x + 1 ?>" aria-expanded="false" aria-controls="employee<?= $x + 1 ?>">Add Another?</a>
                     </div>
                 </div>
             </div>
-        <?php endfor; ?>
-    <?php endif; ?>
+        <?php endfor ?>
+    <?php endif ?>
 </fieldset>
 <div class="col-lg-6">
-    <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-secondary btn-md']); ?>
+    <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-secondary btn-md']) ?>
     <?= $this->Form->end() ?>
 </div>
 <?php if ($this->request->params['action'] == 'edit' && !isset($report)): ?>
@@ -153,7 +153,7 @@
             <?= $this->Html->link('Delete project?', ['controller' => 'Projects', 'action' => 'delete', $project->id], ['class' => 'text-danger']) ?>
         </small>
     </p>
-<?php endif; ?>
+<?php endif ?>
 <script>
 $('#help-popover').popover({
   trigger: 'focus'

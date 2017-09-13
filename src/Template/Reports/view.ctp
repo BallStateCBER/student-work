@@ -1,6 +1,6 @@
 <fieldset>
     <h1>
-        <?= $titleForLayout; ?>
+        <?= $titleForLayout ?>
     </h1>
     <div class="row">
         <div class="col-lg-2">
@@ -33,7 +33,7 @@
             <h6>
                 End date
             </h6>
-            <div class="<?= strtotime($report->end_date) > strtotime(date('Y-m-d')) || strtotime($report->end_date) == null ? 'alert alert-danger' : 'alert alert-success'; ?>"><?= !$report->end_date ? 'No end date' : h(date('F j, Y', strtotime($report->end_date))) ?></u>
+            <div class="<?= strtotime($report->end_date) > strtotime(date('Y-m-d')) || strtotime($report->end_date) == null ? 'alert alert-danger' : 'alert alert-success' ?>"><?= !$report->end_date ? 'No end date' : h(date('F j, Y', strtotime($report->end_date))) ?></u>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
                 Yes
             <?php elseif ($report->routine == 2): ?>
                 Not sure
-            <?php endif; ?>
+            <?php endif ?>
         </div>
     </div>
     <div class="row">

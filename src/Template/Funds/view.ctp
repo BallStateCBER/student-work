@@ -1,5 +1,5 @@
 <h1>
-    Fund: <?= $fund->name; ?>
+    Fund: <?= $fund->name ?>
 </h1>
 <small>Admin: <?= $this->Html->link('Edit this funding source', ['controller' => 'Funds', 'action' => 'edit', $fund->id], ['class' => 'text-danger']) ?></small>
 <div class="row">

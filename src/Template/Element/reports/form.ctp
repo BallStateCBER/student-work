@@ -2,10 +2,10 @@
     <?= $this->Form->create($report, [
         'templates' => [
             'select' => '<select class="form-control dates" name="{{name}}">{{content}}</select>'
-        ]]); ?>
+        ]]) ?>
     <fieldset>
         <h1>
-            <?= $titleForLayout; ?>
+            <?= $titleForLayout ?>
         </h1>
         <div class="row">
             <div class="col-lg-2">
@@ -14,7 +14,7 @@
                 </label>
                 <?= $this->Form->control('supervisor_id', [
                     'label' => false
-                ]); ?>
+                ]) ?>
             </div>
             <div class="col-lg-2">
                 <label>For student or employee</label>
@@ -22,14 +22,14 @@
                     <?= $this->Form->text('student_id', [
                         'class' => 'form-control',
                         'value' => $activeUser['name']
-                    ]); ?>
+                    ]) ?>
                 <?php else: ?>
                     <?= $this->Form->text('student_id', [
                         'class' => 'form-control',
                         'disabled' => true,
                         'value' => $activeUser['name']
-                    ]); ?>
-                <?php endif; ?>
+                    ]) ?>
+                <?php endif ?>
             </div>
             <div class="col-lg-3">
                 <label class="form-control-label">
@@ -37,7 +37,7 @@
                 </label>
                 <?= $this->Form->control('project_name', [
                     'label' => false
-                ]); ?>
+                ]) ?>
             </div>
         </div>
         <div class="row">
@@ -81,9 +81,9 @@
                 <label class="form-control-label">
                     What activities did you perform for this project?
                 </label>
-                <?= $this->CKEditor->loadJs(); ?>
-                <?= $this->Form->textarea('work_performed', ['class' => 'form-control']); ?>
-                <?= $this->CKEditor->replace('work_performed'); ?>
+                <?= $this->CKEditor->loadJs() ?>
+                <?= $this->Form->textarea('work_performed', ['class' => 'form-control']) ?>
+                <?= $this->CKEditor->replace('work_performed') ?>
             </div>
             <div class="col-lg-3">
                 <label class="form-control-label">
@@ -95,7 +95,7 @@
                     ['value' => 0, 'text' => 'No'],
                     ['value' => 2, 'text' => 'Not sure'],
                 ]
-                ); ?>
+                ) ?>
             </div>
         </div>
         <div class="row">
@@ -103,13 +103,13 @@
                 <label class="form-control-label">
                     What did you learn from this task?
                 </label>
-                <?= $this->Form->textarea('learned', ['class' => 'form-control']); ?>
-                <?= $this->CKEditor->replace('learned'); ?>
+                <?= $this->Form->textarea('learned', ['class' => 'form-control']) ?>
+                <?= $this->CKEditor->replace('learned') ?>
             </div>
         </div>
     </fieldset>
     <div class="col-lg-6">
-        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-secondary btn-md']); ?>
+        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-secondary btn-md']) ?>
         <?= $this->Form->end() ?>
     </div>
     <?php if ($this->request->params['action'] == 'edit'): ?>
@@ -118,5 +118,5 @@
                 <?= $this->Html->link('Delete report?', ['controller' => 'Reports', 'action' => 'delete', $report->id], ['class' => 'text-danger']) ?>
             </small>
         </p>
-    <?php endif; ?>
-<?php endif; ?>
+    <?php endif ?>
+<?php endif ?>

@@ -21,7 +21,7 @@
                 <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $fund->id], ['confirm' => __('Are you sure you want to delete # {0}?', $fund->id)]) ?>
             </td>
         </tr>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </tbody>
 </table>
 <div class="paginator">

@@ -20,21 +20,21 @@
                                 'class' => 'img-thumb'
                             ]),
                             ['controller' => 'Projects', 'action' => 'view', $project->id],
-                            ['escape' => false]); ?>
+                            ['escape' => false]) ?>
                         <?php else: ?>
                             <?= $this->Html->link($this->Html->image('cber-logo.png', [
                                 'alt' => $project->name,
                                 'class' => 'img-thumb'
                             ]),
                             ['controller' => 'Projects', 'action' => 'view', $project->id],
-                            ['escape' => false]); ?>
-                        <?php endif; ?>
+                            ['escape' => false]) ?>
+                        <?php endif ?>
                     </td>
                     <td><?= h($project->name) ?></td>
                     <td>
                         <?php if (empty($project->users)): ?>
                             <i>No users set.</i>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <?php
                             foreach ($project->users as $user) {
                                 echo '<span class="project-users">' . $user->name . ': ' . $user->_joinData['role'] . '</span>';
@@ -47,7 +47,7 @@
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id)]) ?>
                     </td>
                 </tr>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </tbody>
         </table>
         <div class="paginator">
