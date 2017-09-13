@@ -62,7 +62,6 @@ class UsersControllerTest extends IntegrationTestCase
 
         $id = $this->Users->getIdFromEmail('mblum@bsu.edu');
         $user = $this->Users->get($id);
-        dd($user);
         $this->session(['Auth.User' => $user]);
         $this->get('/account');
 
