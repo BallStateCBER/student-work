@@ -82,12 +82,12 @@ class DegreesTable extends Table
     }
 
     /**
-    * Returns a rules checker object that will be used for validating
-    * application integrity.
-    *
-    * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-    * @return \Cake\ORM\RulesChecker
-    */
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
@@ -95,9 +95,10 @@ class DegreesTable extends Table
         return $rules;
     }
 
-     /**
-      * array of every type of degree someone can earn
-      */
+    /**
+     * array of every type of degree someone can earn
+     * @return [array] $degreeTypes
+     */
     public function getDegreeTypes()
     {
         $degreeTypes = [
@@ -140,6 +141,8 @@ class DegreesTable extends Table
 
     /**
      * get all the degrees of user $userId
+     * @param  int $userId
+     * @return $degrees
      */
     public function getDegrees($userId)
     {

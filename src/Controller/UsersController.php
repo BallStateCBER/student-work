@@ -21,7 +21,8 @@ class UsersController extends AppController
     ];*/
 
     /**
-     * initialize controller and load models
+     * initialize controller
+     * @return void
      */
     public function initialize()
     {
@@ -45,7 +46,8 @@ class UsersController extends AppController
     }
 
     /**
-     * controller beforeFilter and auth setting
+     * beforeFilter
+     * @param  Event  $event beforeFilter
      */
     public function beforeFilter(Event $event)
     {
@@ -56,7 +58,9 @@ class UsersController extends AppController
     }
 
     /**
-     * gets all the employee's related work, education, etc. experience
+     * get degrees and awards of user
+     * @param  int $id null
+     * @return void
      */
     private function getUserVarsPr($id = null)
     {
@@ -69,6 +73,7 @@ class UsersController extends AppController
 
     /**
      * Index method
+     * @return void
      */
     public function index()
     {
@@ -86,6 +91,7 @@ class UsersController extends AppController
      *
      * @param string|null $id User id.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return void
      */
     public function view($id = null)
     {
@@ -205,6 +211,7 @@ class UsersController extends AppController
 
     /**
      * user login
+     * @return redirect
      */
     public function login()
     {
@@ -236,6 +243,7 @@ class UsersController extends AppController
 
     /**
      * user logout
+     * @return redirect
      */
     public function logout()
     {
@@ -261,7 +269,8 @@ class UsersController extends AppController
     } */
 
     /**
-     * forgot password form for users
+     * forgotPassword method
+     * @return email
      */
     public function forgotPassword()
     {
@@ -296,7 +305,9 @@ class UsersController extends AppController
     }
 
     /**
-     * reset user password
+     * resetting a password after getting the hash
+     * @param int $userId
+     * @param string $resetPasswordHash
      */
     public function resetPassword($userId, $resetPasswordHash)
     {
@@ -330,6 +341,7 @@ class UsersController extends AppController
                 $data = $user->toArray();
 
                 $this->Auth->setUser($data);
+
                 return $this->Flash->success('Password changed. You are now logged in.');
             }
             $this->Flash->error(

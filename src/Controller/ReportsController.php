@@ -15,7 +15,8 @@ use Cake\Routing\Router;
 class ReportsController extends AppController
 {
     /**
-     * controller beforeFilter and loading models
+     * beforeFilter
+     * @param  Event  $event beforeFilter
      */
     public function beforeFilter(Event $event)
     {
@@ -24,7 +25,9 @@ class ReportsController extends AppController
     }
 
     /**
-     * indexing the reports
+     * indexing reports
+     * @param objects $reports
+     * @return [array] $allReports
      */
     private function reportIndexing($reports)
     {
@@ -39,7 +42,9 @@ class ReportsController extends AppController
     }
 
     /**
-     * setting ids & names for students
+     * setting ids & names of students
+     * @param  object $allReports
+     * @return void
      */
     private function students($allReports)
     {
@@ -58,7 +63,9 @@ class ReportsController extends AppController
     }
 
     /**
-     * setting ids & names for supervisors
+     * setting ids & names of supervisors
+     * @param  object $allReports
+     * @return void
      */
     private function supervisors($allReports)
     {
@@ -77,7 +84,9 @@ class ReportsController extends AppController
     }
 
     /**
-     * setting index variables
+     * setting the vars for the index
+     * @param object $reports
+     * @return void
      */
     private function setIndexVars($reports)
     {
@@ -100,6 +109,7 @@ class ReportsController extends AppController
 
     /**
      * Current method
+     * @return void
      */
     public function current()
     {
@@ -117,6 +127,7 @@ class ReportsController extends AppController
 
     /**
      * Index method
+     * @return void
      */
     public function index()
     {
@@ -130,6 +141,7 @@ class ReportsController extends AppController
 
     /**
      * Past method
+     * @return void
      */
     public function past()
     {
@@ -149,6 +161,7 @@ class ReportsController extends AppController
      * Project method
      *
      * @param string|null $id Project id.
+     * @return void
      */
     public function project($id = null)
     {
@@ -169,6 +182,7 @@ class ReportsController extends AppController
      * Student method
      *
      * @param string|null $id Student id.
+     * @return void
      */
     public function student($id = null)
     {
@@ -186,6 +200,7 @@ class ReportsController extends AppController
     /**
      * Supervisor method
      * @param string|null $id Supervisor id.
+     * @return void
      */
     public function supervisor($id = null)
     {
@@ -205,6 +220,7 @@ class ReportsController extends AppController
      *
      * @param string|null $id Report id.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return void
      */
     public function view($id = null)
     {
@@ -341,8 +357,8 @@ class ReportsController extends AppController
             if ($project == null) {
                 $this->Flash->error(__(
                     'That project was not found.
-                    Please enter a new project to make a report about it.')
-                );
+                    Please enter a new project to make a report about it.'
+                ));
 
                 return $this->redirect(['action' => 'index']);
             }

@@ -43,6 +43,7 @@ class ProjectsTable extends Table
                     $ext = pathinfo($data['name'], PATHINFO_EXTENSION);
                     $salt = Configure::read('profile_salt');
                     $newFilename = md5($data['name'] . $salt);
+
                     return $newFilename . '.' . $ext;
                 },
                 'path' => 'webroot' . DS . 'img' . DS . 'projects'
@@ -91,6 +92,8 @@ class ProjectsTable extends Table
 
     /**
      * get project with name $name
+     * @param  string $name
+     * @return object $project
      */
     public function getProjectByName($name)
     {

@@ -14,7 +14,8 @@ use Cake\Event\Event;
 class DegreesController extends AppController
 {
     /**
-     * controller beforeFilter
+     * beforeFilter
+     * @param  Event  $event beforeFilter
      */
     public function beforeFilter(Event $event)
     {

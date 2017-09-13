@@ -30,7 +30,8 @@ use Cake\View\Exception\MissingTemplateException;
 class PagesController extends AppController
 {
     /**
-     * initialize controller and load models
+     * initialize controller
+     * @return void
      */
     public function initialize()
     {
@@ -38,7 +39,8 @@ class PagesController extends AppController
     }
 
     /**
-     * controller beforeFilter
+     * beforeFilter
+     * @param  Event  $event beforeFilter
      */
     public function beforeFilter(Event $event)
     {
@@ -85,7 +87,8 @@ class PagesController extends AppController
     }
 
     /**
-     * define home page
+     * renders home page
+     * @return void
      */
     public function home()
     {

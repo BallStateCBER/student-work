@@ -60,7 +60,8 @@ class AppController extends Controller
         $this->loadComponent('Paginator');
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        $this->loadComponent('Auth', [
+        $this->loadComponent('Auth',
+            [
             'loginAction' => [
                 'controller' => 'Users',
                 'action' => 'login'
@@ -114,11 +115,13 @@ class AppController extends Controller
     }
 
     /**
-     * Check if user is admin or not
+     * Determines if user is authorized.
+     * @return boolean $user['role']
      */
     public function isAuthorized()
     {
         $user = $this->request->session()->read('Auth.User');
+
         return (bool)($user['role'] === 'Site Admin');
     }
 }

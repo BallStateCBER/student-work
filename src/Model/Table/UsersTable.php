@@ -133,6 +133,8 @@ class UsersTable extends Table
 
     /**
      * get email from id $userId
+     * @param  int $userId
+     * @return string $email
      */
     public function getEmailFromId($userId)
     {
@@ -149,6 +151,8 @@ class UsersTable extends Table
 
     /**
      * get user->id from $email
+     * @param  string $email
+     * @return object property $result->id or bool
      */
     public function getIdFromEmail($email)
     {
@@ -165,6 +169,9 @@ class UsersTable extends Table
 
     /**
      * get reset password hash
+     * @param int $userId
+     * @param string $email
+     * @return string hash
      */
     public function getResetPasswordHash($userId, $email)
     {
@@ -176,6 +183,8 @@ class UsersTable extends Table
 
     /**
      * get user with id $userId
+     * @param  int $userId
+     * @return object $user
      */
     public function getUser($userId)
     {
@@ -188,6 +197,8 @@ class UsersTable extends Table
 
     /**
      * get user from name $name
+     * @param  string $name
+     * @return object $user
      */
     public function getUserByName($name)
     {
@@ -200,6 +211,8 @@ class UsersTable extends Table
 
     /**
      * get user-> name from id $userId
+     * @param  int $userId
+     * @return object property $user->name
      */
     public function getUserNameFromId($userId)
     {
@@ -210,6 +223,9 @@ class UsersTable extends Table
 
     /**
      * send password reset email
+     * @param int $userId
+     * @param email object $email
+     * @return $resetEmail
      */
     public function sendPasswordResetEmail($userId, $email)
     {

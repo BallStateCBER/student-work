@@ -14,7 +14,8 @@ use Cake\Event\Event;
 class FundsController extends AppController
 {
     /**
-     * controller beforeFilter
+     * beforeFilter
+     * @param  Event  $event beforeFilter
      */
     public function beforeFilter(Event $event)
     {
@@ -22,7 +23,8 @@ class FundsController extends AppController
     }
 
     /**
-     * initialize controller and set auth
+     * initialize controller
+     * @return void
      */
     public function initialize()
     {
@@ -35,8 +37,8 @@ class FundsController extends AppController
     }
 
     /**
-     * Index method
-     *
+     * index funds
+     * @return void, renders view
      */
     public function index()
     {
@@ -115,8 +117,9 @@ class FundsController extends AppController
     }
 
     /**
-     * viewing fund details
-     * in individual pages
+     * view individual funds
+     * @param  int $id null
+     * @return void
      */
     public function view($id = null)
     {

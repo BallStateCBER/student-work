@@ -14,7 +14,8 @@ use Cake\Event\Event;
 class ProjectsController extends AppController
 {
     /**
-     * initialize controller and load models
+     * initialize controller
+     * @return void
      */
     public function initialize()
     {
@@ -31,8 +32,9 @@ class ProjectsController extends AppController
     }
 
     /**
-     * manipulate user & project _joinData
-     * after form has been submitted
+     * process form data
+     * @param object $project
+     * @return redirect
      */
     private function uponFormSubmission($project)
     {
@@ -91,7 +93,8 @@ class ProjectsController extends AppController
     }
 
     /**
-     * project inputs
+     * index projects
+     * @return void, renders view
      */
     public function index()
     {
@@ -108,7 +111,9 @@ class ProjectsController extends AppController
     }
 
     /**
-     * view individual project pages
+     * view individual projects
+     * @param  int $id null
+     * @return void
      */
     public function view($id = null)
     {
@@ -123,7 +128,9 @@ class ProjectsController extends AppController
     }
 
     /**
-     * add projects
+     * Add method
+     *
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
@@ -141,7 +148,11 @@ class ProjectsController extends AppController
     }
 
     /**
-     * edit projects
+     * Edit method
+     *
+     * @param string|null $id Degree id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
@@ -165,7 +176,11 @@ class ProjectsController extends AppController
     }
 
     /**
-     * delete projects
+     * Delete method
+     *
+     * @param string|null $id Degree id.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {

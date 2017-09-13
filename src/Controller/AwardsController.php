@@ -14,7 +14,8 @@ use Cake\Event\Event;
 class AwardsController extends AppController
 {
     /**
-     * initialize controller and load models
+     * initialize controller
+     * @return void
      */
     public function initialize()
     {
@@ -23,7 +24,8 @@ class AwardsController extends AppController
     }
 
     /**
-     * controller beforeFilter
+     * beforeFilter
+     * @param  Event  $event beforeFilter
      */
     public function beforeFilter(Event $event)
     {
