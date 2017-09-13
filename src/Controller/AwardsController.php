@@ -15,7 +15,8 @@ class AwardsController extends AppController
 {
     /**
      * initialize controller
-     * @return null
+     *
+     * @return void
      */
     public function initialize()
     {
@@ -25,8 +26,9 @@ class AwardsController extends AppController
 
     /**
      * beforeFilter
+     *
      * @param  Event  $event beforeFilter
-     * @return null
+     * @return void
      */
     public function beforeFilter(Event $event)
     {

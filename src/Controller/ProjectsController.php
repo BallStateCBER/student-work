@@ -33,7 +33,8 @@ class ProjectsController extends AppController
 
     /**
      * process form data
-     * @param $project
+     *
+     * @param object $project
      * @return redirect
      */
     private function uponFormSubmission($project)
@@ -94,7 +95,7 @@ class ProjectsController extends AppController
 
     /**
      * index projects
-     * @return null
+     * @return void
      */
     public function index()
     {
@@ -130,7 +131,7 @@ class ProjectsController extends AppController
     /**
      * Add method
      *
-     * @return null
+     * @return void
      */
     public function add()
     {
@@ -151,7 +152,7 @@ class ProjectsController extends AppController
      * Edit method
      *
      * @param string|null $id Degree id.
-     * @return null
+     * @return void
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)

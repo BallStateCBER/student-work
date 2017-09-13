@@ -15,8 +15,9 @@ class DegreesController extends AppController
 {
     /**
      * beforeFilter
+     *
      * @param  Event  $event beforeFilter
-     * @return null
+     * @return void
      */
     public function beforeFilter(Event $event)
     {

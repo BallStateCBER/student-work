@@ -92,7 +92,7 @@ class ProjectsTable extends Table
 
     /**
      * get project with name $name
-     * @param  string $name
+     * @param string $name
      * @return object $project
      */
     public function getProjectByName($name)

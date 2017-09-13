@@ -117,6 +117,7 @@ class AppController extends Controller
 
     /**
      * Determines if user is authorized.
+     *
      * @return bool $user['role']
      */
     public function isAuthorized()

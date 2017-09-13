@@ -22,7 +22,8 @@ class UsersController extends AppController
 
     /**
      * initialize controller
-     * @return void
+     *
+     * @return Redirect
      */
     public function initialize()
     {
@@ -32,14 +33,17 @@ class UsersController extends AppController
         if (!$this->isAuthorized()) {
             if ($this->request->getParam('action') == 'edit') {
                 $this->Flash->error('Only admins can edit accounts.');
+
                 return $this->redirect(['controller' => 'Users', 'action' => 'index']);
             }
             if ($this->request->getParam('action') == 'register') {
                 $this->Flash->error('Only admins can create accounts.');
+
                 return $this->redirect(['controller' => 'Users', 'action' => 'index']);
             }
             if ($this->request->getParam('action') == 'delete') {
                 $this->Flash->error('Only admins can delete accounts.');
+
                 return $this->redirect(['controller' => 'Users', 'action' => 'index']);
             }
         }
@@ -47,7 +51,9 @@ class UsersController extends AppController
 
     /**
      * beforeFilter
+     *
      * @param  Event  $event beforeFilter
+     * @return void
      */
     public function beforeFilter(Event $event)
     {
@@ -306,8 +312,10 @@ class UsersController extends AppController
 
     /**
      * resetting a password after getting the hash
+     *
      * @param int $userId
      * @param string $resetPasswordHash
+     * @return \Cake\Http\Response|null Redirect
      */
     public function resetPassword($userId, $resetPasswordHash)
     {

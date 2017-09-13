@@ -90,7 +90,7 @@ class AwardsTable extends Table
 
     /**
      * get all awards of user $userId
-     * @param  int $userId
+     * @param int $userId
      * @return $awards
      */
     public function getAwards($userId)

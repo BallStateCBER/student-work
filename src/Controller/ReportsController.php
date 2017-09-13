@@ -16,7 +16,9 @@ class ReportsController extends AppController
 {
     /**
      * beforeFilter
+     *
      * @param  Event  $event beforeFilter
+     * @return void
      */
     public function beforeFilter(Event $event)
     {
@@ -26,8 +28,9 @@ class ReportsController extends AppController
 
     /**
      * indexing reports
-     * @param objects $reports
-     * @return [array] $allReports
+     *
+     * @param object $reports
+     * @return array $allReports
      */
     private function reportIndexing($reports)
     {
@@ -43,8 +46,9 @@ class ReportsController extends AppController
 
     /**
      * setting ids & names of students
-     * @param  object $allReports
-     * @return void
+     *
+     * @param object $allReports
+     * @return array $students
      */
     private function students($allReports)
     {
@@ -64,8 +68,9 @@ class ReportsController extends AppController
 
     /**
      * setting ids & names of supervisors
-     * @param  object $allReports
-     * @return void
+     *
+     * @param object $allReports
+     * @return array $supervisors
      */
     private function supervisors($allReports)
     {
@@ -85,6 +90,7 @@ class ReportsController extends AppController
 
     /**
      * setting the vars for the index
+     *
      * @param object $reports
      * @return void
      */
@@ -109,6 +115,7 @@ class ReportsController extends AppController
 
     /**
      * Current method
+     *
      * @return void
      */
     public function current()
@@ -127,6 +134,7 @@ class ReportsController extends AppController
 
     /**
      * Index method
+     *
      * @return void
      */
     public function index()
@@ -141,6 +149,7 @@ class ReportsController extends AppController
 
     /**
      * Past method
+     *
      * @return void
      */
     public function past()
@@ -199,6 +208,7 @@ class ReportsController extends AppController
 
     /**
      * Supervisor method
+     *
      * @param string|null $id Supervisor id.
      * @return void
      */
