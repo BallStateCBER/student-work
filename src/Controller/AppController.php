@@ -60,31 +60,32 @@ class AppController extends Controller
         $this->loadComponent('Paginator');
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        $this->loadComponent('Auth',
+        $this->loadComponent(
+            'Auth',
             [
-            'loginAction' => [
-                'controller' => 'Users',
-                'action' => 'login'
-            ],
-            'loginRedirect' => [
-                'prefix' => false,
-                'controller' => 'Users',
-                'action' => 'index'
-            ],
-            'logoutRedirect' => [
-                'prefix' => false,
-                'controller' => 'Pages',
-                'action' => 'home'
-            ],
-            'authenticate' => [
-                'Form' => [
-                    'fields' => [
-                        'username' => 'email',
-                        'password' => 'password'
-                        ]
-                    ]
+                'loginAction' => [
+                    'controller' => 'Users',
+                    'action' => 'login'
                 ],
-            'unauthorizedRedirect' => $this->referer() // If unauthorized, return them to page they were just on
+                'loginRedirect' => [
+                    'prefix' => false,
+                    'controller' => 'Users',
+                    'action' => 'index'
+                ],
+                'logoutRedirect' => [
+                    'prefix' => false,
+                    'controller' => 'Pages',
+                    'action' => 'home'
+                ],
+                'authenticate' => [
+                    'Form' => [
+                        'fields' => [
+                            'username' => 'email',
+                            'password' => 'password'
+                            ]
+                        ]
+                    ],
+                'unauthorizedRedirect' => $this->referer() // If unauthorized, return them to page they were just on
             ]
         );
 
@@ -116,7 +117,7 @@ class AppController extends Controller
 
     /**
      * Determines if user is authorized.
-     * @return boolean $user['role']
+     * @return bool $user['role']
      */
     public function isAuthorized()
     {

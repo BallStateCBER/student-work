@@ -16,6 +16,7 @@ class FundsController extends AppController
     /**
      * beforeFilter
      * @param  Event  $event beforeFilter
+     * @return null
      */
     public function beforeFilter(Event $event)
     {
@@ -24,7 +25,7 @@ class FundsController extends AppController
 
     /**
      * initialize controller
-     * @return void
+     * @return null
      */
     public function initialize()
     {
@@ -38,7 +39,7 @@ class FundsController extends AppController
 
     /**
      * index funds
-     * @return void, renders view
+     * @return null
      */
     public function index()
     {
