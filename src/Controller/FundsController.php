@@ -43,7 +43,6 @@ class FundsController extends AppController
      */
     public function index()
     {
-        $this->paginate;
         $funds = $this->paginate($this->Funds);
 
         $this->set(compact('funds'));

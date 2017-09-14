@@ -120,7 +120,6 @@ class ReportsController extends AppController
      */
     public function current()
     {
-        $this->paginate;
         $reports = $this->Reports->find()
             ->where(['end_date >=' => date('Y-m-d')])
             ->orWhere(['end_date IS' => null])
@@ -139,7 +138,6 @@ class ReportsController extends AppController
      */
     public function index()
     {
-        $this->paginate;
         $reports = $this->paginate($this->Reports->find()->contain(['Projects']));
 
         $this->setIndexVars($reports);
@@ -154,7 +152,6 @@ class ReportsController extends AppController
      */
     public function past()
     {
-        $this->paginate;
         $reports = $this->Reports->find()
             ->where(['end_date <' => date('Y-m-d')])
             ->andWhere(['end_date IS NOT' => null])
@@ -176,7 +173,6 @@ class ReportsController extends AppController
     {
         $project = $this->Reports->Projects->get($id);
 
-        $this->paginate;
         $reports = $this->Reports->find()
             ->where(['project_id' => $id])
             ->contain(['Projects']);
@@ -195,7 +191,6 @@ class ReportsController extends AppController
      */
     public function student($id = null)
     {
-        $this->paginate;
         $reports = $this->Reports->find()
             ->where(['student_id' => $id])
             ->contain(['Projects']);
@@ -214,7 +209,6 @@ class ReportsController extends AppController
      */
     public function supervisor($id = null)
     {
-        $this->paginate;
         $reports = $this->Reports->find()
             ->where(['supervisor_id' => $id])
             ->contain(['Projects']);

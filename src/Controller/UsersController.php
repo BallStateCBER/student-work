@@ -68,7 +68,7 @@ class UsersController extends AppController
      * @param  int $id null
      * @return void
      */
-    private function getUserVarsPr($id = null)
+    private function getUserVars($id = null)
     {
         $awards = $this->Awards->getAwards($id);
 
@@ -106,7 +106,7 @@ class UsersController extends AppController
                 'Projects'
             ]
         ]);
-        $this->getUserVarsPr($id);
+        $this->getUserVars($id);
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
     }
@@ -151,7 +151,7 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => ['Projects']
         ]);
-        $this->getUserVarsPr($id);
+        $this->getUserVars($id);
 
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
@@ -179,7 +179,7 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => ['Projects']
         ]);
-        $this->getUserVarsPr($id);
+        $this->getUserVars($id);
 
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
