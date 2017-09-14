@@ -1,4 +1,4 @@
-<?php if (isset($activeUser) && $activeUser['role'] == 'Site Admin'): ?>
+<?php if (isset($activeUser) && $activeUser['admin'] == 1): ?>
     <?php
     $this->Form->setTemplates([
         'select' => '<select class="form-control">{{content}}</select>'
@@ -31,14 +31,14 @@
             <?= $this->Form->control('password', ['class' => 'form-control']) ?>
         </div>
         <div class="col-lg-2">
-            <label for="role">
+            <label for="admin">
                 Site Role
             </label>
-            <?= $this->Form->control('role', [
+            <?= $this->Form->control('admin', [
                 'label' => false,
                 'options' => [
-                    'Site Admin' => 'Site Admin',
-                    'Student' => 'Student'
+                    1 => 'Site Admin',
+                    0 => 'Student'
                 ],
                 'type' => 'radio'
             ]) ?>

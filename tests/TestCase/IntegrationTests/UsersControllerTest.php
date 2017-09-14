@@ -80,7 +80,7 @@ class UsersControllerTest extends IntegrationTestCase
                 'day' => date('d', strtotime('28'))
             ],
             'bio' => "I'm a placeholder. I just started!",
-            'role' => 'Site Admin',
+            'admin' => 1,
             'has_publications' => 0,
             'has_sites' => 1,
             'is_current' => 1
@@ -163,7 +163,7 @@ class UsersControllerTest extends IntegrationTestCase
                 'day' => date('d', strtotime('28'))
             ],
             'bio' => "I'm a placeholder. I just quit my job!!",
-            'role' => 'Student',
+            'admin' => 0,
             'has_publications' => 0,
             'has_sites' => 1,
             'is_current' => 0

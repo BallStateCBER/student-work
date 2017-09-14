@@ -57,7 +57,7 @@ class ProjectsTable extends Table
         ]);
 
         $this->belongsTo('Funds');
-        $this->belongsTo('Reports');
+        $this->hasMany('Reports');
     }
 
     /**

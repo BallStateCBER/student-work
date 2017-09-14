@@ -147,7 +147,7 @@
     <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-secondary btn-md']) ?>
     <?= $this->Form->end() ?>
 </div>
-<?php if ($this->request->params['action'] == 'edit' && !isset($report)): ?>
+<?php if ($this->request->params['action'] == 'edit' && empty($project->reports)): ?>
     <p class="float-right">
         <small>
             <?= $this->Html->link('Delete project?', ['controller' => 'Projects', 'action' => 'delete', $project->id], ['class' => 'text-danger']) ?>
@@ -155,7 +155,7 @@
     </p>
 <?php endif ?>
 <script>
-$('#help-popover').popover({
-  trigger: 'focus'
-})
+    $('#help-popover').popover({
+        trigger: 'focus'
+    })
 </script>

@@ -262,7 +262,7 @@ class ReportsController extends AppController
         $this->set('_serialize', ['report']);
         $this->set(['titleForLayout' => 'Add a Report']);
 
-        if ($this->request->session()->read('Auth.User.role') == 'Student') {
+        if ($this->request->session()->read('Auth.User.admin') == 0) {
             $id = $this->Auth->user('id');
             $reports = $this->Reports->getStudentCurrentReports($id);
 
@@ -299,7 +299,7 @@ class ReportsController extends AppController
             $student = $this->Users->findByName($this->request->data['student_id'])->first();
             $report->student_id = $student->id;
 
-            if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
+            if ($this->request->session()->read('Auth.User.admin') != 1) {
                 $id = $this->Auth->user('id');
                 $project = $this->Projects->get($this->request->data['project_name']);
                 $reports = $this->Reports->getStudentCurrentReportsByProject($id, $project->id);
@@ -349,7 +349,7 @@ class ReportsController extends AppController
 
         if ($report->student_id != $this->Auth->user('id')) {
             if ($report->supervisor_id != $this->Auth->user('id')) {
-                if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {
+                if ($this->request->session()->read('Auth.User.admin') != 1) {
                     return $this->Flash->error(__('You are not authorized to edit this.'));
                 }
             }
@@ -386,8 +386,8 @@ class ReportsController extends AppController
     {
         $report = $this->Reports->get($id);
         $activeUser = $this->Auth->user('id');
-        $role = $this->request->session()->read('Auth.User.role');
-        if ($role != 'Site Admin' || ($report->student_id != $activeUser || $report->supervisor_id != $activeUser)) {
+        $admin = $this->request->session()->read('Auth.User.admin');
+        if ($admin != 1 || ($report->student_id != $activeUser || $report->supervisor_id != $activeUser)) {
             $this->Flash->error('You are not authorized to delete this.');
 
             return $this->redirect(['action' => 'index']);

@@ -29,7 +29,7 @@
         <br />
         <?= $project->description ?>
         <br />
-        <?php if ($activeUser['role'] == 'Site Admin'): ?>
+        <?php if ($activeUser['admin'] == 1): ?>
             <small>Admin: <?= $this->Html->link('Edit this project', ['controller' => 'Projects', 'action' => 'edit', $project->id], ['class' => 'text-danger']) ?></small>
         <?php endif ?>
     </div>

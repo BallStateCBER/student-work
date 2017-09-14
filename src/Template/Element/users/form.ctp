@@ -1,4 +1,4 @@
-<?php if ($this->request->action == 'account' || $activeUser['role'] == 'Site Admin'): ?>
+<?php if ($this->request->action == 'account' || $activeUser['admin'] == 1): ?>
     <?php
     $firstName = explode(' ', trim($user->name));
     $firstName = $firstName[0];
@@ -105,14 +105,14 @@
             </div>
             <?php if ($this->request->action == 'edit'): ?>
                 <div class="col-lg-4">
-                    <label for="role">
-                        Site Role
+                    <label for="admin">
+                        Admin?
                     </label>
-                    <?= $this->Form->control('role', [
+                    <?= $this->Form->control('admin', [
                         'label' => false,
                         'options' => [
-                            'Site Admin' => 'Site Admin',
-                            'Student' => 'Student'
+                            1 => 'Site Admin',
+                            0 => 'Student'
                         ],
                         'type' => 'radio'
                     ]) ?>
@@ -230,7 +230,7 @@
     <div class="row">
         <div class="col-sm-12">
             <h4>Your projects
-                <?php if ($activeUser['role'] == 'Site Admin'): ?>
+                <?php if ($activeUser['admin'] == 1): ?>
                     (<?= $this->Html->link('+', ['controller' => 'Projects', 'action' => 'add']) ?>)
                 <?php endif ?>
             </h4>
@@ -240,7 +240,7 @@
                     <p class="exp-description">
                         <u>Project role:</u> <?= $project->_joinData->role ?><br />
                         <?= $project->organization ? 'With '.$project->organization.'<br />' : '' ?>
-                        <?php if ($activeUser['role'] == 'Site Admin'): ?>
+                        <?php if ($activeUser['admin'] == 1): ?>
                             <?php
                                 $descriptionArray = explode(' ', trim($project->description));
                                 $wordCount = count($descriptionArray);

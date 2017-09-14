@@ -101,7 +101,7 @@ class ProjectsController extends AppController
     {
         $this->paginate;
         $projects = $this->Projects->find('all', [
-            'contain' => ['Users'],
+            'contain' => ['Reports', 'Users'],
             'order' => ['name' => 'ASC']
         ]);
 
@@ -158,16 +158,12 @@ class ProjectsController extends AppController
     public function edit($id = null)
     {
         $project = $this->Projects->get($id, [
-            'contain' => ['Users']
+            'contain' => ['Reports', 'Users']
         ]);
-
-        $report = $this->Reports->find()
-            ->where(['project_id' => $project->id])
-            ->first();
 
         $users = $this->Projects->Users->find('list');
         $funds = $this->Projects->Funds->find('list');
-        $this->set(compact('funds', 'project', 'report', 'users'));
+        $this->set(compact('funds', 'project', 'users'));
         $this->set('_serialize', ['project']);
         $this->set(['titleForLayout' => 'Edit Project: ' . $project->title]);
 

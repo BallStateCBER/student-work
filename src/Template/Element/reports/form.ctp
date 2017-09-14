@@ -1,4 +1,4 @@
-<?php if ($this->request->action == 'edit' && ($report['student_id'] == $activeUser['id'] or $report['supervisor_id'] == $activeUser['id'] or $activeUser['role'] == 'Site Admin') or $this->request->action == 'add'): ?>
+<?php if ($this->request->action == 'edit' && ($report['student_id'] == $activeUser['id'] or $report['supervisor_id'] == $activeUser['id'] or $activeUser['admin'] == 1) or $this->request->action == 'add'): ?>
     <?= $this->Form->create($report, [
         'templates' => [
             'select' => '<select class="form-control dates" name="{{name}}">{{content}}</select>'
@@ -18,7 +18,7 @@
             </div>
             <div class="col-lg-2">
                 <label>For student or employee</label>
-                <?php if ($activeUser['role'] == 'Site Admin'): ?>
+                <?php if ($activeUser['admin'] == 1): ?>
                     <?= $this->Form->text('student_id', [
                         'class' => 'form-control',
                         'value' => $activeUser['name']

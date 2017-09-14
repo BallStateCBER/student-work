@@ -7,6 +7,7 @@
 <h1>
     <?= $project->name ?>
 </h1>
+<small>Admin: <?= $this->Html->link('Edit this project source', ['controller' => 'Projects', 'action' => 'edit', $project->id], ['class' => 'text-danger']) ?></small>
 <div class="row">
     <div class="col-lg-8">
         <?php if ($project->description): ?>

@@ -20,7 +20,7 @@ $name = $name[0];
         <?php if ($user): ?>
             <?= $this->Html->link('Log out', ['controller' => 'Users', 'action' => 'logout'], ['class'=>'nav-link']) ?>
         </li>
-        <?php if ($user['role'] == 'Site Admin'): ?>
+        <?php if ($user['admin'] == 1): ?>
             <li class="nav-item">
                 <?= $this->Html->link('Funding', ['controller' => 'Funds', 'action' => 'index'], ['class'=>'nav-link']) ?>
             </li>
@@ -43,7 +43,7 @@ $name = $name[0];
                 <?= $this->Html->link('Add a Report', ['controller' => 'Reports', 'action' => 'add'], ['class'=>'dropdown-item']) ?>
             </div>
         </li>
-        <?php if ($this->request->session()->read('Auth.User.role') == 'Site Admin'): ?>
+        <?php if ($this->request->session()->read('Auth.User.admin') == 1): ?>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Students & Staff</a>
             <div class="dropdown-menu">

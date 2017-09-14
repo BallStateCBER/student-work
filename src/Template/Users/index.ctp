@@ -27,7 +27,7 @@
                 <I>No position specified.</I>
             <?php endif ?>
             <br />
-            <?php if ($this->request->session()->read('Auth.User.role') == 'Site Admin'): ?>
+            <?php if ($this->request->session()->read('Auth.User.admin') == 1): ?>
                 <small>Admin: <?= $this->Html->link('edit user', ['controller' => 'Users', 'action' => 'edit', $user->id], ['class'=>'text-danger']) ?></small>
             <?php endif ?>
         </p>

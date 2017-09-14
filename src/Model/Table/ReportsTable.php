@@ -48,7 +48,10 @@ class ReportsTable extends Table
             'joinType' => 'INNER'
         ]);
 
-        $this->belongsTo('Projects');
+        $this->belongsTo('Projects', [
+            'foreignKey' => 'project_id',
+            'joinType' => 'INNER'
+        ]);
 
         $this->Projects = TableRegistry::get('Projects');
     }

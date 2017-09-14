@@ -124,6 +124,6 @@ class AppController extends Controller
     {
         $user = $this->request->session()->read('Auth.User');
 
-        return (bool)($user['role'] === 'Site Admin');
+        return $user['admin'];
     }
 }

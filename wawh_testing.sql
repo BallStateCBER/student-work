@@ -171,24 +171,24 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `name` text,
-  `start_date` text,
-  `end_date` text,
-  `birth_date` text,
-  `image` text,
+  `name` varchar(255),
+  `start_date` date,
+  `end_date` date,
+  `birth_date` date,
+  `image` varchar(255),
   `bio` text,
   `has_publications` int(11) DEFAULT NULL,
   `has_sites` int(11) DEFAULT NULL,
-  `email` text,
-  `password` text,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255),
   `is_current` int(11) DEFAULT NULL,
-  `role` text,
-  `ice_name` text,
-  `ice_phone` text,
-  `ice_relationship` text,
-  `alt_email` text,
-  `cell` text,
-  `position` text,
+  `admin` tinyint(1) NOT NULL,
+  `ice_name` varchar(255),
+  `ice_phone` varchar(255),
+  `ice_relationship` varchar(255),
+  `alt_email` varchar(255),
+  `cell` varchar(45),
+  `position` varchar(255),
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -200,7 +200,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (123456789,'Mal Blum','','','',NULL,'I\'m a placeholder. I just quit my job!!',0,1,'mblum@bsu.edu','$2y$10$xv31B8YQ7r4nJyOeybDJuekhXOgg8VXB4lpnCUvGmbdkkS04q.JB6',0,'Student',NULL,NULL,NULL,NULL,NULL,'Former Placeholder Specialist'),(900903255,'Erica Dee Fox','2017-02-27 00:00:00','','1992-01-28 00:00:00','5a6ce2ead1e988a7993704afb87a0c9b.jpg','Erica builds websites for CBER. She has worked as a full-stack PHP developer for two years. Her favorite things are her daughter, husband, bandmate, diesel Benz, and pasta. All at the same time.',0,1,'edfox@bsu.edu','$2y$10$NZEUu7ci.17aimdHHSsGMO3tL70C18jAOR0IYyJpkn/ZvUbv.wpNi',1,'Site Admin','Sam Lonsberry','(765) 283-7945','Spouse','ericadeefox@gmail.com','(765) 997-8727','Web Programming Specialist');
+INSERT INTO `users` VALUES (123456789,'Mal Blum','','','',NULL,'I\'m a placeholder. I just quit my job!!',0,1,'mblum@bsu.edu','$2y$10$xv31B8YQ7r4nJyOeybDJuekhXOgg8VXB4lpnCUvGmbdkkS04q.JB6',0,0,NULL,NULL,NULL,NULL,NULL,'Former Placeholder Specialist'),(900903255,'Erica Dee Fox','2017-02-27 00:00:00','','1992-01-28 00:00:00','5a6ce2ead1e988a7993704afb87a0c9b.jpg','Erica builds websites for CBER. She has worked as a full-stack PHP developer for two years. Her favorite things are her daughter, husband, bandmate, diesel Benz, and pasta. All at the same time.',0,1,'edfox@bsu.edu','$2y$10$NZEUu7ci.17aimdHHSsGMO3tL70C18jAOR0IYyJpkn/ZvUbv.wpNi',1,1,'Sam Lonsberry','(765) 283-7945','Spouse','ericadeefox@gmail.com','(765) 997-8727','Web Programming Specialist');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -141,11 +141,11 @@ class UsersController extends AppController
     /**
      * Account method
      *
-     * @param string|null $id User id.
+     * @param id|null $id User id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function account($id = null)
+    public function account()
     {
         $id = $this->Auth->user('id');
         $user = $this->Users->get($id, [
