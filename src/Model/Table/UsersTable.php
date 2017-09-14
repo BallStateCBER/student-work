@@ -182,41 +182,13 @@ class UsersTable extends Table
     }
 
     /**
-     * get user with id $userId
-     * @param int|null $userId User ID
-     * @return object $user
-     */
-    public function getUser($userId = null)
-    {
-        $user = $this->find()
-            ->where(['id' => $userId])
-            ->first();
-
-        return $user;
-    }
-
-    /**
-     * get user from name $name
-     * @param string|null $name User name
-     * @return object $user
-     */
-    public function getUserByName($name = null)
-    {
-        $user = $this->find()
-            ->where(['name' => $name])
-            ->first();
-
-        return $user;
-    }
-
-    /**
      * get user-> name from id $userId
      * @param int|null $userId User ID
      * @return object property $user->name
      */
     public function getUserNameFromId($userId = null)
     {
-        $user = $this->getUser($userId);
+        $user = $this->get($userId);
 
         return $user->name;
     }

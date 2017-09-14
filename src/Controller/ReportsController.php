@@ -55,7 +55,7 @@ class ReportsController extends AppController
         $ids = [];
         $names = [];
         foreach ($allReports as $report) {
-            $student = $this->Users->getUser($report->student_id);
+            $student = $this->Users->get($report->student_id);
 
             $ids[] = $report->student_id;
             $names[] = $student->name;
@@ -77,7 +77,7 @@ class ReportsController extends AppController
         $ids = [];
         $names = [];
         foreach ($allReports as $report) {
-            $supervisor = $this->Users->getUser($report->supervisor_id);
+            $supervisor = $this->Users->get($report->supervisor_id);
 
             $ids[] = $report->supervisor_id;
             $names[] = $supervisor->name;
@@ -296,7 +296,7 @@ class ReportsController extends AppController
             }
 
             $report->project_id = $this->request->data['project_name'];
-            $student = $this->Users->getUserByName($this->request->data['student_id']);
+            $student = $this->Users->findByName($this->request->data['student_id'])->first();
             $report->student_id = $student->id;
 
             if ($this->request->session()->read('Auth.User.role') != 'Site Admin') {

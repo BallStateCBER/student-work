@@ -51,7 +51,7 @@ class UsersTest extends IntegrationTestCase
      */
     public function testGetEmailFromId()
     {
-        $user = $this->Users->getUserByName('Erica Dee Fox');
+        $user = $this->Users->findByName('Erica Dee Fox')->first();
 
         $email = $this->Users->getEmailFromId($user->id);
 
@@ -65,7 +65,7 @@ class UsersTest extends IntegrationTestCase
      */
     public function testGetIdFromEmail()
     {
-        $user = $this->Users->getUserByName('Erica Dee Fox');
+        $user = $this->Users->findByName('Erica Dee Fox')->first();
 
         $id = $this->Users->getIdFromEmail($user->email);
 
@@ -79,39 +79,11 @@ class UsersTest extends IntegrationTestCase
      */
     public function testGetResetPasswordHash()
     {
-        $user = $this->Users->getUserByName('Erica Dee Fox');
+        $user = $this->Users->findByName('Erica Dee Fox')->first();
 
         $hash = $this->Users->getResetPasswordHash($user->id, $user->email);
 
         $this->assertEquals(md5($user->id . $user->email . Configure::read('password_reset_salt') . date('my')), $hash);
-    }
-
-    /**
-     * Test getUser method
-     *
-     * @return void
-     */
-    public function testGetUser()
-    {
-        $user = $this->Users->getUserByName('Erica Dee Fox');
-
-        $id = $this->Users->getIdFromEmail($user->email);
-        $user = $this->Users->getUser($id);
-        $this->assertEquals($id, $user->id);
-    }
-
-    /**
-     * Test getUserByName method
-     *
-     * @return void
-     */
-    public function testGetUserByName()
-    {
-        $user = $this->Users->getUserByName('Erica Dee Fox');
-
-        $id = $this->Users->getIdFromEmail($user->email);
-
-        $this->assertEquals($id, $user->id);
     }
 
     /**
@@ -121,7 +93,7 @@ class UsersTest extends IntegrationTestCase
      */
     public function testGetUserNameFromId()
     {
-        $user = $this->Users->getUserByName('Erica Dee Fox');
+        $user = $this->Users->findByName('Erica Dee Fox')->first();
         $id = $this->Users->getIdFromEmail($user->email);
         $userName = $this->Users->getUserNameFromId($id);
         $this->assertEquals($user->name, $userName);

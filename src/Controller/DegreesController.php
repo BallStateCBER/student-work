@@ -41,7 +41,7 @@ class DegreesController extends AppController
 
         if ($this->request->is('post')) {
             $degree = $this->Degrees->patchEntity($degree, $this->request->getData());
-            $grad = $this->Users->getUserByName($this->request->data['user_id']);
+            $grad = $this->Users->findByName($this->request->data['user_id'])->first();
             $degree->user_id = $grad->id;
             if ($this->Degrees->save($degree)) {
                 return $this->Flash->success(__('The degree has been saved.'));
@@ -77,7 +77,7 @@ class DegreesController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $degree = $this->Degrees->patchEntity($degree, $this->request->getData());
-            $grad = $this->Users->getUserByName($this->request->data['user_id']);
+            $grad = $this->Users->findByName($this->request->data['user_id'])->first();
             $degree->user_id = $grad->id;
             if ($this->Degrees->save($degree)) {
                 return $this->Flash->success(__('The degree has been saved.'));

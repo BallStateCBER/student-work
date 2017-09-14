@@ -51,7 +51,7 @@ class AwardsController extends AppController
 
         if ($this->request->is('post')) {
             $award = $this->Awards->patchEntity($award, $this->request->getData());
-            $awardee = $this->Users->getUserByName($this->request->data['user_id']);
+            $awardee = $this->Users->findByName($this->request->data['user_id'])->first();
             $award->user_id = $awardee->id;
             if ($this->Awards->save($award)) {
                 return $this->Flash->success(__('The award has been saved.'));
@@ -88,7 +88,7 @@ class AwardsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $award = $this->Awards->patchEntity($award, $this->request->getData());
-            $awardee = $this->Users->getUserByName($this->request->data['user_id']);
+            $awardee = $this->Users->findByName($this->request->data['user_id'])->first();
             $award->user_id = $awardee->id;
             if ($this->Awards->save($award)) {
                 return $this->Flash->success(__('The award has been saved.'));
