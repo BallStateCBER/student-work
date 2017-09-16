@@ -16,7 +16,6 @@
             <td><?= h($fund->organization) ?></td>
             <td><?= h($fund->amount) ?></td>
             <td class="actions">
-                <?= $this->Html->link(__('View'), ['action' => 'view', $fund->id]) ?>
                 <?= $this->Html->link(__('Edit'), ['action' => 'edit', $fund->id]) ?>
                 <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $fund->id], ['confirm' => __('Are you sure you want to delete # {0}?', $fund->id)]) ?>
             </td>

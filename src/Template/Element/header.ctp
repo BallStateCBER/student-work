@@ -18,52 +18,50 @@ $name = $name[0];
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <?php if ($user): ?>
-            <?= $this->Html->link('Log out', ['controller' => 'Users', 'action' => 'logout'], ['class'=>'nav-link']) ?>
-        </li>
-        <?php if ($user['admin'] == 1): ?>
-            <li class="nav-item">
-                <?= $this->Html->link('Funding', ['controller' => 'Funds', 'action' => 'index'], ['class'=>'nav-link']) ?>
+                <?= $this->Html->link('Log out', ['controller' => 'Users', 'action' => 'logout'], ['class'=>'nav-link']) ?>
             </li>
+            <?php if ($user['admin'] == 1): ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
+                    <div class="dropdown-menu">
+                        <?= $this->Html->link('Projects Index', ['controller' => 'Projects', 'action' => 'index'], ['class'=>'dropdown-item']) ?>
+                        <?= $this->Html->link('Add a Project', ['controller' => 'Projects', 'action' => 'add'], ['class'=>'dropdown-item']) ?>
+                        <?= $this->Html->link('Funding', ['controller' => 'Funds', 'action' => 'index'], ['class'=>'dropdown-item']) ?>
+                    </div>
+                </li>
+            <?php else: ?>
+                <li class="nav-item">
+                    <?= $this->Html->link('Projects', ['controller' => 'Projects', 'action' => 'index'], ['class'=>'nav-link']) ?>
+                </li>
+            <?php endif ?>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Student Reports</a>
                 <div class="dropdown-menu">
-                    <?= $this->Html->link('Projects Index', ['controller' => 'Projects', 'action' => 'index'], ['class'=>'dropdown-item']) ?>
-                    <?= $this->Html->link('Add a Project', ['controller' => 'Projects', 'action' => 'add'], ['class'=>'dropdown-item']) ?>
+                    <?= $this->Html->link('Reports Index', ['controller' => 'Reports', 'action' => 'index'], ['class'=>'dropdown-item']) ?>
+                    <?= $this->Html->link('Add a Report', ['controller' => 'Reports', 'action' => 'add'], ['class'=>'dropdown-item']) ?>
                 </div>
             </li>
-        <?php else: ?>
-            <li class="nav-item">
-                <?= $this->Html->link('Projects', ['controller' => 'Projects', 'action' => 'index'], ['class'=>'nav-link']) ?>
-            </li>
-        <?php endif ?>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Student Reports</a>
-            <div class="dropdown-menu">
-                <?= $this->Html->link('Reports Index', ['controller' => 'Reports', 'action' => 'index'], ['class'=>'dropdown-item']) ?>
-                <?= $this->Html->link('Add a Report', ['controller' => 'Reports', 'action' => 'add'], ['class'=>'dropdown-item']) ?>
-            </div>
-        </li>
-        <?php if ($this->request->session()->read('Auth.User.admin') == 1): ?>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Students & Staff</a>
-            <div class="dropdown-menu">
-                <?= $this->Html->link('Users Index', ['controller' => 'Users', 'action' => 'index'], ['class'=>'dropdown-item']) ?>
-                <?= $this->Html->link('Add a User', ['controller' => 'Users', 'action' => 'register'], ['class'=>'dropdown-item']) ?>
+            <?php if ($user['admin'] == 1): ?>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Students & Staff</a>
+                <div class="dropdown-menu">
+                    <?= $this->Html->link('Students & Staff Index', ['controller' => 'Users', 'action' => 'index'], ['class'=>'dropdown-item']) ?>
+                    <?= $this->Html->link('Add a User', ['controller' => 'Users', 'action' => 'register'], ['class'=>'dropdown-item']) ?>
 
-            </div>
-        </li>
-        <?php else: ?>
-            <li class="nav-item">
-                <?= $this->Html->link('Students & Staff', ['controller' => 'Users', 'action' => 'index'], ['class'=>'nav-link']) ?>
+                </div>
             </li>
-        <?php endif ?>
-        <li class="nav-item">
-            <?php if ($user): ?>
-                <u>
-                    <?= $this->Html->link("$name: Edit Your Account", ['controller' => 'Users', 'action' => 'account'], ['class'=>'nav-link']) ?>
-                </u>
+            <?php else: ?>
+                <li class="nav-item">
+                    <?= $this->Html->link('Students & Staff', ['controller' => 'Users', 'action' => 'index'], ['class'=>'nav-link']) ?>
+                </li>
             <?php endif ?>
-        </li>
+            <li class="nav-item">
+                <?php if ($user): ?>
+                    <u>
+                        <?= $this->Html->link("$name: Edit Your Account", ['controller' => 'Users', 'action' => 'account'], ['class'=>'nav-link']) ?>
+                    </u>
+                <?php endif ?>
+            </li>
         <?php else: ?>
             <?= $this->Html->link('Log in', ['controller' => 'Users', 'action' => 'login'], ['class'=>'nav-link']) ?>
         </li>

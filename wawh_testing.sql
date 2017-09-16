@@ -145,7 +145,7 @@ CREATE TABLE `reports` (
   `supervisor_id` int(11) NOT NULL,
   `project_id` int NOT NULL,
   `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
+  `end_date` datetime DEFAULT NULL,
   `work_performed` text COLLATE utf8mb4_unicode_ci,
   `routine` tinyint(4) DEFAULT NULL,
   `learned` text COLLATE utf8mb4_unicode_ci,

@@ -123,7 +123,6 @@ class AppController extends Controller
     public function isAuthorized()
     {
         $user = $this->request->session()->read('Auth.User');
-
         return $user['admin'];
     }
 }
