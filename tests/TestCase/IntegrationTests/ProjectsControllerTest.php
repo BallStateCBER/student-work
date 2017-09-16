@@ -57,6 +57,7 @@ class ProjectsControllerTest extends IntegrationTestCase
             'name' => 'Project Win',
             'organization' => 'American Placeholder Association',
             'fund_id' => 1,
+            'grant_name' => 'Placeholder Society Funding',
             'description' => 'Here is some text'
         ];
 
@@ -103,6 +104,7 @@ class ProjectsControllerTest extends IntegrationTestCase
             'name' => 'Test Project',
             'organization' => 'American Testing Association',
             'fund_id' => 1,
+            'grant_name' => 'Placeholder Society Funding',
             'description' => 'Here is some TEST'
         ];
 
@@ -148,6 +150,7 @@ class ProjectsControllerTest extends IntegrationTestCase
             'name' => 'Test Project',
             'organization' => 'American Testing Association',
             'fund_id' => 1,
+            'grant_name' => 'Placeholder Society Funding',
             'description' => 'Here is some TEST',
             'users' => [
                 0 => [
@@ -187,6 +190,7 @@ class ProjectsControllerTest extends IntegrationTestCase
             'name' => 'Test Project',
             'organization' => 'American Testing Association',
             'fund_id' => 1,
+            'grant_name' => 'Placeholder Society Funding',
             'description' => 'Here is some TEST',
             'users' => [
                 0 => [
