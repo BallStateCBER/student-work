@@ -145,7 +145,7 @@ class FundsControllerTest extends IntegrationTestCase
 
         $this->get('/funds');
         $this->assertResponseOk();
-        $this->assertResponseContains('Generic');
+        $this->assertResponseContains('ABCDEF');
 
         $id = $this->Users->getIdFromEmail('mblum@bsu.edu');
         $user = $this->Users->get($id);
