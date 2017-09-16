@@ -105,9 +105,18 @@ class ProjectsController extends AppController
             'order' => ['name' => 'ASC']
         ]);
 
+        $projectList = $this->Projects->find('list')
+            ->toArray();
+
+        $count = count($projectList);
+
+        // this determines if $count is an odd or even number
+        // and sets the dividing point for the paginator
+        $halfCount = $count % 2 == 0 ? $count / 2 : ($count + 1) / 2;
+
         $projects = $this->paginate($projects);
 
-        $this->set(compact('projects'));
+        $this->set(compact('count', 'halfCount', 'projectList', 'projects'));
         $this->set('_serialize', ['projects']);
     }
 
