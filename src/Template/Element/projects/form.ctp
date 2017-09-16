@@ -15,10 +15,10 @@
         <?= $titleForLayout ?>
     </h1>
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <?= $this->Form->control('name', ['class' => 'form-control', 'label' => 'Project name']) ?>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <?= $this->Form->control('organization', ['class' => 'form-control']) ?>
         </div>
         <div class="col-lg-3">
@@ -34,6 +34,15 @@
             <small>
                 Don't see yours listed? <?= $this->Html->link('Add a new fund!', ['controller' => 'Funds', 'action' => 'add'], ['class' => 'text-danger']) ?>
             </small>
+        </div>
+        <div clas"col-lg-3">
+            <label class="form-control-label">
+                Grant name (if applicable)
+            </label>
+            <?= $this->Form->control('grant_name', [
+                'class' => 'form-control',
+                'label' => false
+            ]) ?>
         </div>
     </div>
     <div class="row">
@@ -57,8 +66,6 @@
             <?= $this->Form->textarea('description', ['class' => 'form-control']) ?>
             <?= $this->CKEditor->replace('description') ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-lg-6">
             <label class="form-control-label">
                 Funding Details
