@@ -45,7 +45,16 @@ class FundsController extends AppController
     {
         $funds = $this->paginate($this->Funds);
 
-        $this->set(compact('funds'));
+        $fundList = $this->Funds->find('list')
+            ->toArray();
+
+        $count = count($fundList);
+
+        // this determines if $count is an odd or even number
+        // and sets the dividing point for the paginator
+        $halfCount = $count % 2 == 0 ? $count / 2 : ($count + 1) / 2;
+
+        $this->set(compact('count', 'funds', 'halfCount'));
         $this->set('_serialize', ['funds']);
     }
 
