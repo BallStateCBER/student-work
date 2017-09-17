@@ -4,9 +4,9 @@
         <div class="row">
             <?php $x = 1; ?>
             <?php foreach ($projects as $project): ?>
-            <?php if ($x == $halfCount + 1 || $x == 1): ?>
+            <?php if ($x == 1): ?>
                 <div class="col-lg-6">
-                    <table cellpadding="5" cellspacing="0">
+                    <table cellpadding="10" cellspacing="0">
                         <thead>
                             <tr>
                                 <th scope="col"><?= $this->Paginator->sort('image') ?></th>
@@ -14,10 +14,22 @@
                                 <th scope="col"><?= $this->Paginator->sort('users', ['label' => 'Contributors']) ?></th>
                                 <th scope="col" class="actions"><?= __('Actions') ?></th>
                             </tr>
-                        </thead>
-                        <tbody>
+            <?php elseif ($x == $halfCount + 1): ?>
+                <div class="col-lg-6">
+                    <table cellpadding="10" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                            </tr>
             <?php endif ?>
-                        <tr>
+            <?php if ($x == $halfCount + 1 || $x == 1): ?>
+                </thead>
+                <tbody>
+            <?php endif ?>
+                        <tr class="table-index">
                             <td>
                                 <?php if ($project->image): ?>
                                     <?= $this->Html->link($this->Html->image('projects'.DS.$project->image, [

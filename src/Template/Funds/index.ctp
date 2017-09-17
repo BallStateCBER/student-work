@@ -5,20 +5,32 @@
         <div class="row">
             <?php $x = 1; ?>
             <?php foreach ($funds as $fund): ?>
-            <?php if ($x == $halfCount + 1 || $x == 1): ?>
-                <div class="col-lg-6">
-                    <table cellpadding="5" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th scope="col"><?= $this->Paginator->sort('name', 'Fund Number') ?></th>
-                                <th scope="col"><?= $this->Paginator->sort('organization') ?></th>
-                                <th scope="col"><?= $this->Paginator->sort('amount') ?></th>
-                                <th scope="col" class="actions"><?= __('Actions') ?></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-            <?php endif ?>
-                            <tr>
+                <?php if ($x == 1): ?>
+                    <div class="col-lg-6">
+                        <table cellpadding="10" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th scope="col"><?= $this->Paginator->sort('name', 'Fund Number') ?></th>
+                                    <th scope="col"><?= $this->Paginator->sort('organization') ?></th>
+                                    <th scope="col"><?= $this->Paginator->sort('amount') ?></th>
+                                    <th scope="col" class="actions"><?= __('Actions') ?></th>
+                                </tr>
+                <?php elseif ($x == $halfCount + 1): ?>
+                    <div class="col-lg-6">
+                        <table cellpadding="10" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col" class="actions"><?= __('Actions') ?></th>
+                                </tr>
+                <?php endif ?>
+                <?php if ($x == $halfCount + 1 || $x == 1): ?>
+                    </thead>
+                    <tbody>
+                <?php endif ?>
+                            <tr class="table-index">
                                 <td><?= h($fund->name) ?></td>
                                 <td><?= h($fund->organization) ?></td>
                                 <td><?= h($fund->amount) ?></td>

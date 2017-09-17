@@ -14,7 +14,7 @@
             </thead>
             <tbody>
                 <?php foreach ($reports as $report): ?>
-                <tr>
+                <tr class="table-index">
                     <td><?= h($report->project['name']) ?></td>
                     <td><?= h($report->student_id) ?></td>
                     <td><?= h($report->supervisor_id) ?></td>
@@ -68,7 +68,7 @@
                 <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="card-block">
                         <?= $this->Html->link(__("Current Projects"), ['action' => 'current']) ?><br />
-                        <?= $this->Html->link(__("Past Projects"), ['action' => 'past']) ?><br />
+                        <?= $this->Html->link(__("Past Projects"), ['action' => 'past']) ?>
                     </div>
                 </div>
             </div>
@@ -99,7 +99,7 @@
                 <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="card-block">
                         <?php foreach ($students as $key => $name): ?>
-                            <?= $this->Html->link(__($name), ['action' => 'student', $key]) ?>
+                            <?= $this->Html->link(__($name), ['action' => 'student', $key]) ?><br />
                         <?php endforeach ?>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                 <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
                     <div class="card-block">
                         <?php foreach ($supervisors as $key => $name): ?>
-                            <?= $this->Html->link(__($name), ['action' => 'supervisor', $key]) ?>
+                            <?= $this->Html->link(__($name), ['action' => 'supervisor', $key]) ?><br />
                         <?php endforeach ?>
                     </div>
                 </div>

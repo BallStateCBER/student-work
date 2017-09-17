@@ -250,9 +250,9 @@ class ReportsController extends AppController
     {
         $projectNames = [];
         $projects = $this->Reports->Projects->find()
-            ->select('name');
+            ->select(['id', 'name']);
         foreach ($projects as $project) {
-            $projectNames += [$project->name => $project->name];
+            $projectNames += [$project->id => $project->name];
         }
         $supervisors = $this->Users->find('list');
 
