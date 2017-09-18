@@ -1,6 +1,6 @@
 <?php echo $email; ?>,
 
-Someone (presumably you) just requested that your password for MuncieEvents.com be reset
+Someone (presumably you) just requested that your password for CBER Student Work Tracker be reset
 so you can log in again. We would just TELL you what your password is, but since
 it's stored in a one-way encrypted format, we actually have no way to figure out what it is.
 
@@ -17,5 +17,5 @@ finds it later, they won't be able to use it to get into your account. Still, it
 idea to delete this email as soon as you've reset your password.
 
 Love,
-Muncie Events
-http://MuncieEvents.com
+CBER Data Center
+http://studentwork.cberdata.org

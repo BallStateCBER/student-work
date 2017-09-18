@@ -3,7 +3,7 @@
 </p>
 
 <p>
-	Someone (presumably you) just requested that your password for MuncieEvents.com be reset
+	Someone (presumably you) just requested that your password for CBER Student Work Tracker be reset
 	so you can log in again. We would just <i>tell</i> you what your password is, but since
 	it's stored in a one-way encrypted format, we actually have no way to figure out what it is.
 </p>
@@ -30,5 +30,5 @@
 <p>
 	Love,
 	<br />
-	<a href="http://MuncieEvents.com">Muncie Events</a>
+	<a href="http://studentwork.cberdata.org">CBER Data Center</a>
 </p>
