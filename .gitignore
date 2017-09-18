@@ -2,6 +2,7 @@
 /tmp/*
 /logs/*
 /config/.env
+/config/.env.production
 
 # PhpStorm
 .idea/*
