@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <h3><?= __('Reports') ?></h3>
+        <h3><?= __('Projects') ?></h3>
         <div class="row">
             <?php $x = 1; ?>
             <?php foreach ($projects as $project): ?>
@@ -53,8 +53,8 @@
                                     <i>No users set.</i>
                                 <?php endif ?>
                                 <?php foreach ($project->users as $user) {
-                                    echo '<span class="project-users">' . $user->name . ': ' . $user->_joinData['role'] . '</span>';
-                                } ?>
+                                        echo '<span class="project-users">' . $user->name . ': ' . $user->_joinData['role'] . '</span>';
+                                    } ?>
                             </td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['action' => 'view', $project->id]) ?>
