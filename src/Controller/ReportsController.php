@@ -27,6 +27,33 @@ class ReportsController extends AppController
     }
 
     /**
+     * populating the forms
+     *
+     * @return void
+     */
+    private function formPopulation()
+    {
+        $projectNames = [];
+        $projects = $this->Reports->Projects->find()
+            ->select(['id', 'name'])
+            ->contain(['Users']);
+        foreach ($projects as $project) {
+            if ($this->Auth->user('admin') == 0) {
+                foreach ($project->users as $user) {
+                    if ($user->id == $this->Auth->user('id')) {
+                        $projectNames += [$project->id => $project->name];
+                    }
+                }
+                continue;
+            }
+            $projectNames += [$project->id => $project->name];
+        }
+        $supervisors = $this->Users->find('list');
+
+        $this->set(compact('projects', 'projectNames', 'supervisors'));
+    }
+
+    /**
      * indexing reports
      *
      * @param ResultSet $reports This is a set of Report entities
@@ -248,17 +275,11 @@ class ReportsController extends AppController
      */
     public function add()
     {
-        $projectNames = [];
-        $projects = $this->Reports->Projects->find()
-            ->select(['id', 'name']);
-        foreach ($projects as $project) {
-            $projectNames += [$project->id => $project->name];
-        }
-        $supervisors = $this->Users->find('list');
+        $this->formPopulation();
 
         $report = $this->Reports->newEntity();
 
-        $this->set(compact('projectNames', 'report', 'routine', 'supervisors'));
+        $this->set(compact('report'));
         $this->set('_serialize', ['report']);
         $this->set(['titleForLayout' => 'Add a Report']);
 
@@ -335,15 +356,9 @@ class ReportsController extends AppController
             'contain' => []
         ]);
 
-        $projectNames = [];
-        $projects = $this->Reports->Projects->find()
-            ->select();
-        foreach ($projects as $project) {
-            $projectNames += [$project->id => $project->name];
-        }
-        $supervisors = $this->Users->find('list');
+        $this->formPopulation();
 
-        $this->set(compact('projectNames', 'report', 'routine', 'supervisors'));
+        $this->set(compact('report'));
         $this->set('_serialize', ['report']);
         $this->set(['titleForLayout' => "Edit Report: $report->project_name"]);
 

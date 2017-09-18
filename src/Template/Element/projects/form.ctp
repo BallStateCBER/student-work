@@ -35,7 +35,7 @@
                 Don't see yours listed? <?= $this->Html->link('Add a new fund!', ['controller' => 'Funds', 'action' => 'add'], ['class' => 'text-danger']) ?>
             </small>
         </div>
-        <div clas"col-lg-3">
+        <div class="col-lg-3">
             <label class="form-control-label">
                 Grant name (if applicable)
             </label>
