@@ -30,7 +30,7 @@
                     </thead>
                     <tbody>
                 <?php endif ?>
-                            <tr class="table-index">
+                            <tr class="table-index" id="fund-<?= $fund->id ?>">
                                 <td><?= h($fund->name) ?></td>
                                 <td><?= h($fund->organization) ?></td>
                                 <td><?= h($fund->amount) ?></td>

@@ -28,7 +28,7 @@
     </div>
     <div class="col-lg-4">
         <h6>Fund number</h6>
-        <?= isset($project->fund_id) ? $this->Html->link($fundNumber, ['controller' => 'Funds', 'action' => 'view', $project->fund_id]) : 'None/not applicable' ?>
+        <?= isset($project->fund_id) ? $this->Html->link($fundNumber, "/funds/index#fund-$project->fund_id") : 'None/not applicable' ?>
     </div>
 </div>
 <?php if ($project->funding_details): ?>
