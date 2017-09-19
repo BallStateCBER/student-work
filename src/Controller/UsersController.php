@@ -229,11 +229,11 @@ class UsersController extends AppController
 
                 // Remember login information
                 if ($this->request->data('auto_login')) {
-                    $this->Cookie->configKey('CookieAuth', [
+                    $this->Cookie->configKey('User', [
                         'expires' => '+1 year',
                         'httpOnly' => true
                     ]);
-                    $this->Cookie->write('CookieAuth', [
+                    $this->Cookie->write('User', [
                         'email' => $this->request->data('email'),
                         'password' => $this->request->data('password')
                     ]);
