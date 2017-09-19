@@ -41,9 +41,25 @@ class AppController extends Controller
         'Html'
     ];
 
-    public $components = [
-        'Auth'
-    ];
+    /**
+     * beforeFilter
+     *
+     * @param  Event  $event beforeFilter
+     * @return void
+     */
+    public function beforeFilter(Event $event)
+    {
+        //Automaticaly Login.
+        if (!$this->Auth->user() && $this->Cookie->read('CookieAuth')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+            } else {
+                $this->Cookie->delete('CookieAuth');
+            }
+        }
+    }
+
 
     /**
      * Initialization hook method.
@@ -60,6 +76,7 @@ class AppController extends Controller
         $this->loadComponent('Paginator');
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Cookie');
         $this->loadComponent(
             'Auth',
             [
@@ -83,9 +100,10 @@ class AppController extends Controller
                             'username' => 'email',
                             'password' => 'password'
                             ]
-                        ]
-                    ],
-                'unauthorizedRedirect' => $this->referer() // If unauthorized, return them to page they were just on
+                        ],
+                    'Xety/Cake3CookieAuth.Cookie'
+                ],
+                'authorize' => ['Controller']
             ]
         );
 

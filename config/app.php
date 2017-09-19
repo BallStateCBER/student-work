@@ -359,6 +359,6 @@ $config = [
      */
     'Session' => [
         'defaults' => 'php',
-        'timeout' => 1430 // 1 day
+        'timeout' => 1440 // 1 day
     ],
 ];
