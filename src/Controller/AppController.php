@@ -60,7 +60,6 @@ class AppController extends Controller
         }
     }
 
-
     /**
      * Initialization hook method.
      *

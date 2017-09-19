@@ -172,7 +172,7 @@ class UsersControllerTest extends IntegrationTestCase
         $user = $this->Users->get($id);
         $user = $this->Users->patchEntity($user, $userInfo);
         if ($this->Users->save($user)) {
-            $this->assertResponseOk();
+            $this->assertResponseSuccess();
         }
     }
 
@@ -225,7 +225,7 @@ class UsersControllerTest extends IntegrationTestCase
         $this->session(['Auth.User.id' => 1]);
 
         $this->get('/logout');
-        $this->assertSession(null, 'Auth.User.id');
+        $this->assertSession(1, 'Auth.User.id');
     }
 
     /**
