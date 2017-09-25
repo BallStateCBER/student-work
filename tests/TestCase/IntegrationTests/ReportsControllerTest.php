@@ -97,6 +97,7 @@ class ReportsControllerTest extends IntegrationTestCase
         $user = $this->Users->get($id);
         $this->session(['Auth.User' => $user]);
 
+        $project = $this->Projects->getProjectByName('The Raven Who Refused to Sing');
         $report = $this->Reports->find()
             ->where(['learned' => 'Cos I deserve to occupy this space without feeling like I don\'t belong.'])
             ->firstOrFail();
@@ -107,7 +108,7 @@ class ReportsControllerTest extends IntegrationTestCase
         $newReport = [
             'student_id' => $id,
             'supervisor_id' => $id,
-            'project_name' => 'The Raven Who Refused to Sing',
+            'project_name' => $project->id,
             'start_date' => [
                 'year' => date('Y'),
                 'month' => date('m'),
