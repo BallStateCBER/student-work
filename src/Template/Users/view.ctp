@@ -3,6 +3,9 @@ if (isset($user->name)) {
     $firstName = explode(' ', trim($user->name));
     $firstName = $firstName[0];
 }
+if (!isset($user->name)) {
+    $firstName = "This Employee";
+}
 ?>
 <?php if ($user->image): ?>
     <?= $this->Html->image('users'.DS.$user->image, [
@@ -20,15 +23,10 @@ if (isset($user->name)) {
 </h1>
 <div class="row">
     <div class="col-lg-8">
-        <?php if ($user->bio): ?>
-            <p>
-                <?= $user->bio ?>
-            </p>
-        <?php else: ?>
-            <p>
-                <?= $firstName ?: 'This employee' ?> has not written a bio yet. Are you <?= $firstName ?: 'this employee' ?>? You should write your bio. No, like, how are we supposed to know you're a real person if you don't talk about it on the Internet?
-            </p>
-        <?php endif ?>
+        <p class="view-bio">
+            <?php $noBio = "$firstName has not written a bio yet. Are you $firstName? You should write your bio. No, like, how are we supposed to know you're a real person if you don't talk about it on the Internet?" ?>
+            <?= $user->bio ?: $noBio ?>
+        </p>
     </div>
 </div>
 <div class="row">
@@ -42,7 +40,7 @@ if (isset($user->name)) {
     </div>
     <div class="col-lg-4">
         <h6>Role</h6>
-        <?= $user->role ?>
+        <?= $user->admin ? 'Site Admin' : 'Student' ?>
     </div>
 </div>
 <div class="row">
