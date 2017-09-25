@@ -11,7 +11,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col"><?= $this->Paginator->sort('name', 'Fund Number') ?></th>
-                                    <th scope="col"><?= $this->Paginator->sort('organization') ?></th>
+                                    <th scope="col" class="non-mobile"><?= $this->Paginator->sort('organization') ?></th>
                                     <th scope="col"><?= $this->Paginator->sort('amount') ?></th>
                                     <th scope="col" class="actions"><?= __('Actions') ?></th>
                                 </tr>
@@ -21,7 +21,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col"></th>
-                                    <th scope="col"></th>
+                                    <th scope="col" class="non-mobile"></th>
                                     <th scope="col"></th>
                                     <th scope="col" class="actions"><?= __('Actions') ?></th>
                                 </tr>
@@ -32,7 +32,7 @@
                 <?php endif ?>
                             <tr class="table-index" id="fund-<?= $fund->id ?>">
                                 <td><?= h($fund->name) ?></td>
-                                <td><?= h($fund->organization) ?></td>
+                                <td class="non-mobile"><?= h($fund->organization) ?></td>
                                 <td><?= h($fund->amount) ?></td>
                                 <td class="actions">
                                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $fund->id]) ?>

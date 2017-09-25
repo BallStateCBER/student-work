@@ -11,7 +11,7 @@
                             <tr>
                                 <th scope="col"><?= $this->Paginator->sort('image') ?></th>
                                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                                <th scope="col"><?= $this->Paginator->sort('users', ['label' => 'Contributors']) ?></th>
+                                <th scope="col" class="non-mobile"><?= $this->Paginator->sort('users', ['label' => 'Contributors']) ?></th>
                                 <th scope="col" class="actions"><?= __('Actions') ?></th>
                             </tr>
             <?php elseif ($x == $halfCount + 1): ?>
@@ -21,7 +21,7 @@
                             <tr>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
-                                <th scope="col"></th>
+                                <th scope="col" class="non-mobile"></th>
                                 <th scope="col" class="actions"><?= __('Actions') ?></th>
                             </tr>
             <?php endif ?>
@@ -48,7 +48,7 @@
                                 <?php endif ?>
                             </td>
                             <td><?= h($project->name) ?></td>
-                            <td>
+                            <td class="non-mobile">
                                 <?php if (empty($project->users)): ?>
                                     <i>No users set.</i>
                                 <?php endif ?>
