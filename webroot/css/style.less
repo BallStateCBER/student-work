@@ -26,7 +26,7 @@ h1, h2, h3, h4, h5, h6,
 // layout
 body {
     background: url('/img/wallpaper-3.jpg') fixed center top;
-    background-size: 100% auto;
+    background-size: 100% 100%;
     color: #000;
     font-family: @TextFont;
     font-weight: 600;
@@ -57,12 +57,34 @@ body {
 
 // home
 .home-img {
+    @media @small {
+        max-width: 100%;
+    }
+    @media @x-small {
+        max-width: 100%;
+    }
     max-width: 350px;
 }
 
 // forms
+.center-button {
+    @media @small {
+        text-align: center;
+    }
+    @media @x-small {
+        text-align: center;
+    }
+}
 .dates {
     display: inline-block;
+    @media @small {
+        display: block;
+        width: 100%;
+    }
+    @media @x-small {
+        display: block;
+        width: 100%;
+    }
     width: auto;
 }
 
@@ -73,6 +95,12 @@ body {
 .img-account {
     max-height: 350px;
     max-width: 33%;
+    @media @small {
+        max-width: 100%;
+    }
+    @media @x-small {
+        max-width: 100%;
+    }
 }
 
 label[for=admin-1],
@@ -119,7 +147,17 @@ div.index {
     height: 50px;
 }
 
-//paginator
+// paginator
 .prev, .next {
     padding: 10px;
+}
+
+// user view
+h1.user-view {
+    @media @small {
+        text-align: center;
+    }
+    @media @x-small {
+        text-align: center;
+    }
 }

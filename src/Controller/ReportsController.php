@@ -305,7 +305,7 @@ class ReportsController extends AppController
 
         if ($this->request->is('post')) {
             $report = $this->Reports->patchEntity($report, $this->request->getData());
-            $project = $this->Reports->Projects->getProjectByName($this->request->data['project_name']);
+            $project = $this->Reports->Projects->get($this->request->data['project_name']);
 
             if ($project == null) {
                 $this->Flash->error(__(
@@ -372,7 +372,7 @@ class ReportsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $report = $this->Reports->patchEntity($report, $this->request->getData());
-            $project = $this->Reports->Projects->getProjectByName($this->request->data['project_name']);
+            $project = $this->Reports->Projects->get($this->request->data['project_name']);
             if ($project == null) {
                 $this->Flash->error(__(
                     'That project was not found.

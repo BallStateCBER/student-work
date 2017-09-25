@@ -150,7 +150,7 @@
         <?php endfor ?>
     <?php endif ?>
 </fieldset>
-<div class="col-lg-6">
+<div class="col-lg-6 center-button">
     <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-secondary btn-md']) ?>
     <?= $this->Form->end() ?>
 </div>

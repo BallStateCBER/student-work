@@ -15,7 +15,7 @@ class ReportsControllerTest extends IntegrationTestCase
     public function setUp()
     {
         parent::setUp();
-        $classes = ['Reports', 'Users'];
+        $classes = ['Projects', 'Reports', 'Users'];
         foreach ($classes as $class) {
             $config = TableRegistry::exists("$class") ? [] : ['className' => 'App\Model\Table\\' . $class . 'Table'];
             $this->$class = TableRegistry::get("$class", $config);
@@ -29,7 +29,7 @@ class ReportsControllerTest extends IntegrationTestCase
      */
     public function tearDown()
     {
-        $classes = ['Reports', 'Users'];
+        $classes = ['Projects', 'Reports', 'Users'];
         foreach ($classes as $class) {
             unset($this->$class);
         }
@@ -50,10 +50,12 @@ class ReportsControllerTest extends IntegrationTestCase
         $this->get('/reports/add');
         $this->assertResponseOk();
 
+        $project = $this->Projects->getProjectByName('The Raven Who Refused to Sing');
+
         $report = [
             'student_id' => $user->name,
             'supervisor_id' => $user->name,
-            'project_name' => 'The Raven Who Refused to Sing',
+            'project_name' => $project->id,
             'start_date' => [
                 'year' => date('Y'),
                 'month' => date('m'),
