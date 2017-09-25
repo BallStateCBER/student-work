@@ -181,7 +181,8 @@ class UsersController extends AppController
         ]);
         $this->getUserVars($id);
 
-        $this->set(compact('user'));
+        $resetPasswordHash = $this->Users->getResetPasswordHash($user->id, $user->email);
+        $this->set(compact('resetPasswordHash', 'user'));
         $this->set('_serialize', ['user']);
         $this->set(['titleForLayout' => "Edit user: $user->name"]);
 
