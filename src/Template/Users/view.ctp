@@ -15,7 +15,7 @@ if (isset($user->name)) {
         'class' => 'img-account float-right'
     ]) ?>
 <?php endif ?>
-<h1>
+<h1 class="user-view">
     <?= $user->name ?: "Unnamed employee #$user->id" ?>
 </h1>
 <div class="row">

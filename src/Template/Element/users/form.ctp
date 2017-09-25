@@ -17,7 +17,7 @@
                 'class' => 'img-account float-right'
             ]);
         } ?>
-        <h1>
+        <h1 class="user-view">
             <?= $titleForLayout ?>
         </h1>
         <div class="row">
@@ -185,7 +185,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 center-button">
             <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-secondary btn-md']) ?>
             <?= $this->Form->end() ?>
         </div>
