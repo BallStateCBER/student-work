@@ -6,23 +6,23 @@
             <?php foreach ($projects as $project): ?>
             <?php if ($x == 1): ?>
                 <div class="col-lg-6">
-                    <table cellpadding="10" cellspacing="0">
+                    <table class="whole-table" cellpadding="10" cellspacing="0">
                         <thead>
                             <tr>
                                 <th scope="col"><?= $this->Paginator->sort('image') ?></th>
                                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                                <th scope="col" class="non-mobile"><?= $this->Paginator->sort('users', ['label' => 'Contributors']) ?></th>
+                                <th scope="col" class="non-cell"><?= $this->Paginator->sort('users', ['label' => 'Contributors']) ?></th>
                                 <th scope="col" class="actions"><?= __('Actions') ?></th>
                             </tr>
             <?php elseif ($x == $halfCount + 1): ?>
                 <div class="col-lg-6">
-                    <table cellpadding="10" cellspacing="0">
+                    <table class="whole-table" cellpadding="10" cellspacing="0">
                         <thead>
                             <tr>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                                <th scope="col" class="non-mobile"></th>
-                                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                                <th scope="col" class="non-mobile"><?= __('Image') ?></th>
+                                <th scope="col" class="non-mobile"><?= __('Name') ?></th>
+                                <th scope="col" class="non-mobile"><?= __('Contributors') ?></th>
+                                <th scope="col" class="non-mobile actions"><?= __('Actions') ?></th>
                             </tr>
             <?php endif ?>
             <?php if ($x == $halfCount + 1 || $x == 1): ?>
@@ -48,7 +48,7 @@
                                 <?php endif ?>
                             </td>
                             <td><?= h($project->name) ?></td>
-                            <td class="non-mobile">
+                            <td class="non-cell">
                                 <?php if (empty($project->users)): ?>
                                     <i>No users set.</i>
                                 <?php endif ?>

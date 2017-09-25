@@ -116,6 +116,15 @@ label[for=routine-0] {
 }
 
 // indexes
+.actions {
+    a {
+        @media @x-small {
+            display: block;
+        }
+        display: inline-block;
+    }
+}
+
 div.index {
     border-radius: 1pc;
     box-shadow: 1px 1px 12px #BBB;
@@ -126,11 +135,19 @@ div.index {
         }
     }
 }
+.non-cell,
 .non-mobile {
     @media @small {
         display: none;
     }
+
     @media @x-small {
+        display: none;
+    }
+}
+
+.non-mobile {
+    @media @medium {
         display: none;
     }
 }
@@ -152,6 +169,24 @@ div.index {
 
 .table-index {
     border-bottom: 1px solid #000;
+}
+
+td, th {
+    @media @medium {
+        width: 25%;
+    }
+
+    @media @small {
+        width: 33%;
+    }
+
+    @media @x-small {
+        width: 33%;
+    }
+}
+
+.whole-table {
+    width: 100%;
 }
 
 // forms
