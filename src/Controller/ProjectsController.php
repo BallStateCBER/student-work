@@ -15,6 +15,7 @@ class ProjectsController extends AppController
 {
     /**
      * initialize controller
+     *
      * @return null
      */
     public function initialize()
