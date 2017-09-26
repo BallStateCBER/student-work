@@ -18,7 +18,7 @@
             ['controller' => 'Users', 'action' => 'view', $user->id],
             ['escape' => false]) ?>
         <?php endif ?>
-        <h5><?= $user->name ?></h5>
+        <h5><?= $user->name ?: "Employee #$user->id" ?></h5>
         <?= $this->Text->autoLinkEmails($user->email) ?>
         <p>
             <?php if (isset($user->position)): ?>

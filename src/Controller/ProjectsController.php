@@ -44,7 +44,7 @@ class ProjectsController extends AppController
             if (!empty($this->request->data['users'])) {
                 foreach ($this->request->data['users'] as $user) {
                     // skip over the placeholders
-                    if ($user['_joinData']['user_id'] != null) {
+                    if (!empty($user['_joinData']['user_id'])) {
                         // get form data & user
                         $userId = $user['_joinData']['user_id'];
                         $employeeRole = $user['_joinData']['role'];
@@ -147,7 +147,14 @@ class ProjectsController extends AppController
     {
         $project = $this->Projects->newEntity();
 
-        $users = $this->Projects->Users->find('list');
+        $users = $this->Projects->Users->find('list')->toArray();
+
+        foreach ($users as $u => $user) {
+            if ($user == null) {
+                $users[$u] = "Employee #$u";
+            }
+        }
+
         $funds = $this->Projects->Funds->find('list');
         $this->set(compact('funds', 'project', 'users'));
         $this->set('_serialize', ['project']);
@@ -171,7 +178,14 @@ class ProjectsController extends AppController
             'contain' => ['Reports', 'Users']
         ]);
 
-        $users = $this->Projects->Users->find('list');
+        $users = $this->Projects->Users->find('list')->toArray();
+
+        foreach ($users as $u => $user) {
+            if ($user == null) {
+                $users[$u] = "Employee #$u";
+            }
+        }
+
         $funds = $this->Projects->Funds->find('list');
         $this->set(compact('funds', 'project', 'users'));
         $this->set('_serialize', ['project']);
