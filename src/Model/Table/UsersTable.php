@@ -211,7 +211,7 @@ class UsersTable extends Table
         ], true);
         $resetEmail
             ->setTo($email)
-            ->setSubject('Muncie Events: Reset Password')
+            ->setSubject('CBER Student Work Tracker: Reset Password')
             ->setTemplate('forgot_password')
             ->setEmailFormat('both')
             ->setHelpers(['Html', 'Text'])
