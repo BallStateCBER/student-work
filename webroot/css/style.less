@@ -115,6 +115,10 @@ label[for=routine-0] {
     display: block;
 }
 
+.select-box {
+    height: 50px;
+}
+
 // indexes
 .actions {
     a {
@@ -189,22 +193,23 @@ td, th {
     width: 100%;
 }
 
-// forms
-.select-box {
-    height: 50px;
-}
-
 // paginator
 .prev, .next {
     padding: 10px;
 }
 
-// user view
+// views
 h1.user-view {
     @media @small {
         text-align: center;
     }
     @media @x-small {
         text-align: center;
+    }
+}
+
+.no-marg {
+    p {
+        margin-bottom: 0px;
     }
 }

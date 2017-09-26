@@ -22,9 +22,9 @@
     ?>
     <!-- jquery 3.1.1 min files, checks if CDN is down, deploys local file if necessary -->
     <script
-    src="https://code.jquery.com/jquery-3.1.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous">
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
     </script>
     <script>window.jQuery || document.write('<script src="/js/jquery-3.1.1.min.js">\x3C/script>')</script>
 </head>
