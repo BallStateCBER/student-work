@@ -8,7 +8,7 @@
             <?= $titleForLayout ?>
         </h1>
         <div class="row">
-            <div class="col-lg-2">
+            <div class="col-xl-2">
                 <label class="form-control-label">
                     Supervisor
                 </label>
@@ -16,22 +16,24 @@
                     'label' => false
                 ]) ?>
             </div>
-            <div class="col-lg-2">
+            <div class="col-xl-3">
                 <label>For student or employee</label>
                 <?php if ($activeUser['admin'] == 1): ?>
                     <?= $this->Form->text('student_id', [
-                        'class' => 'form-control',
+                        'class' => 'form-control dates',
+                        'style' => 'display:block;',
                         'value' => $activeUser['name']
                     ]) ?>
                 <?php else: ?>
                     <?= $this->Form->text('student_id', [
-                        'class' => 'form-control',
+                        'class' => 'form-control dates',
                         'disabled' => true,
+                        'style' => 'display:block;',
                         'value' => $activeUser['name']
                     ]) ?>
                 <?php endif ?>
             </div>
-            <div class="col-lg-3">
+            <div class="col-xl-3">
                 <label class="form-control-label">
                     Project name
                 </label>
@@ -41,7 +43,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-5">
                 <label class="form-control-label">
                     Start date
                 </label>
