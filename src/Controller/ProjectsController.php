@@ -89,9 +89,9 @@ class ProjectsController extends AppController
         if ($this->Projects->save($project)) {
             $this->Flash->success(__('The project has been saved.'));
 
-            return $this->redirect(['action' => 'index']);
+    #        return $this->redirect(['action' => 'index']);
         }
-        $this->Flash->error(__('The project could not be saved. Please, try again.'));
+    #    $this->Flash->error(__('The project could not be saved. Please, try again.'));
     }
 
     /**
@@ -189,7 +189,7 @@ class ProjectsController extends AppController
         $funds = $this->Projects->Funds->find('list');
         $this->set(compact('funds', 'project', 'users'));
         $this->set('_serialize', ['project']);
-        $this->set(['titleForLayout' => 'Edit Project: ' . $project->title]);
+        $this->set(['titleForLayout' => "Edit project: $project->name"]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $this->uponFormSubmission($project);

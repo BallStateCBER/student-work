@@ -92,7 +92,7 @@
                             'class' => 'form-control select-box',
                             'label' => 'Contributor Name',
                             'multiple' => false,
-                            'readonly' => isset($user),
+                        #    'readonly' => isset($user),
                             'type' => 'select'
                         ]) ?>
                     </div>
@@ -100,7 +100,7 @@
                         <?= $this->Form->control('users.'.$x.'._joinData.role', [
                             'class' => 'form-control',
                             'label' => 'Contributor Role',
-                            'readonly' => isset($user)
+                        #    'readonly' => isset($user)
                         ]) ?>
                     </div>
                     <div class="col-lg-4">
