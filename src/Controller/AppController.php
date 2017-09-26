@@ -31,7 +31,7 @@ class AppController extends Controller
 {
     public $helpers = [
         'AkkaCKEditor.CKEditor' => [
-            'version' => '4.4.7', // Default Option
+            'version' => '4.7.3', // Default Option
             'distribution' => 'basic'
             // Default Option / Other options => 'basic', 'standard', 'standard-all', 'full-all'
         ],
