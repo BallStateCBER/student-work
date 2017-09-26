@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-9">
         <h3><?= __('Reports') ?></h3>
-        <table cellpadding="15" cellspacing="0">
+        <table cellpadding="15" cellspacing="0" class="whole-table">
             <thead>
                 <tr>
                     <th scope="col"><?= $this->Paginator->sort('project_name') ?></th>

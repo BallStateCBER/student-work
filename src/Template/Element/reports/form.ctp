@@ -77,6 +77,23 @@
                     ]);?>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5">
+                <label class="form-control-label">
+                    What activities did you perform for this project?
+                </label>
+                <?= $this->CKEditor->loadJs() ?>
+                <?= $this->Form->textarea('work_performed', ['class' => 'form-control']) ?>
+                <?= $this->CKEditor->replace('work_performed') ?>
+            </div>
+            <div class="col-lg-5">
+                <label class="form-control-label">
+                    What did you learn from this task?
+                </label>
+                <?= $this->Form->textarea('learned', ['class' => 'form-control']) ?>
+                <?= $this->CKEditor->replace('learned') ?>
+            </div>
             <div class="col-lg-2">
                 <label class="form-control-label">
                     Was this a routine activity?
@@ -88,25 +105,6 @@
                     ['value' => 2, 'text' => 'Not sure'],
                 ]
                 ) ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <label class="form-control-label">
-                    What activities did you perform for this project?
-                </label>
-                <?= $this->CKEditor->loadJs() ?>
-                <?= $this->Form->textarea('work_performed', ['class' => 'form-control']) ?>
-                <?= $this->CKEditor->replace('work_performed') ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <label class="form-control-label">
-                    What did you learn from this task?
-                </label>
-                <?= $this->Form->textarea('learned', ['class' => 'form-control']) ?>
-                <?= $this->CKEditor->replace('learned') ?>
             </div>
         </div>
     </fieldset>

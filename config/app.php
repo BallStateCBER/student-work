@@ -221,7 +221,7 @@ $config = [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => 'you@localhost',
+            'from' => env('EMAIL_USERNAME'),
             //'charset' => 'utf-8',
             //'headerCharset' => 'utf-8',
         ],
