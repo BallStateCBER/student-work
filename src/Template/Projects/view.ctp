@@ -9,16 +9,8 @@
 </h1>
 <small>Admin: <?= $this->Html->link('Edit this project source', ['controller' => 'Projects', 'action' => 'edit', $project->id], ['class' => 'text-danger']) ?></small>
 <div class="row">
-    <div class="col-lg-8">
-        <?php if ($project->description): ?>
-            <p>
-                <?= $project->description ?>
-            </p>
-        <?php else: ?>
-            <p>
-                There is no description for <?= $project->name ?> yet. Go on, put it up, or we aren't gonna know how to be proud of you!
-            </p>
-        <?php endif ?>
+    <div class="col-lg-8 no-marg">
+        <?= $project->description ?: "<p>There is no description for $project->name yet. Go on, put it up, or we aren't gonna know how to be proud of you!</p>" ?>
     </div>
 </div>
 <div class="row">
