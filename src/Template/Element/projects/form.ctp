@@ -88,21 +88,19 @@
             <div class="collapse show" id="employee<?= $x ?>">
                 <div class="row">
                     <div class="col-lg-4">
-                        <?php $bool = isset($user->name) ? true : false ?>
                         <?= $this->Form->control('users.'.$x.'._joinData.user_id', [
                             'class' => 'form-control select-box',
                             'label' => 'Contributor Name',
                             'multiple' => false,
-                            'type' => 'select',
-                            'disabled' => $bool
+                            'readonly' => isset($user),
+                            'type' => 'select'
                         ]) ?>
                     </div>
                     <div class="col-lg-4">
-                        <?php $bool = isset($user->_joinData->role) ? true : false ?>
                         <?= $this->Form->control('users.'.$x.'._joinData.role', [
                             'class' => 'form-control',
                             'label' => 'Contributor Role',
-                            'disabled' => $bool
+                            'readonly' => isset($user)
                         ]) ?>
                     </div>
                     <div class="col-lg-4">
