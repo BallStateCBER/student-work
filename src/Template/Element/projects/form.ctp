@@ -81,7 +81,7 @@
             <?php if (!$project->users): ?>
                 (<a data-toggle="collapse" href="#employee0" aria-expanded="false" aria-controls="employee0">+</a>)
             <?php endif ?>
-            (<a tabindex="0" id="help-popover" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">?</a>)
+            (<a tabindex="0" id="help-popover" data-toggle="popover" data-trigger="focus" title="Need help?" data-content="If you need to change an employee's role in a project, you have to delete their old role and re-add them.">?</a>)
         </h3>
         <?php $y = 0 ?>
         <?php foreach ($project->users as $x => $user): ?>
@@ -98,7 +98,7 @@
                         ]) ?>
                     </div>
                     <div class="col-lg-4">
-                        <?php $bool = isset($user->role) ? true : false ?>
+                        <?php $bool = isset($user->_joinData->role) ? true : false ?>
                         <?= $this->Form->control('users.'.$x.'._joinData.role', [
                             'class' => 'form-control',
                             'label' => 'Contributor Role',
