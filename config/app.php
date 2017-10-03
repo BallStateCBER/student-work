@@ -361,4 +361,6 @@ $config = [
         'defaults' => 'php',
         'timeout' => 1440 // 1 day
     ],
+
+    'cookie_key' => env('COOKIE_ENCRYPTION_KEY')
 ];

@@ -15,6 +15,7 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Core\Configure;
 use Cake\Database\Type;
 use Cake\Event\Event;
 use Cake\Routing\Router;
@@ -75,7 +76,10 @@ class AppController extends Controller
         $this->loadComponent('Paginator');
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        $this->loadComponent('Cookie');
+        $this->loadComponent('Cookie', [
+            'encryption' => 'aes',
+            'key' => Configure::read('cookie_key')
+        ]);
         $this->loadComponent(
             'Auth',
             [
