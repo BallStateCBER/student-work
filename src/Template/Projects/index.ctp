@@ -52,9 +52,11 @@
                                 <?php if (empty($project->users)): ?>
                                     <i>No users set.</i>
                                 <?php endif ?>
-                                <?php foreach ($project->users as $user) {
-                                        echo '<span class="project-users">' . $user->name . ': ' . $user->_joinData['role'] . '</span>';
-                                    } ?>
+                                <?php foreach ($project->users as $user): ?>
+                                    <span class="project-users">
+                                        <?= $user->name ?><?= $user->_joinData['role'] ? ": " . $user->_joinData['role'] : '' ?>
+                                    </span>
+                                <?php endforeach; ?>
                             </td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['action' => 'view', $project->id]) ?>
