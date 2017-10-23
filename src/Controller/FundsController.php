@@ -30,11 +30,21 @@ class FundsController extends AppController
     public function initialize()
     {
         parent::initialize();
-        if (!$this->isAuthorized()) {
+    }
+
+    /**
+     * isAuthorized
+     *
+     * return bool
+     */
+    public function isAuthorized($user)
+    {
+        if (!$user['admin']) {
             $this->Flash->error('Only admins can access funding details.');
 
             return $this->redirect(['controller' => 'Reports', 'action' => 'index']);
         }
+        return true;
     }
 
     /**

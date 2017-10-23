@@ -30,7 +30,16 @@ class UsersController extends AppController
         parent::initialize();
         $this->loadModel('Awards');
         $this->loadModel('Degrees');
-        if (!$this->isAuthorized()) {
+    }
+
+    /**
+     * isAuthorized
+     *
+     * return bool
+     */
+    public function isAuthorized($user)
+    {
+        if (!$user['admin']) {
             if ($this->request->getParam('action') == 'edit') {
                 $this->Flash->error('Only admins can edit accounts.');
 
@@ -47,6 +56,7 @@ class UsersController extends AppController
                 return $this->redirect(['controller' => 'Users', 'action' => 'index']);
             }
         }
+        return true;
     }
 
     /**

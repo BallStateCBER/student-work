@@ -135,16 +135,4 @@ class AppController extends Controller
             $this->set('_serialize', true);
         }
     }
-
-    /**
-     * Determines if user is authorized.
-     *
-     * @return bool $user['role']
-     */
-    public function isAuthorized()
-    {
-        $user = $this->request->session()->read('Auth.User');
-
-        return $user['admin'];
-    }
 }

@@ -23,13 +23,22 @@ class ProjectsController extends AppController
         parent::initialize();
         $this->loadModel('Reports');
         $this->loadModel('UsersProjects');
-        if ($this->request->getParam('action') != 'index' && $this->request->getParam('action') != 'view') {
-            if (!$this->isAuthorized()) {
-                $this->Flash->error('Only admins can change project details.');
+    }
 
-                return $this->redirect(['controller' => 'Projects', 'action' => 'index']);
-            }
+    /**
+     * isAuthorized
+     *
+     * return bool
+     */
+    public function isAuthorized($user)
+    {
+        $action = $this->request->getParam('action');
+        if (!$user['admin'] && ($action != 'index' & $action != 'view')) {
+            $this->Flash->error('Only admins can change project details.');
+
+            return $this->redirect(['controller' => 'Projects', 'action' => 'index']);
         }
+        return true;
     }
 
     /**
