@@ -196,16 +196,22 @@ $config = [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => 'Mail',
-            // The following keys are used in SMTP transports
+            'host' => env('EMAIL_HOST'),
+            'port' => env('EMAIL_PORT'),
+            'username' => env('EMAIL_USERNAME'),
+            'password' => env('EMAIL_PASSWORD'),
+            'className' => 'Smtp'
+        ],
+
+        'Debug' => [
+            'className' => 'Debug',
             'host' => 'localhost',
             'port' => 25,
             'timeout' => 30,
-            'username' => 'user',
-            'password' => 'secret',
+            'username' => null,
+            'password' => null,
             'client' => null,
-            'tls' => null,
-            'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+            'tls' => false
         ],
     ],
 
@@ -221,9 +227,10 @@ $config = [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => env('EMAIL_USERNAME'),
-            //'charset' => 'utf-8',
-            //'headerCharset' => 'utf-8',
+            'from' => ['noreply@studentwork.cberdata.org' => 'CBER Student Work Tracker'],
+            'sender' => ['noreply@studentwork.cberdata.org' => 'CBER Student Work Tracker'],
+            'returnPath' => 'noreply@studentwork.cberdata.org',
+            'emailFormat' => 'both'
         ],
     ],
 

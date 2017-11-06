@@ -26,6 +26,23 @@ class DegreesController extends AppController
     }
 
     /**
+     * isAuthorized
+     *
+     * return bool
+     */
+    public function isAuthorized($user)
+    {
+        if (!$user['admin']) {
+            $entityId = $this->request->getParam('pass')[0];
+            $entity = $this->Degrees->get($entityId);
+            $id = php_sapi_name() != 'cli' ? $user['id'] : $this->request->session()->read(['Auth.User.id']);
+
+            return $entity->user_id === $id;
+        }
+        return true;
+    }
+
+    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.

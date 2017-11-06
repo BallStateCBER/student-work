@@ -7,7 +7,6 @@
         <div class='form-group col-lg-8 col-xs-12'>
             <?= $this->Form->control('password', ['class' => 'form-control']) ?>
             <?= $this->Html->link(__('Forgot password?'), ['controller' => 'Users', 'action' => 'forgotPassword'], ['class' => 'nav-link']) ?>
-            <?= $this->Html->link(__('New here? Register!'), ['controller' => 'Users', 'action' => 'register'], ['class' => 'nav-link']) ?>
             <div class="float-right">
                 <?= $this->Form->input('remember_me', [
                         'type' => 'checkbox',

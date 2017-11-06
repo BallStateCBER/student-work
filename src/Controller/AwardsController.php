@@ -25,6 +25,23 @@ class AwardsController extends AppController
     }
 
     /**
+     * isAuthorized
+     *
+     * return bool
+     */
+    public function isAuthorized($user)
+    {
+        if (!$user['admin']) {
+            $entityId = $this->request->getParam('pass')[0];
+            $entity = $this->Awards->get($entityId);
+            $id = php_sapi_name() != 'cli' ? $user['id'] : $this->request->session()->read(['Auth.User.id']);
+
+            return $entity->user_id === $id;
+        }
+        return true;
+    }
+
+    /**
      * beforeFilter
      *
      * @param  Event  $event beforeFilter
