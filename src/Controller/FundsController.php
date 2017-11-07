@@ -25,7 +25,8 @@ class FundsController extends AppController
 
     /**
      * initialize controller
-     * @return null
+     *
+     * @return void
      */
     public function initialize()
     {
@@ -35,9 +36,10 @@ class FundsController extends AppController
     /**
      * isAuthorized
      *
-     * return bool
+     * @param User|null $user User entity
+     * @return bool
      */
-    public function isAuthorized($user)
+    public function isAuthorized($user = null)
     {
         if (php_sapi_name() == 'cli') {
             $user = $this->request->session()->read(['Auth']);
@@ -48,6 +50,7 @@ class FundsController extends AppController
 
             return $this->redirect(['controller' => 'Reports', 'action' => 'index']);
         }
+
         return true;
     }
 

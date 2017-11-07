@@ -28,9 +28,10 @@ class DegreesController extends AppController
     /**
      * isAuthorized
      *
-     * return bool
+     * @param User|null $user User entity
+     * @return bool
      */
-    public function isAuthorized($user)
+    public function isAuthorized($user = null)
     {
         if (php_sapi_name() == 'cli') {
             $user = $this->request->session()->read(['Auth']);
@@ -44,6 +45,7 @@ class DegreesController extends AppController
                 return $entity->user_id === $user['id'];
             }
         }
+
         return true;
     }
 

@@ -16,7 +16,7 @@ class ProjectsController extends AppController
     /**
      * initialize controller
      *
-     * @return null
+     * @return void
      */
     public function initialize()
     {
@@ -28,9 +28,10 @@ class ProjectsController extends AppController
     /**
      * isAuthorized
      *
-     * return bool
+     * @param User|null $user User entity
+     * @return bool
      */
-    public function isAuthorized($user)
+    public function isAuthorized($user = null)
     {
         $action = $this->request->getParam('action');
         if (!$user['admin'] && ($action != 'index' & $action != 'view')) {
@@ -38,6 +39,7 @@ class ProjectsController extends AppController
 
             return $this->redirect(['controller' => 'Projects', 'action' => 'index']);
         }
+
         return true;
     }
 
