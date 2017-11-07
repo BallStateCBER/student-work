@@ -31,13 +31,16 @@ class AwardsController extends AppController
      */
     public function isAuthorized($user)
     {
+        if (php_sapi_name() == 'cli') {
+            $user = $this->request->session()->read(['Auth']);
+            $user = $user['User'];
+        }
         if (!$user['admin']) {
             if ($this->request->getParam('action') == 'edit' || $this->request->getParam('action') == 'delete') {
                 $entityId = $this->request->getParam('pass')[0];
                 $entity = $this->Awards->get($entityId);
-                $id = php_sapi_name() != 'cli' ? $user['id'] : $this->request->session()->read(['Auth.User.id']);
 
-                return $entity->user_id === $id;
+                return $entity->user_id === $user['id'];
             }
         }
         return true;

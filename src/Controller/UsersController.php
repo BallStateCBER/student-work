@@ -39,21 +39,28 @@ class UsersController extends AppController
      */
     public function isAuthorized($user)
     {
+        if (php_sapi_name() == 'cli') {
+            $user = $this->request->session()->read(['Auth']);
+            $user = $user['User'];
+        }
         if (!$user['admin']) {
             if ($this->request->getParam('action') == 'edit') {
                 $this->Flash->error('Only admins can edit accounts.');
+                $this->redirect(['controller' => 'Users', 'action' => 'index']);
 
-                return $this->redirect(['controller' => 'Users', 'action' => 'index']);
+                return false;
             }
             if ($this->request->getParam('action') == 'register') {
                 $this->Flash->error('Only admins can create accounts.');
+                $this->redirect(['controller' => 'Users', 'action' => 'index']);
 
-                return $this->redirect(['controller' => 'Users', 'action' => 'index']);
+                return false;
             }
             if ($this->request->getParam('action') == 'delete') {
                 $this->Flash->error('Only admins can delete accounts.');
+                $this->redirect(['controller' => 'Users', 'action' => 'index']);
 
-                return $this->redirect(['controller' => 'Users', 'action' => 'index']);
+                return false;
             }
         }
         return true;

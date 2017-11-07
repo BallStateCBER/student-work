@@ -39,6 +39,10 @@ class FundsController extends AppController
      */
     public function isAuthorized($user)
     {
+        if (php_sapi_name() == 'cli') {
+            $user = $this->request->session()->read(['Auth']);
+            $user = $user['User'];
+        }
         if (!$user['admin']) {
             $this->Flash->error('Only admins can access funding details.');
 

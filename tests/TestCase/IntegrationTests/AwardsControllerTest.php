@@ -91,14 +91,14 @@ class AwardsControllerTest extends ApplicationTest
      */
     public function testDeleteAwards()
     {
-        $this->session(['Auth.User.id' => 1]);
+        $this->session($this->currentEmployee);
         $this->get('/awards/delete/1');
         $this->assertRedirect('/employees');
 
         $this->get('/awards/delete/2');
         $this->assertResponseSuccess();
 
-        $award = $this->Awards->find()->toArray();
+        $award = $this->Awards->find()->where(['id' => 2])->toArray();
         $this->assertEquals($award, []);
     }
 }

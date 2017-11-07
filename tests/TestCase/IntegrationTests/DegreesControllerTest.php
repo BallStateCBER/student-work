@@ -95,7 +95,7 @@ class DegreesControllerTest extends ApplicationTest
      */
     public function testDeleteDegrees()
     {
-        $this->session(['Auth.User.id' => 1]);
+        $this->session($this->currentEmployee);
         $this->get('/degrees/delete/1');
         $this->assertRedirect('/employees');
 
