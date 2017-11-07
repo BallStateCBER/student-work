@@ -1,6 +1,8 @@
 /vendor/*
 /tmp/*
 /logs/*
+/webroot/img/projects/*
+/webroot/img/users/*
 /config/.env
 /config/.env.production
 

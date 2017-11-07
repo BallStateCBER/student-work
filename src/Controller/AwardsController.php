@@ -32,11 +32,13 @@ class AwardsController extends AppController
     public function isAuthorized($user)
     {
         if (!$user['admin']) {
-            $entityId = $this->request->getParam('pass')[0];
-            $entity = $this->Awards->get($entityId);
-            $id = php_sapi_name() != 'cli' ? $user['id'] : $this->request->session()->read(['Auth.User.id']);
+            if ($this->request->getParam('action') == 'edit' || $this->request->getParam('action') == 'delete') {
+                $entityId = $this->request->getParam('pass')[0];
+                $entity = $this->Awards->get($entityId);
+                $id = php_sapi_name() != 'cli' ? $user['id'] : $this->request->session()->read(['Auth.User.id']);
 
-            return $entity->user_id === $id;
+                return $entity->user_id === $id;
+            }
         }
         return true;
     }
@@ -68,8 +70,18 @@ class AwardsController extends AppController
 
         if ($this->request->is('post')) {
             $award = $this->Awards->patchEntity($award, $this->request->getData());
-            $awardee = $this->Users->findByName($this->request->data['user_id'])->first();
-            $award->user_id = $awardee->id;
+            $awardee = $this->Users->findByName($this->request->getData('user_id'))->first();
+
+            // nothing found? the user has not set their name
+            $awardeeId = $awardee != null ? $awardee->id : $this->request->getData('user_id');
+
+            if (!$this->Auth->user('admin')) {
+                if ($this->Auth->user('id') != $awardeeId) {
+                    return $this->Flash->error('You cannot make an award for someone else.');
+                }
+            }
+
+            $award->user_id = $awardeeId;
             if ($this->Awards->save($award)) {
                 return $this->Flash->success(__('The award has been saved.'));
             }
@@ -97,16 +109,20 @@ class AwardsController extends AppController
         $this->set('_serialize', ['award']);
         $this->set(['titleForLayout' => 'Edit Award: ' . $award->name]);
 
-        if ($award['user_id'] != $this->Auth->user('id')) {
-            if (!$this->isAuthorized()) {
-                return $this->Flash->error('Sorry, you are not authorized to edit this award.');
-            }
-        }
-
         if ($this->request->is(['patch', 'post', 'put'])) {
             $award = $this->Awards->patchEntity($award, $this->request->getData());
-            $awardee = $this->Users->findByName($this->request->data['user_id'])->first();
-            $award->user_id = $awardee->id;
+            $awardee = $this->Users->findByName($this->request->getData('user_id'))->first();
+
+            // nothing found? the user has not set their name
+            $awardeeId = $awardee != null ? $awardee->id : $this->request->getData('user_id');
+
+            if (!$this->Auth->user('admin')) {
+                if ($this->Auth->user('id') != $awardeeId) {
+                    return $this->Flash->error('You cannot make an award for someone else.');
+                }
+            }
+
+            $award->user_id = $awardeeId;
             if ($this->Awards->save($award)) {
                 return $this->Flash->success(__('The award has been saved.'));
             }

@@ -1,8 +1,7 @@
-<?php if ($this->request->action == 'edit' && ($degree['user_id'] == $activeUser['id'] or $activeUser['admin'] == 1) or $this->request->action == 'add'): ?>
-    <?= $this->Form->create($degree, [
-        'templates' => [
-            'select' => '<select class="form-control dates" name="{{name}}">{{content}}</select>'
-        ]]) ?>
+<?= $this->Form->create($degree, [
+    'templates' => [
+        'select' => '<select class="form-control dates" name="{{name}}">{{content}}</select>'
+    ]]) ?>
     <fieldset>
         <h1>
             <?= $titleForLayout ?>
@@ -23,18 +22,13 @@
             </div>
             <div class="col-lg-2">
                 <label>For employee</label>
-                <?php if ($activeUser['admin'] == 1): ?>
-                    <?= $this->Form->text('user_id', [
-                        'class' => 'form-control',
-                        'value' => $activeUser['name']
-                    ]) ?>
-                <?php else: ?>
-                    <?= $this->Form->text('user_id', [
-                        'class' => 'form-control',
-                        'disabled' => true,
-                        'value' => $activeUser['name']
-                    ]) ?>
-                <?php endif ?>
+                <?php
+                $val = $activeUser['name'] ? $activeUser['name'] : $activeUser['id'];
+                ?>
+                <?= $this->Form->text('user_id', [
+                    'class' => 'form-control',
+                    'value' => $val
+                ]) ?>
             </div>
         </div>
         <div class="row">
@@ -71,7 +65,7 @@
                         ],
                         ['label' => [
                             'class' => 'form-check'
-                            ]
+                        ]
                         ]
                     ) ?>
                 </div>
@@ -82,11 +76,10 @@
         <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-secondary btn-md']) ?>
         <?= $this->Form->end() ?>
     </div>
-    <?php if ($this->request->params['action'] == 'edit'): ?>
-        <p class="float-right">
-            <small>
-                <?= $this->Html->link('Delete degree?', ['controller' => 'Degrees', 'action' => 'delete', $degree->id], ['class' => 'text-danger']) ?>
-            </small>
-        </p>
-    <?php endif ?>
+<?php if ($this->request->params['action'] == 'edit'): ?>
+    <p class="float-right">
+        <small>
+            <?= $this->Html->link('Delete degree?', ['controller' => 'Degrees', 'action' => 'delete', $degree->id], ['class' => 'text-danger']) ?>
+        </small>
+    </p>
 <?php endif ?>

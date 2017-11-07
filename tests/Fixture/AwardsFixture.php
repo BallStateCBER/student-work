@@ -24,6 +24,14 @@ class AwardsFixture extends TestFixture
                 'awarded_by' => 'Erica Dee Fox',
                 'description' => 'For excellence in the field of administration and placeholders.'
             ],
+            [
+                'id' => 2,
+                'user_id' => 123456789,
+                'name' => 'Current Employee of the Year',
+                'awarded_on' => date('Y-m-d'),
+                'awarded_by' => 'Erica Dee Fox',
+                'description' => 'For excellence in the field of current employees.'
+            ]
         ];
     }
     /**

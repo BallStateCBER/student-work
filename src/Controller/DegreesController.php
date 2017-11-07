@@ -33,11 +33,13 @@ class DegreesController extends AppController
     public function isAuthorized($user)
     {
         if (!$user['admin']) {
-            $entityId = $this->request->getParam('pass')[0];
-            $entity = $this->Degrees->get($entityId);
-            $id = php_sapi_name() != 'cli' ? $user['id'] : $this->request->session()->read(['Auth.User.id']);
+            if ($this->request->getParam('action') == 'edit' || $this->request->getParam('action') == 'delete') {
+                $entityId = $this->request->getParam('pass')[0];
+                $entity = $this->Degrees->get($entityId);
+                $id = php_sapi_name() != 'cli' ? $user['id'] : $this->request->session()->read(['Auth.User.id']);
 
-            return $entity->user_id === $id;
+                return $entity->user_id === $id;
+            }
         }
         return true;
     }
@@ -58,8 +60,18 @@ class DegreesController extends AppController
 
         if ($this->request->is('post')) {
             $degree = $this->Degrees->patchEntity($degree, $this->request->getData());
-            $grad = $this->Users->findByName($this->request->data['user_id'])->first();
-            $degree->user_id = $grad->id;
+            $grad = $this->Users->findByName($this->request->getData('user_id'))->first();
+
+            // nothing found? the user has not set their name
+            $gradId = $grad != null ? $grad->id : $this->request->getData('user_id');
+
+            if (!$this->Auth->user('admin')) {
+                if ($this->Auth->user('id') != $gradId) {
+                    return $this->Flash->error('You cannot make a degree for someone else.');
+                }
+            }
+
+            $degree->user_id = $gradId;
             if ($this->Degrees->save($degree)) {
                 return $this->Flash->success(__('The degree has been saved.'));
             }
@@ -86,16 +98,20 @@ class DegreesController extends AppController
         $this->set(compact('degree', 'degreeTypes'));
         $this->set('_serialize', ['degree']);
 
-        if ($degree['user_id'] != $this->Auth->user('id')) {
-            if (!$this->isAuthorized()) {
-                return $this->Flash->error('Sorry, you are not authorized to edit this degree.');
-            }
-        }
-
         if ($this->request->is(['patch', 'post', 'put'])) {
             $degree = $this->Degrees->patchEntity($degree, $this->request->getData());
-            $grad = $this->Users->findByName($this->request->data['user_id'])->first();
-            $degree->user_id = $grad->id;
+            $grad = $this->Users->findByName($this->request->getData('user_id'))->first();
+
+            // nothing found? the user has not set their name
+            $gradId = $grad != null ? $grad->id : $this->request->getData('user_id');
+
+            if (!$this->Auth->user('admin')) {
+                if ($this->Auth->user('id') != $gradId) {
+                    return $this->Flash->error('You cannot make a degree for someone else.');
+                }
+            }
+
+            $degree->user_id = $gradId;
             if ($this->Degrees->save($degree)) {
                 return $this->Flash->success(__('The degree has been saved.'));
             }
