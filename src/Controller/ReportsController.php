@@ -96,7 +96,7 @@ class ReportsController extends AppController
             }
 
             $supervisorId = $report->supervisor_id;
-            $report->supervisor_id = $this->Users->getUserNameFromId($supervisorId);;
+            $report->supervisor_id = $this->Users->getUserNameFromId($supervisorId);
             if ($report->supervisor_id == null) {
                 $report->supervisor_id = "Employee #" . $supervisorId;
             }
@@ -300,7 +300,7 @@ class ReportsController extends AppController
         }
 
         $supervisorId = $report->supervisor_id;
-        $report->supervisor_id = $this->Users->getUserNameFromId($supervisorId);;
+        $report->supervisor_id = $this->Users->getUserNameFromId($supervisorId);
         if ($report->supervisor_id == null) {
             $report->supervisor_id = "Employee #" . $supervisorId;
         }
