@@ -1,28 +1,24 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
+use App\Model\Entity\User;
 use Cake\Event\Event;
 
 /**
  * Degrees Controller
  *
- * @property \App\Model\Table\DegreesTable $Degrees
- *
- * @method \App\Model\Entity\Degree[] paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Degree[]
  */
 class DegreesController extends AppController
 {
     /**
-     * beforeFilter
+     * initialize controller
      *
-     * @param  Event  $event beforeFilter
      * @return void
      */
-    public function beforeFilter(Event $event)
+    public function initialize()
     {
-        parent::beforeFilter($event);
-        $this->loadModel('Users');
+        parent::initialize();
     }
 
     /**
@@ -50,9 +46,20 @@ class DegreesController extends AppController
     }
 
     /**
+     * beforeFilter
+     *
+     * @param Event $event beforeFilter
+     * @return void
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+    }
+
+    /**
      * Add method
      *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     * @return void
      */
     public function add()
     {
@@ -72,24 +79,29 @@ class DegreesController extends AppController
 
             if (!$this->Auth->user('admin')) {
                 if ($this->Auth->user('id') != $gradId) {
-                    return $this->Flash->error('You cannot make a degree for someone else.');
+                    $this->Flash->error('You cannot make a degree for someone else.');
+
+                    return;
                 }
             }
 
             $degree->user_id = $gradId;
             if ($this->Degrees->save($degree)) {
-                return $this->Flash->success(__('The degree has been saved.'));
+                $this->Flash->success(__('The degree has been saved.'));
+
+                return;
             }
             $this->Flash->error(__('The degree could not be saved. Please, try again.'));
         }
+
+        return;
     }
 
     /**
      * Edit method
      *
      * @param string|null $id Degree id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @return void
      */
     public function edit($id = null)
     {
@@ -112,16 +124,22 @@ class DegreesController extends AppController
 
             if (!$this->Auth->user('admin')) {
                 if ($this->Auth->user('id') != $gradId) {
-                    return $this->Flash->error('You cannot make a degree for someone else.');
+                    $this->Flash->error('You cannot make a degree for someone else.');
+
+                    return;
                 }
             }
 
             $degree->user_id = $gradId;
             if ($this->Degrees->save($degree)) {
-                return $this->Flash->success(__('The degree has been saved.'));
+                $this->Flash->success(__('The degree has been saved.'));
+
+                return;
             }
             $this->Flash->error(__('The degree could not be saved. Please, try again.'));
         }
+
+        return;
     }
 
     /**
@@ -141,5 +159,7 @@ class DegreesController extends AppController
         } else {
             $this->Flash->error(__('The degree could not be deleted. Please, try again.'));
         }
+
+        return null;
     }
 }

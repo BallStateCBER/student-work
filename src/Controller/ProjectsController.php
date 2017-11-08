@@ -1,13 +1,8 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
-use Cake\Event\Event;
-
 /**
  * Projects Controller
- *
- * @property \App\Model\Table\ProjectsTable $Projects
  *
  * @method \App\Model\Entity\Project[] paginate($object = null, array $settings = [])
  */
@@ -21,8 +16,6 @@ class ProjectsController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('Reports');
-        $this->loadModel('UsersProjects');
     }
 
     /**

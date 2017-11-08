@@ -1,18 +1,14 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
+use App\Model\Entity\User;
 use Cake\Core\Configure;
 use Cake\Event\Event;
-use Cake\I18n\Time;
-use Cake\Routing\Router;
 
 /**
  * Users Controller
  *
- * @property \App\Model\Table\UsersTable $Users
- *
- * @method \App\Model\Entity\User[] paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\User[]
  */
 class UsersController extends AppController
 {
@@ -28,8 +24,6 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('Awards');
-        $this->loadModel('Degrees');
     }
 
     /**
@@ -133,7 +127,7 @@ class UsersController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     * @return void
      */
     public function register()
     {
@@ -145,23 +139,27 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if (!$user->isNew()) {
-                return $this->Flash->error('This user ID is already in use?');
+                $this->Flash->error('This user ID is already in use?');
+
+                return;
             }
             $user->email = strtolower(trim($user->email));
             if ($this->Users->save($user)) {
                 $this->Flash->success(__("You have successfully registered user #$user->id."));
+                $this->redirect(['action' => 'index']);
 
-                return $this->redirect(['action' => 'index']);
+                return;
             }
             $this->Flash->error(__('Sorry, we could not register you. Please try again.'));
         }
+
+        return;
     }
 
     /**
      * Account method
      *
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @return void
      */
     public function account()
     {
@@ -179,19 +177,21 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                return $this->Flash->success(__('Your information has been saved!'));
-            }
+                $this->Flash->success(__('Your information has been saved!'));
 
-            return $this->Flash->error(__('Your information could not be saved. Please, try again.'));
+                return;
+            }
+            $this->Flash->error(__('Your information could not be saved. Please, try again.'));
         }
+
+        return;
     }
 
     /**
      * Edit method
      *
      * @param string|null $id User id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @return void
      */
     public function edit($id = null)
     {
@@ -208,36 +208,39 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                return $this->Flash->success(__('Your information has been saved!'));
-            }
+                $this->Flash->success(__('Your information has been saved!'));
 
-            return $this->Flash->error(__('Your information could not be saved. Please, try again.'));
+                return;
+            }
+            $this->Flash->error(__('Your information could not be saved. Please, try again.'));
         }
+
+        return;
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id User id.
+     * @param string|null $id Degree id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['get']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
+            $this->Flash->success(__('The degree has been deleted.'));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The degree could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
     }
 
     /**
-     * user login
-     * @return redirect
+     * login for users
+     *
+     * @return \Cake\Http\Response|null
      */
     public function login()
     {
@@ -247,15 +250,22 @@ class UsersController extends AppController
             if ($user) {
                 $this->Auth->setUser($user);
 
+                // do they have an old sha1 password?
+                if ($this->Auth->authenticationProvider()->needsPasswordRehash()) {
+                    $user = $this->Users->get($this->Auth->user('id'));
+                    $user['password'] = $this->request->getData('password');
+                    $this->Users->save($user);
+                }
+
                 // Remember login information
-                if ($this->request->data('remember_me')) {
-                    $this->Cookie->configKey('CookieAuth', [
+                if ($this->request->getData('remember_me')) {
+                    $this->Cookie->configKey('User', [
                         'expires' => '+1 year',
                         'httpOnly' => true
                     ]);
-                    $this->Cookie->write('CookieAuth', [
-                        'email' => $this->request->data('email'),
-                        'password' => $this->request->data('password')
+                    $this->Cookie->write('User', [
+                        'email' => $this->request->getData('email'),
+                        'password' => $this->request->getData('password')
                     ]);
                 }
 
@@ -265,14 +275,19 @@ class UsersController extends AppController
                 $this->Flash->error(__('We could not log you in. Please check your email & password.'));
             }
         }
+
+        return null;
     }
 
     /**
-     * user logout
-     * @return redirect
+     * log out users
+     *
+     * @return \Cake\Http\Response
      */
     public function logout()
     {
+        $this->Flash->success('Thanks for stopping by!');
+
         return $this->redirect($this->Auth->logout());
     }
 
@@ -295,8 +310,9 @@ class UsersController extends AppController
     } */
 
     /**
-     * forgotPassword method
-     * @return email
+     * for when the user forgets their password
+     *
+     * @return null
      */
     public function forgotPassword()
     {
@@ -306,41 +322,39 @@ class UsersController extends AppController
 
         if ($this->request->is('post')) {
             $adminEmail = Configure::read('admin_email');
-            $email = strtolower(trim($this->request->data['email']));
+            $email = strtolower(trim($this->request->getData('email')));
             $userId = $this->Users->getIdFromEmail($email);
             if ($userId) {
                 if ($this->Users->sendPasswordResetEmail($userId, $email)) {
-                    return $this->Flash->success(
-                        'Message sent. You should be shortly receiving an email with a link to reset your password.'
-                    );
+                    $this->Flash->success('Message sent. You should be shortly receiving an email with a link to reset your password.');
+
+                    return null;
                 }
-                $this->Flash->error(
-                    'Whoops. There was an error sending your password-resetting email out.
-                    Please try again, and if it continues to not work,
-                    email <a href="mailto:' . $adminEmail . '">' . $adminEmail . '</a> for assistance.'
-                );
+                $this->Flash->error("Whoops. There was an error sending your password-resetting email out. Please try again, and if it continues to not work, email $adminEmail for more assistance.");
             }
             if (!$userId) {
-                $this->Flash->error('We couldn\'t find an account registered with the email address ' . $email . '.');
+                $this->Flash->error("We couldn't find an account registered with the email address $email.");
             }
 
             if (!isset($email)) {
                 $this->Flash->error('Please enter the email address you registered with to have your password reset.');
             }
         }
+
+        return null;
     }
 
     /**
-     * resetting a password after getting the hash
+     * reset password of user
      *
-     * @param int|null $userId User id
-     * @param string|null $resetPasswordHash hash to reset the password
-     * @return \Cake\Http\Response|null Redirect
+     * @param int $userId of the user to reset
+     * @param string $resetPasswordHash for the user to reset
+     * @return null
      */
-    public function resetPassword($userId = null, $resetPasswordHash = null)
+    public function resetPassword($userId, $resetPasswordHash)
     {
         $user = $this->Users->get($userId);
-        $email = $user->email;
+        $email = $user['email'];
 
         $this->set([
             'titleForLayout' => 'Reset Password',
@@ -352,32 +366,28 @@ class UsersController extends AppController
         $expectedHash = $this->Users->getResetPasswordHash($userId, $email);
 
         if ($resetPasswordHash != $expectedHash) {
-            $this->Flash->error(
-                'Invalid password-resetting code. Make sure that you entered the correct address
-                and that the link emailed to you hasn\'t expired.'
-            );
+            $this->Flash->error('Invalid password-resetting code. Make sure that you entered the correct address and that the link emailed to you hasn\'t expired.');
             $this->redirect('/');
         }
 
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, [
-                'password' => $this->request->data['new_password'],
-                'confirm_password' => $this->request->data['new_confirm_password']
+                'password' => $this->request->getData('new_password'),
+                'confirm_password' => $this->request->getData('new_confirm_password')
             ]);
 
             if ($this->Users->save($user)) {
                 $data = $user->toArray();
-
                 $this->Auth->setUser($data);
+                $this->Flash->success('Password changed. You are now logged in.');
 
-                return $this->Flash->success('Password changed. You are now logged in.');
+                return null;
             }
-            $this->Flash->error(
-                'There was an error changing your password.
-                Please check to make sure they\'ve been entered correctly.'
-            );
+            $this->Flash->error('There was an error changing your password. Please check to make sure they\'ve been entered correctly.');
 
             return $this->redirect('/');
         }
+
+        return null;
     }
 }

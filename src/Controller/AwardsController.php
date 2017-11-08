@@ -1,15 +1,13 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
+use App\Model\Entity\User;
 use Cake\Event\Event;
 
 /**
  * Awards Controller
  *
- * @property \App\Model\Table\AwardsTable $Awards
- *
- * @method \App\Model\Entity\Award[] paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Award[]
  */
 class AwardsController extends AppController
 {
@@ -21,7 +19,6 @@ class AwardsController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('Users');
     }
 
     /**
@@ -62,7 +59,7 @@ class AwardsController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     * @return void
      */
     public function add()
     {
@@ -82,26 +79,31 @@ class AwardsController extends AppController
 
             if (!$this->Auth->user('admin')) {
                 if ($this->Auth->user('id') != $awardeeId) {
-                    return $this->Flash->error('You cannot make an award for someone else.');
+                    $this->Flash->error('You cannot make an award for someone else.');
+
+                    return;
                 }
             }
 
             $award->user_id = $awardeeId;
             if ($this->Awards->save($award)) {
-                return $this->Flash->success(__('The award has been saved.'));
+                $this->Flash->success(__('The award has been saved.'));
+
+                return;
             }
             $this->Flash->error(__('The award could not be saved. Please, try again.'));
 
-            return $this->redirect('/users');
+            return;
         }
+
+        return;
     }
 
     /**
      * Edit method
      *
      * @param string|null $id Award id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @return null
      */
     public function edit($id = null)
     {
@@ -123,18 +125,24 @@ class AwardsController extends AppController
 
             if (!$this->Auth->user('admin')) {
                 if ($this->Auth->user('id') != $awardeeId) {
-                    return $this->Flash->error('You cannot make an award for someone else.');
+                    $this->Flash->error('You cannot make an award for someone else.');
+
+                    return;
                 }
             }
 
             $award->user_id = $awardeeId;
             if ($this->Awards->save($award)) {
-                return $this->Flash->success(__('The award has been saved.'));
+                $this->Flash->success(__('The award has been saved.'));
+
+                return;
             }
             $this->Flash->error(__('The award could not be saved. Please, try again.'));
 
-            return $this->redirect('/users');
+            return;
         }
+
+        return;
     }
 
     /**
@@ -154,5 +162,7 @@ class AwardsController extends AppController
         } else {
             $this->Flash->error(__('The award could not be deleted. Please, try again.'));
         }
+
+        return null;
     }
 }

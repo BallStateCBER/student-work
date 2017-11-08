@@ -1,15 +1,13 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
+use App\Model\Entity\User;
 use Cake\Event\Event;
 
 /**
  * Funds Controller
  *
- * @property \App\Model\Table\FundsTable $Funds
- *
- * @method \App\Model\Entity\Fund[] paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Fund[]
  */
 class FundsController extends AppController
 {
@@ -24,20 +22,10 @@ class FundsController extends AppController
     }
 
     /**
-     * initialize controller
-     *
-     * @return void
-     */
-    public function initialize()
-    {
-        parent::initialize();
-    }
-
-    /**
      * isAuthorized
      *
      * @param User|null $user User entity
-     * @return bool
+     * @return \Cake\Http\Response|bool
      */
     public function isAuthorized($user = null)
     {
@@ -52,6 +40,16 @@ class FundsController extends AppController
         }
 
         return true;
+    }
+
+    /**
+     * initialize controller
+     *
+     * @return void
+     */
+    public function initialize()
+    {
+        parent::initialize();
     }
 
     /**
@@ -78,7 +76,7 @@ class FundsController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     * @return void
      */
     public function add()
     {
@@ -91,18 +89,23 @@ class FundsController extends AppController
         if ($this->request->is('post')) {
             $fund = $this->Funds->patchEntity($fund, $this->request->getData());
             if ($this->Funds->save($fund)) {
-                return $this->Flash->success(__('The fund has been saved.'));
+                $this->Flash->success(__('The fund has been saved.'));
+
+                return;
             }
             $this->Flash->error(__('The fund could not be saved. Please, try again.'));
+
+            return;
         }
+
+        return;
     }
 
     /**
      * Edit method
      *
      * @param string|null $id Fund id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @return null
      */
     public function edit($id = null)
     {
@@ -117,10 +120,16 @@ class FundsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $fund = $this->Funds->patchEntity($fund, $this->request->getData());
             if ($this->Funds->save($fund)) {
-                return $this->Flash->success(__('The fund has been saved.'));
+                $this->Flash->success(__('The fund has been saved.'));
+
+                return;
             }
             $this->Flash->error(__('The fund could not be saved. Please, try again.'));
+
+            return;
         }
+
+        return;
     }
 
     /**
@@ -134,11 +143,13 @@ class FundsController extends AppController
     {
         $fund = $this->Funds->get($id);
         if ($this->Funds->delete($fund)) {
-            $this->Flash->success(__('The fund has been deleted.'));
+            $this->Flash->success(__('The degree has been deleted.'));
 
             return $this->redirect(['action' => 'index']);
+        } else {
+            $this->Flash->error(__('The fund could not be deleted. Please, try again.'));
         }
 
-        return $this->Flash->error(__('The fund could not be deleted. Please, try again.'));
+        return null;
     }
 }

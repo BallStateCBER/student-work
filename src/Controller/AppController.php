@@ -16,15 +16,19 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
-use Cake\Database\Type;
 use Cake\Event\Event;
-use Cake\Routing\Router;
 
 /**
  * Application Controller
  *
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
+ *
+ * @property \App\Model\Table\AwardsTable $Awards
+ * @property \App\Model\Table\DegreesTable $Degrees
+ * @property \App\Model\Table\FundsTable $Funds
+ * @property \App\Model\Table\ProjectsTable $Projects
+ * @property \App\Model\Table\UsersTable $Users
  *
  * @link http://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
@@ -50,7 +54,7 @@ class AppController extends Controller
      */
     public function beforeFilter(Event $event)
     {
-        //Automaticaly Login.
+        // Automatically login.
         if (!$this->Auth->user() && $this->Cookie->read('CookieAuth')) {
             $user = $this->Auth->identify();
             if ($user) {
@@ -112,6 +116,12 @@ class AppController extends Controller
 
         $activeUser = $this->request->session()->read('Auth.User');
         $this->set(compact('activeUser'));
+
+        $this->loadModel('Awards');
+        $this->loadModel('Degrees');
+        $this->loadModel('Reports');
+        $this->loadModel('UsersProjects');
+        $this->loadModel('Users');
 
         /*
          * Enable the following components for recommended CakePHP security settings.

@@ -1,16 +1,15 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
+use App\Model\Entity\User;
 use Cake\Event\Event;
-use Cake\Routing\Router;
 
 /**
  * Reports Controller
  *
  * @property \App\Model\Table\ReportsTable $Reports
  *
- * @method \App\Model\Entity\Report[] paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Report[]
  */
 class ReportsController extends AppController
 {
@@ -23,7 +22,30 @@ class ReportsController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->loadModel('Users');
+    }
+
+    /**
+     * isAuthorized
+     *
+     * @param User|null $user User entity
+     * @return \Cake\Http\Response|bool
+     */
+    public function isAuthorized($user = null)
+    {
+        if (php_sapi_name() == 'cli') {
+            $user = $this->request->session()->read(['Auth']);
+            $user = $user['User'];
+        }
+        if (!$user['admin']) {
+            if ($this->request->getParam('action') == 'edit' || $this->request->getParam('action') == 'delete') {
+                $entityId = $this->request->getParam('pass')[0];
+                $entity = $this->Awards->get($entityId);
+
+                return $entity->user_id === $user['id'];
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -56,7 +78,7 @@ class ReportsController extends AppController
     /**
      * indexing reports
      *
-     * @param ResultSet $reports This is a set of Report entities
+     * @param \Cake\ORM\ResultSet $reports This is a set of Report entities
      * @return array $allReports
      */
     private function reportIndexing($reports)
@@ -74,7 +96,7 @@ class ReportsController extends AppController
     /**
      * setting ids & names of students
      *
-     * @param ResultSet $allReports This is a set of Report entities
+     * @param array $allReports This is a set of Report entities
      * @return array $students
      */
     private function students($allReports)
@@ -96,7 +118,7 @@ class ReportsController extends AppController
     /**
      * setting ids & names of supervisors
      *
-     * @param ResultSet $allReports This is a set of Report entities
+     * @param array $allReports This is a set of Report entities
      * @return array $supervisors
      */
     private function supervisors($allReports)
@@ -118,7 +140,7 @@ class ReportsController extends AppController
     /**
      * setting the vars for the index
      *
-     * @param ResultSet $reports This is a set of Report entities
+     * @param \Cake\ORM\ResultSet $reports This is a set of Report entities
      * @return void
      */
     private function setIndexVars($reports)
@@ -198,8 +220,6 @@ class ReportsController extends AppController
      */
     public function project($id = null)
     {
-        $project = $this->Reports->Projects->get($id);
-
         $reports = $this->Reports->find()
             ->where(['project_id' => $id])
             ->contain(['Projects']);
@@ -271,7 +291,7 @@ class ReportsController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     * @return void
      */
     public function add()
     {
@@ -289,13 +309,13 @@ class ReportsController extends AppController
 
             foreach ($reports as $report) {
                 if (!isset($report->end_date)) {
-                    $this->Flash->duplicates(
+                    $this->Flash->error(
                         "Hey! Before you continue, make sure you're not duplicating work reports.
                         Your report for $report->project_name has no end date."
                     );
                 }
                 if (isset($report->end_date)) {
-                    $this->Flash->duplicates(
+                    $this->Flash->error(
                         "Hey! Before you continue, make sure you're not duplicating work reports.
                         Your report for $report->project_name ends on $report->end_date."
                     );
@@ -305,7 +325,7 @@ class ReportsController extends AppController
 
         if ($this->request->is('post')) {
             $report = $this->Reports->patchEntity($report, $this->request->getData());
-            $project = $this->Reports->Projects->get($this->request->data['project_name']);
+            $project = $this->Reports->Projects->get($this->request->getData('project_name'));
 
             if ($project == null) {
                 $this->Flash->error(__(
@@ -313,42 +333,47 @@ class ReportsController extends AppController
                     Please enter a new project to make a report about it.'
                 ));
 
-                return $this->redirect(['action' => 'index']);
+                return;
             }
 
-            $report->project_id = $this->request->data['project_name'];
-            $student = $this->Users->findByName($this->request->data['student_id'])->first();
+            $report->project_id = $this->request->getData('project_name');
+            $student = $this->Users->findByName($this->request->getData('student_id'))->first();
             $report->student_id = $student->id;
 
             if ($this->request->session()->read('Auth.User.admin') != 1) {
                 $id = $this->Auth->user('id');
-                $project = $this->Projects->get($this->request->data['project_name']);
+                $project = $this->Projects->get($this->request->getData('project_name'));
                 $reports = $this->Reports->getStudentCurrentReportsByProject($id, $project->id);
                 if (!empty($reports)) {
                     foreach ($reports as $report) {
-                        $this->Flash->duplicates(
+                        $this->Flash->error(
                             "Sorry, you cannot create this report.
-                            You've already got a current report for the project $project->name."
+                            Report #$report->id has been created for the project $project->name."
                         );
                     }
 
-                    return $this->redirect(['action' => 'index']);
+                    return;
                 }
             }
             if ($this->Reports->save($report)) {
-                return $this->Flash->success(__('The report has been saved.'));
+                $this->Flash->success(__('The report has been saved.'));
+
+                return;
             }
 
-            return $this->Flash->error(__('The report could not be saved. Please, try again.'));
+            $this->Flash->error(__('The report could not be saved. Please, try again.'));
+
+            return;
         }
+
+        return;
     }
 
     /**
      * Edit method
      *
      * @param string|null $id Report id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @return void
      */
     public function edit($id = null)
     {
@@ -360,34 +385,42 @@ class ReportsController extends AppController
 
         $this->set(compact('report'));
         $this->set('_serialize', ['report']);
-        $this->set(['titleForLayout' => "Edit Report: $report->project_name"]);
+        $this->set(['titleForLayout' => "Edit Report: ". $report['project_name']]);
 
         if ($report->student_id != $this->Auth->user('id')) {
             if ($report->supervisor_id != $this->Auth->user('id')) {
                 if ($this->request->session()->read('Auth.User.admin') != 1) {
-                    return $this->Flash->error(__('You are not authorized to edit this.'));
+                    $this->Flash->error(__('You are not authorized to edit this.'));
+
+                    return;
                 }
             }
         }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $report = $this->Reports->patchEntity($report, $this->request->getData());
-            $project = $this->Reports->Projects->get($this->request->data['project_name']);
+            $project = $this->Reports->Projects->get($this->request->getData('project_name'));
             if ($project == null) {
                 $this->Flash->error(__(
                     'That project was not found.
                     Please enter a new project to make a report about it.'
                 ));
+                $this->redirect(['action' => 'index']);
 
-                return $this->redirect(['action' => 'index']);
+                return;
             }
-            $report->project_name = $this->request->data['project_name'];
+            $report['project_name'] = $this->request->getData('project_name');
             if ($this->Reports->save($report)) {
-                return $this->Flash->success(__('The report has been saved.'));
-            }
+                $this->Flash->success(__('The report has been saved.'));
 
-            return $this->Flash->error(__('The report could not be saved. Please, try again.'));
+                return;
+            }
+            $this->Flash->error(__('The report could not be saved. Please, try again.'));
+
+            return;
         }
+
+        return;
     }
 
     /**
