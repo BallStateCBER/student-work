@@ -95,15 +95,13 @@ class AwardsController extends AppController
 
             return;
         }
-
-        return;
     }
 
     /**
      * Edit method
      *
      * @param string|null $id Award id.
-     * @return null
+     * @return void
      */
     public function edit($id = null)
     {
@@ -141,8 +139,6 @@ class AwardsController extends AppController
 
             return;
         }
-
-        return;
     }
 
     /**

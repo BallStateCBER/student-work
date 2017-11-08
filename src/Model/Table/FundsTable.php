@@ -1,7 +1,6 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -11,13 +10,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\HasMany $Projects
  *
- * @method \App\Model\Entity\Fund get($primaryKey, $options = [])
- * @method \App\Model\Entity\Fund newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Fund[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Fund|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Fund patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Fund[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Fund findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Fund
  */
 class FundsTable extends Table
 {

@@ -1,7 +1,6 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -11,14 +10,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Users
  *
- * @method \App\Model\Entity\Award get($primaryKey, $options = [])
- * @method \App\Model\Entity\Award newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Award[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Award|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \App\Model\Entity\Award
- *  patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Award[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Award findOrCreate($search, callable $callback = null, $options = [])
  */
 class AwardsTable extends Table
 {
@@ -91,7 +83,7 @@ class AwardsTable extends Table
     /**
      * get all awards of user $userId
      * @param int|null $userId User ID
-     * @return $awards
+     * @return \Cake\ORM\Query
      */
     public function getAwards($userId = null)
     {

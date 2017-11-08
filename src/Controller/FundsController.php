@@ -97,15 +97,13 @@ class FundsController extends AppController
 
             return;
         }
-
-        return;
     }
 
     /**
      * Edit method
      *
      * @param string|null $id Fund id.
-     * @return null
+     * @return void
      */
     public function edit($id = null)
     {
@@ -128,8 +126,6 @@ class FundsController extends AppController
 
             return;
         }
-
-        return;
     }
 
     /**

@@ -365,8 +365,6 @@ class ReportsController extends AppController
 
             return;
         }
-
-        return;
     }
 
     /**
@@ -385,7 +383,7 @@ class ReportsController extends AppController
 
         $this->set(compact('report'));
         $this->set('_serialize', ['report']);
-        $this->set(['titleForLayout' => "Edit Report: ". $report['project_name']]);
+        $this->set(['titleForLayout' => "Edit Report: " . $report['project_name']]);
 
         if ($report->student_id != $this->Auth->user('id')) {
             if ($report->supervisor_id != $this->Auth->user('id')) {
@@ -418,9 +416,7 @@ class ReportsController extends AppController
             $this->Flash->error(__('The report could not be saved. Please, try again.'));
 
             return;
-        }
-
-        return;
+        };
     }
 
     /**

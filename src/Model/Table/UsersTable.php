@@ -3,7 +3,6 @@ namespace App\Model\Table;
 
 use Cake\Core\Configure;
 use Cake\Mailer\Email;
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
@@ -17,13 +16,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\HasMany $Jobs
  * @property \Cake\ORM\Association\BelongsToMany $Projects
  *
- * @method \App\Model\Entity\User get($primaryKey, $options = [])
- * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\User|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\User patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\User[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\User findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\User
  */
 class UsersTable extends Table
 {
@@ -44,7 +37,7 @@ class UsersTable extends Table
 
         $this->addBehavior('Josegonzalez/Upload.Upload', [
             'image' => [
-                'nameCallback' => function (array $data, array $settings) {
+                'nameCallback' => function (array $data) {
                     $ext = pathinfo($data['name'], PATHINFO_EXTENSION);
                     $salt = Configure::read('profile_salt');
                     $newFilename = md5($data['name'] . $salt);
@@ -151,8 +144,9 @@ class UsersTable extends Table
 
     /**
      * get user->id from $email
+     *
      * @param string|null $email User email
-     * @return object property $result->id or bool
+     * @return bool
      */
     public function getIdFromEmail($email = null)
     {
@@ -183,6 +177,7 @@ class UsersTable extends Table
 
     /**
      * get user-> name from id $userId
+     *
      * @param int|null $userId User ID
      * @return object property $user->name
      */
@@ -195,9 +190,10 @@ class UsersTable extends Table
 
     /**
      * send password reset email
+     *
      * @param int|null $userId User ID
      * @param string|null $email User email
-     * @return $resetEmail
+     * @return array
      */
     public function sendPasswordResetEmail($userId = null, $email = null)
     {

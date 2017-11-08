@@ -93,8 +93,6 @@ class DegreesController extends AppController
             }
             $this->Flash->error(__('The degree could not be saved. Please, try again.'));
         }
-
-        return;
     }
 
     /**
@@ -138,8 +136,6 @@ class DegreesController extends AppController
             }
             $this->Flash->error(__('The degree could not be saved. Please, try again.'));
         }
-
-        return;
     }
 
     /**

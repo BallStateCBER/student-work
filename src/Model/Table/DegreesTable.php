@@ -1,7 +1,6 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -9,13 +8,7 @@ use Cake\Validation\Validator;
 /**
  * Degrees Model
  *
- * @method \App\Model\Entity\Degree get($primaryKey, $options = [])
- * @method \App\Model\Entity\Degree newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Degree[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Degree|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Degree patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Degree[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Degree findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Degree
  */
 class DegreesTable extends Table
 {
@@ -97,7 +90,8 @@ class DegreesTable extends Table
 
     /**
      * array of every type of degree someone can earn
-     * @return [array] $degreeTypes
+     *
+     * @return array
      */
     public function getDegreeTypes()
     {
@@ -141,8 +135,9 @@ class DegreesTable extends Table
 
     /**
      * get all the degrees of user $userId
+     *
      * @param int|null $userId User ID
-     * @return $degrees
+     * @return \Cake\ORM\Query
      */
     public function getDegrees($userId = null)
     {

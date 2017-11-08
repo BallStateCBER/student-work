@@ -152,8 +152,6 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('Sorry, we could not register you. Please try again.'));
         }
-
-        return;
     }
 
     /**
@@ -183,8 +181,6 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('Your information could not be saved. Please, try again.'));
         }
-
-        return;
     }
 
     /**
@@ -214,8 +210,6 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('Your information could not be saved. Please, try again.'));
         }
-
-        return;
     }
 
     /**

@@ -1,7 +1,6 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
@@ -14,13 +13,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Supervisors
  * @property \Cake\ORM\Association\BelongsTo $Projects
  *
- * @method \App\Model\Entity\Report get($primaryKey, $options = [])
- * @method \App\Model\Entity\Report newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Report[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Report|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Report patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Report[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Report findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Report
  */
 class ReportsTable extends Table
 {
@@ -102,8 +95,9 @@ class ReportsTable extends Table
 
     /**
      * returns all a student's current work reports
+     *
      * @param int|null $id Student ID
-     * @return object $reports
+     * @return array
      */
     public function getStudentCurrentReports($id = null)
     {
@@ -119,9 +113,10 @@ class ReportsTable extends Table
     /**
      * returns all a student's current work reports
      * by name
+     *
      * @param int|null $id Student ID
      * @param string|null $project Project ID
-     * @return $reports
+     * @return array
      */
     public function getStudentCurrentReportsByProject($id = null, $project = null)
     {
