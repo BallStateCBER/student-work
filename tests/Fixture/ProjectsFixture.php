@@ -55,6 +55,16 @@ class ProjectsFixture extends TestFixture
                 'image' => null,
                 'funding_details' => 'Some band from Dublin.',
                 'grant_name' => 'Veneer'
+            ],
+            [
+                'id' => 5,
+                'name' => 'Blue Monday',
+                'description' => 'How does it feel to treat me like you do.',
+                'organization' => 'New Order',
+                'fund_id' => 2,
+                'image' => null,
+                'funding_details' => 'Most revenue generated from the cover versions of it.',
+                'grant_name' => 'New Order'
             ]
         ];
     }

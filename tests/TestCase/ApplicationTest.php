@@ -15,7 +15,10 @@
 namespace App\Test\TestCase;
 
 use App\Application;
+use App\Test\Fixture\ProjectsFixture;
+use App\Test\Fixture\ReportsFixture;
 use App\Test\Fixture\UsersFixture;
+use App\Test\Fixture\UsersProjectsFixture;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\MiddlewareQueue;
 use Cake\ORM\TableRegistry;
@@ -36,6 +39,15 @@ use Cake\TestSuite\IntegrationTestCase;
  */
 class ApplicationTest extends IntegrationTestCase
 {
+    // projects fixtures
+    public $projects;
+
+    // reports fixtures
+    public $reports;
+
+    // users-projects jointable fixtures
+    public $usersProjects;
+
     // users fixtures
     public $admin;
     public $currentEmployee;
@@ -78,6 +90,22 @@ class ApplicationTest extends IntegrationTestCase
             $this->$object = TableRegistry::get($object);
         }
 
+        // set up projects fixtures
+        $projectsFixture = new ProjectsFixture();
+        $this->projects = [];
+
+        foreach ($projectsFixture->records as $project) {
+            $this->projects[] = $project;
+        }
+
+        // set up reports fixtures
+        $reportsFixture = new ReportsFixture();
+        $this->reports = [];
+
+        foreach ($reportsFixture->records as $report) {
+            $this->reports[] = $report;
+        }
+
         // set up the users fixtures
         $usersFixture = new UsersFixture();
 
@@ -98,6 +126,14 @@ class ApplicationTest extends IntegrationTestCase
                 'User' => $usersFixture->records[2]
             ]
         ];
+
+        // finally, set up users-projects jointable fixtures
+        $usersProjectsFixture = new UsersProjectsFixture();
+        $this->usersProjects = [];
+
+        foreach ($usersProjectsFixture->records as $userProject) {
+            $this->usersProjects[] = $userProject;
+        }
     }
 
     /**

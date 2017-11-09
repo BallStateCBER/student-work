@@ -40,9 +40,51 @@ class UsersProjectsFixture extends TestFixture
     public $records = [
         [
             'id' => 1,
-            'user_id' => 1,
+            'user_id' => 333666999,
             'project_id' => 1,
-            'role' => 'Lorem ipsum dolor sit amet'
+            'role' => 'Supervisor'
         ],
+        [
+            'id' => 2,
+            'user_id' => 333666999,
+            'project_id' => 2,
+            'role' => 'Supervisor'
+        ],
+        [
+            'id' => 3,
+            'user_id' => 333666999,
+            'project_id' => 3,
+            'role' => 'Supervisor'
+        ],
+        [
+            'id' => 4,
+            'user_id' => 333666999,
+            'project_id' => 4,
+            'role' => 'Supervisor'
+        ],
+        [
+            'id' => 5,
+            'user_id' => 987654321,
+            'project_id' => 1,
+            'role' => 'Student'
+        ],
+        [
+            'id' => 6,
+            'user_id' => 987654321,
+            'project_id' => 2,
+            'role' => 'Student'
+        ],
+        [
+            'id' => 7,
+            'user_id' => 987654321,
+            'project_id' => 3,
+            'role' => 'Student'
+        ],
+        [
+            'id' => 8,
+            'user_id' => 123456789,
+            'project_id' => 4,
+            'role' => 'Student'
+        ]
     ];
 }

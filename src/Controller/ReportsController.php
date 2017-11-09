@@ -361,7 +361,7 @@ class ReportsController extends AppController
 
             $report->project_id = $this->request->getData('project_name');
             $student = $this->Users->findByName($this->request->getData('student_id'))->first();
-            $report->student_id = $student->id;
+            $report->student_id = $student['id'];
 
             if ($this->request->session()->read('Auth.User.admin') != 1) {
                 $id = $this->Auth->user('id');
