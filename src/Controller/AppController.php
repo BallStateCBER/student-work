@@ -124,7 +124,7 @@ class AppController extends Controller
         $activeUser = $this->request->session()->read('Auth.User');
         $name = explode(' ', trim($activeUser['name']));
         $name = $name[0];
-        $name = $name != '' ? $name . ' :' : '';
+        $name = $name != '' ? $name . ':' : '';
 
         $this->set(compact('activeUser', 'name'));
 
