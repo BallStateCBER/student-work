@@ -33,6 +33,12 @@ class FundsController extends AppController
             $user = $this->request->session()->read(['Auth']);
             $user = $user['User'];
         }
+        $actions = ['add', 'edit', 'delete'];
+        if ($user['end_date'] <= date('Y-m-d') && !empty($user['end_date'])) {
+            if (in_array($this->request->getParam('action'), $actions)) {
+                return false;
+            }
+        }
         if (!$user['admin']) {
             $this->Flash->error('Only admins can access funding details.');
 

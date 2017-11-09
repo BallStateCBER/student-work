@@ -33,6 +33,12 @@ class DegreesController extends AppController
             $user = $this->request->session()->read(['Auth']);
             $user = $user['User'];
         }
+        $actions = ['add', 'edit', 'delete'];
+        if ($user['end_date'] <= date('Y-m-d') && !empty($user['end_date'])) {
+            if (in_array($this->request->getParam('action'), $actions)) {
+                return false;
+            }
+        }
         if (!$user['admin']) {
             if ($this->request->getParam('action') == 'edit' || $this->request->getParam('action') == 'delete') {
                 $entityId = $this->request->getParam('pass')[0];

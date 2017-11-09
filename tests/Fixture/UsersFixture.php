@@ -43,7 +43,7 @@ class UsersFixture extends TestFixture
                 'id' => 987654321,
                 'name' => 'Former Employee',
                 'start date' => date('Y-m-d', strtotime('02-27-2017')),
-                'end_date' => date('Y-m-d', strtotime('Today')),
+                'end_date' => date('Y-m-d', strtotime('-1 day')),
                 'birth_date' => date('Y-m-d', strtotime('05-01-1989')),
                 'image' => null,
                 'bio' => 'Uh oh, today I am Fired! Looking for a new job ASAP! Front-end designer with a big portfolio!',

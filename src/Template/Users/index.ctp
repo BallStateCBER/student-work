@@ -22,7 +22,7 @@
         <?= $this->Text->autoLinkEmails($user->email) ?>
         <p>
             <?php if (isset($user->position)): ?>
-                <?= $user->is_current == 1 ? 'Current' : 'Former' ?> <?= $this->Html->link($user->position, ['controller' => 'Users', 'action' => 'view', $user->id])  ?>.
+                <?= $user->end_date == null || $user->end_date >= date('Y-m-d') ? 'Current' : 'Former' ?> <?= $this->Html->link($user->position, ['controller' => 'Users', 'action' => 'view', $user->id])  ?>.
             <?php else: ?>
                 <I>No position specified.</I>
             <?php endif ?>

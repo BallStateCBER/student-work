@@ -133,8 +133,77 @@ class ReportsControllerTest extends ApplicationTest
      */
     public function testReportEditing()
     {
+        // can't edit reports that aren't yours
         $this->session($this->currentEmployee);
         $this->get("/reports/edit/1");
         $this->assertRedirect();
+
+        // can't edit reports if you're a former employee
+        $this->session($this->formerEmployee);
+        $this->get("/reports/edit/1");
+        $this->assertRedirect();
+
+        // admins can do whatever
+        $this->session($this->admin);
+        $this->get("/reports/edit/1");
+        $this->assertResponseOk();
+
+        // current owners can do whatever too
+        $this->session($this->currentEmployee);
+        $this->get("/reports/edit/4");
+        $this->assertResponseOk();
+
+        $formData = [
+            'supervisor_id' => $this->admin['Auth']['User']['id'],
+            'student_id' => $this->currentEmployee['Auth']['User']['id'],
+            'project_name' => 4,
+            'start_date' => [
+                'year' => date('Y'),
+                'month' => date('m'),
+                'day' => date('d')
+            ],
+            'work_performed' => 'Oh no everything is different now!',
+            'learned' => 'Wowza!',
+            'routine' => 2
+        ];
+
+        $this->post('/reports/edit/4', $formData);
+        $this->assertResponseContains('The report has been saved.');
+        $this->assertResponseOk();
+
+        $report = $this->Reports->find()->where(['learned' => $formData['learned']])->firstOrFail();
+        $this->assertEquals($report['work_performed'], $formData['work_performed']);
+    }
+
+    /**
+     * testReportDeleting method
+     *
+     * @return void
+     */
+    public function testReportDeleting()
+    {
+        // can't delete reports that aren't yours
+        $this->session($this->currentEmployee);
+        $this->get("/reports/delete/1");
+        $this->assertRedirect();
+
+        // can't delete reports if you're a former employee
+        $this->session($this->formerEmployee);
+        $this->get("/reports/delete/1");
+        $this->assertRedirect();
+
+        // admins can do whatever
+        $this->session($this->admin);
+        $this->get("/reports/delete/1");
+        $this->assertResponseSuccess();
+        $report = $this->Reports->find()->where(['id' => 1])->first();
+        $this->assertNull($report);
+
+        // current owners can do whatever too
+        $this->session($this->currentEmployee);
+        $this->get("/reports/delete/4");
+        $this->assertResponseSuccess();
+        $report = $this->Reports->find()->where(['id' => 4])->first();
+        $this->assertNull($report);
     }
 }

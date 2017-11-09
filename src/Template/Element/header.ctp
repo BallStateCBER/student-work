@@ -3,6 +3,7 @@
 $user = $this->request->session()->read('Auth.User');
 $name = explode(' ', trim($user['name']));
 $name = $name[0];
+$name = $name != '' ? $name . ' :' : '';
 
 ?>
 <nav class="navbar navbar-toggleable-md navbar-light">
@@ -58,7 +59,7 @@ $name = $name[0];
             <li class="nav-item">
                 <?php if ($user): ?>
                     <u>
-                        <?= $this->Html->link("$name: Edit Your Account", ['controller' => 'Users', 'action' => 'account'], ['class'=>'nav-link']) ?>
+                        <?= $this->Html->link("$name Edit Your Account", ['controller' => 'Users', 'action' => 'account'], ['class'=>'nav-link']) ?>
                     </u>
                 <?php endif ?>
             </li>

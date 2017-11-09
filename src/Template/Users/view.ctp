@@ -53,11 +53,12 @@ if (!isset($user->name)) {
         <?= $user->start_date ? date('F jS, Y', strtotime($user->start_date)) : '<i>Not specified</i>' ?>
     </div>
     <div class="col-xl-4 col-lg-4 col-md-3">
-        <?php if ($user->end_date): ?>
+        <?php if ($user->end_date != null): ?>
             <h6>End Date</h6>
             <?php $date = strtotime($user->end_date) ?>
             <?= date('F jS, Y', $date) ?>
-        <?php elseif ($user->is_current == 1): ?>
+        <?php endif ?>
+        <?php if ($user->end_date == null || $user->end_date >= date('Y-m-d')): ?>
             <h6>Currently</h6>
             <h6>employed</h6>
         <?php endif ?>

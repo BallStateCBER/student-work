@@ -1,8 +1,7 @@
-<?php if ($this->request->action == 'edit' && ($report['student_id'] == $activeUser['id'] or $report['supervisor_id'] == $activeUser['id'] or $activeUser['admin'] == 1) or $this->request->action == 'add'): ?>
-    <?= $this->Form->create($report, [
-        'templates' => [
-            'select' => '<select class="form-control dates" name="{{name}}">{{content}}</select>'
-        ]]) ?>
+<?= $this->Form->create($report, [
+    'templates' => [
+        'select' => '<select class="form-control dates" name="{{name}}">{{content}}</select>'
+    ]]) ?>
     <fieldset>
         <h1>
             <?= $titleForLayout ?>
@@ -99,11 +98,11 @@
                     Was this a routine activity?
                 </label>
                 <?= $this->Form->radio('routine',
-                [
-                    ['value' => 1, 'text' => 'Yes'],
-                    ['value' => 0, 'text' => 'No'],
-                    ['value' => 2, 'text' => 'Not sure'],
-                ]
+                    [
+                        ['value' => 1, 'text' => 'Yes'],
+                        ['value' => 0, 'text' => 'No'],
+                        ['value' => 2, 'text' => 'Not sure'],
+                    ]
                 ) ?>
             </div>
         </div>
@@ -112,11 +111,10 @@
         <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-secondary btn-md']) ?>
         <?= $this->Form->end() ?>
     </div>
-    <?php if ($this->request->params['action'] == 'edit'): ?>
-        <p class="float-right">
-            <small>
-                <?= $this->Html->link('Delete report?', ['controller' => 'Reports', 'action' => 'delete', $report->id], ['class' => 'text-danger']) ?>
-            </small>
-        </p>
-    <?php endif ?>
+<?php if ($this->request->params['action'] == 'edit'): ?>
+    <p class="float-right">
+        <small>
+            <?= $this->Html->link('Delete report?', ['controller' => 'Reports', 'action' => 'delete', $report->id], ['class' => 'text-danger']) ?>
+        </small>
+    </p>
 <?php endif ?>
