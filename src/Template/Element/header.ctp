@@ -1,11 +1,3 @@
-<?php
-
-$user = $this->request->session()->read('Auth.User');
-$name = explode(' ', trim($user['name']));
-$name = $name[0];
-$name = $name != '' ? $name . ' :' : '';
-
-?>
 <nav class="navbar navbar-toggleable-md navbar-light">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -18,10 +10,10 @@ $name = $name != '' ? $name . ' :' : '';
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <?php if ($user): ?>
+        <?php if ($activeUser): ?>
                 <?= $this->Html->link('Log out', ['controller' => 'Users', 'action' => 'logout'], ['class'=>'nav-link']) ?>
             </li>
-            <?php if ($user['admin'] == 1): ?>
+            <?php if ($activeUser['is_admin'] == 1): ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
                     <div class="dropdown-menu">
@@ -42,7 +34,7 @@ $name = $name != '' ? $name . ' :' : '';
                     <?= $this->Html->link('Add a Report', ['controller' => 'Reports', 'action' => 'add'], ['class'=>'dropdown-item']) ?>
                 </div>
             </li>
-            <?php if ($user['admin'] == 1): ?>
+            <?php if ($activeUser['is_admin'] == 1): ?>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Students & Staff</a>
                 <div class="dropdown-menu">
@@ -57,7 +49,7 @@ $name = $name != '' ? $name . ' :' : '';
                 </li>
             <?php endif ?>
             <li class="nav-item">
-                <?php if ($user): ?>
+                <?php if ($activeUser): ?>
                     <u>
                         <?= $this->Html->link("$name Edit Your Account", ['controller' => 'Users', 'action' => 'account'], ['class'=>'nav-link']) ?>
                     </u>

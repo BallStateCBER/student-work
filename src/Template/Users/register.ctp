@@ -1,4 +1,4 @@
-<?php if (isset($activeUser) && $activeUser['admin'] == 1): ?>
+<?php if (isset($activeUser) && $activeUser['is_admin'] == 1): ?>
     <?php
     $this->Form->setTemplates([
         'select' => '<select class="form-control">{{content}}</select>'
@@ -34,7 +34,7 @@
             <label for="admin">
                 Site Role
             </label>
-            <?= $this->Form->control('admin', [
+            <?= $this->Form->control('is_admin', [
                 'label' => false,
                 'options' => [
                     1 => 'Site Admin',

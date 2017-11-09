@@ -39,7 +39,7 @@ class DegreesController extends AppController
                 return false;
             }
         }
-        if (!$user['admin']) {
+        if (!$user['is_admin']) {
             if ($this->request->getParam('action') == 'edit' || $this->request->getParam('action') == 'delete') {
                 $entityId = $this->request->getParam('pass')[0];
                 $entity = $this->Degrees->get($entityId);
@@ -83,7 +83,7 @@ class DegreesController extends AppController
             // nothing found? the user has not set their name
             $gradId = $grad != null ? $grad->id : $this->request->getData('user_id');
 
-            if (!$this->Auth->user('admin')) {
+            if (!$this->Auth->user('is_admin')) {
                 if ($this->Auth->user('id') != $gradId) {
                     $this->Flash->error('You cannot make a degree for someone else.');
 
@@ -126,7 +126,7 @@ class DegreesController extends AppController
             // nothing found? the user has not set their name
             $gradId = $grad != null ? $grad->id : $this->request->getData('user_id');
 
-            if (!$this->Auth->user('admin')) {
+            if (!$this->Auth->user('is_admin')) {
                 if ($this->Auth->user('id') != $gradId) {
                     $this->Flash->error('You cannot make a degree for someone else.');
 

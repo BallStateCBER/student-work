@@ -27,7 +27,7 @@ class ProjectsController extends AppController
     public function isAuthorized($user = null)
     {
         $action = $this->request->getParam('action');
-        if (!$user['admin'] && ($action != 'index' & $action != 'view')) {
+        if (!$user['is_admin'] && ($action != 'index' & $action != 'view')) {
             $this->Flash->error('Only admins can change project details.');
 
             return $this->redirect(['controller' => 'Projects', 'action' => 'index']);

@@ -114,8 +114,6 @@ class AppController extends Controller
             ]
         );
 
-        $activeUser = $this->request->session()->read('Auth.User');
-        $this->set(compact('activeUser'));
 
         $this->loadModel('Awards');
         $this->loadModel('Degrees');
@@ -123,6 +121,13 @@ class AppController extends Controller
         $this->loadModel('Reports');
         $this->loadModel('UsersProjects');
         $this->loadModel('Users');
+
+        $activeUser = $this->request->session()->read('Auth.User');
+        $name = explode(' ', trim($activeUser['name']));
+        $name = $name[0];
+        $name = $name != '' ? $name . ' :' : '';
+
+        $this->set(compact('activeUser', 'name'));
 
         /*
          * Enable the following components for recommended CakePHP security settings.

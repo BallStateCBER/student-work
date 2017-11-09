@@ -17,7 +17,7 @@
             </div>
             <div class="col-xl-3">
                 <label>For student or employee</label>
-                <?php if ($activeUser['admin'] == 1): ?>
+                <?php if ($activeUser['is_admin'] == 1): ?>
                     <?= $this->Form->text('student_id', [
                         'class' => 'form-control dates',
                         'style' => 'display:block;',

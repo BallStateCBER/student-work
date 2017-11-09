@@ -42,7 +42,7 @@ class ReportsController extends AppController
                 return false;
             }
         }
-        if (!$user['admin']) {
+        if (!$user['is_admin']) {
             if ($this->request->getParam('action') == 'edit' || $this->request->getParam('action') == 'delete') {
                 $entityId = $this->request->getParam('pass')[0];
                 $entity = $this->Reports->get($entityId);
@@ -67,7 +67,7 @@ class ReportsController extends AppController
             ->select(['id', 'name'])
             ->contain(['Users']);
         foreach ($projects as $project) {
-            if ($this->Auth->user('admin') == 0) {
+            if ($this->Auth->user('is_admin') == 0) {
                 foreach ($project->users as $user) {
                     if ($user->id == $this->Auth->user('id')) {
                         $projectNames += [$project->id => $project->name];
@@ -333,7 +333,7 @@ class ReportsController extends AppController
         $this->set('_serialize', ['report']);
         $this->set(['titleForLayout' => 'Add a Report']);
 
-        if ($this->request->session()->read('Auth.User.admin') == 0) {
+        if ($this->Auth->user('is_admin') == 0) {
             $id = $this->Auth->user('id');
             $reports = $this->Reports->getStudentCurrentReports($id);
 
@@ -370,7 +370,7 @@ class ReportsController extends AppController
             $student = $this->Users->findByName($this->request->getData('student_id'))->first();
             $report->student_id = $student['id'];
 
-            if ($this->request->session()->read('Auth.User.admin') != 1) {
+            if ($this->Auth->user('is_admin') == 0) {
                 $id = $this->Auth->user('id');
                 $project = $this->Projects->get($this->request->getData('project_name'));
                 $reports = $this->Reports->getStudentCurrentReportsByProject($id, $project->id);

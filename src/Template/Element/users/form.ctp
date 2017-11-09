@@ -104,10 +104,10 @@ $firstName = $firstName[0];
         </div>
         <?php if ($this->request->action == 'edit'): ?>
             <div class="col-lg-4">
-                <label for="admin">
+                <label for="is_admin">
                     Admin?
                 </label>
-                <?= $this->Form->control('admin', [
+                <?= $this->Form->control('is_admin', [
                     'label' => false,
                     'options' => [
                         1 => 'Site Admin',
@@ -214,7 +214,7 @@ $firstName = $firstName[0];
 <div class="row">
     <div class="col-sm-12">
         <h4>Your projects
-            <?php if ($activeUser['admin'] == 1): ?>
+            <?php if ($activeUser['is_admin'] == 1): ?>
                 (<?= $this->Html->link('+', ['controller' => 'Projects', 'action' => 'add']) ?>)
             <?php endif ?>
         </h4>
@@ -224,7 +224,7 @@ $firstName = $firstName[0];
                 <p class="exp-description">
                     <u>Project role:</u> <?= $project->_joinData->role ?><br />
                     <?= $project->organization ? 'With '.$project->organization.'<br />' : '' ?>
-                    <?php if ($activeUser['admin'] == 1): ?>
+                    <?php if ($activeUser['is_admin'] == 1): ?>
                         <?php
                         $descriptionArray = explode(' ', trim($project->description));
                         $wordCount = count($descriptionArray);

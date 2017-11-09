@@ -38,7 +38,7 @@ class UsersController extends AppController
             $user = $this->request->session()->read(['Auth']);
             $user = $user['User'];
         }
-        if (!$user['admin']) {
+        if (!$user['is_admin']) {
             if ($this->request->getParam('action') == 'edit') {
                 $this->Flash->error('Only admins can edit accounts.');
                 $this->redirect(['controller' => 'Users', 'action' => 'index']);

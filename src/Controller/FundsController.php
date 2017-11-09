@@ -39,7 +39,7 @@ class FundsController extends AppController
                 return false;
             }
         }
-        if (!$user['admin']) {
+        if (!$user['is_admin']) {
             $this->Flash->error('Only admins can access funding details.');
 
             return $this->redirect(['controller' => 'Reports', 'action' => 'index']);

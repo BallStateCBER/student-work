@@ -60,8 +60,8 @@
                             </td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['action' => 'view', $project->id]) ?>
-                                <?= $activeUser['admin'] == 1 ? $this->Html->link(__('Edit'), ['action' => 'edit', $project->id]) : '' ?>
-                                <?= $activeUser['admin'] == 1 && empty($project->reports) ? $this->Form->postLink(__('Delete'), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete {0}?', $project->name)]) : '' ?>
+                                <?= $activeUser['is_admin'] == 1 ? $this->Html->link(__('Edit'), ['action' => 'edit', $project->id]) : '' ?>
+                                <?= $activeUser['is_admin'] == 1 && empty($project->reports) ? $this->Form->postLink(__('Delete'), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete {0}?', $project->name)]) : '' ?>
                             </td>
                         </tr>
                         <?php if ($x == $halfCount || $x == $count): ?>

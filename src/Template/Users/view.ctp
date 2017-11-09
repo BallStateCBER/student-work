@@ -40,7 +40,7 @@ if (!isset($user->name)) {
     </div>
     <div class="col-xl-4 col-lg-4 col-md-4">
         <h6>Role</h6>
-        <?= $user->admin ? 'Site Admin' : 'Student' ?>
+        <?= $user->is_admin ? 'Site Admin' : 'Student' ?>
     </div>
 </div>
 <div class="row">

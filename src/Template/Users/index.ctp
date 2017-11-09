@@ -1,4 +1,3 @@
-
 <?php $x = 0 ?>
 <?php foreach ($users as $user): ?>
     <?= $x % 5 == 0 || $x == 0 ? '<div class="row">' : '' ?>
@@ -27,7 +26,7 @@
                 <I>No position specified.</I>
             <?php endif ?>
             <br />
-            <?php if ($this->request->session()->read('Auth.User.admin') == 1): ?>
+            <?php if ($activeUser['is_admin'] == 1): ?>
                 <small>Admin: <?= $this->Html->link('edit user', ['controller' => 'Users', 'action' => 'edit', $user->id], ['class'=>'text-danger']) ?></small>
             <?php endif ?>
         </p>

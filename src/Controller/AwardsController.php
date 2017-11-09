@@ -39,7 +39,7 @@ class AwardsController extends AppController
                 return false;
             }
         }
-        if (!$user['admin']) {
+        if (!$user['is_admin']) {
             if ($this->request->getParam('action') == 'edit' || $this->request->getParam('action') == 'delete') {
                 $entityId = $this->request->getParam('pass')[0];
                 $entity = $this->Awards->get($entityId);
@@ -83,7 +83,7 @@ class AwardsController extends AppController
             // nothing found? the user has not set their name
             $awardeeId = $awardee != null ? $awardee->id : $this->request->getData('user_id');
 
-            if (!$this->Auth->user('admin')) {
+            if (!$this->Auth->user('is_admin')) {
                 if ($this->Auth->user('id') != $awardeeId) {
                     $this->Flash->error('You cannot make an award for someone else.');
 
@@ -127,7 +127,7 @@ class AwardsController extends AppController
             // nothing found? the user has not set their name
             $awardeeId = $awardee != null ? $awardee->id : $this->request->getData('user_id');
 
-            if (!$this->Auth->user('admin')) {
+            if (!$this->Auth->user('is_admin')) {
                 if ($this->Auth->user('id') != $awardeeId) {
                     $this->Flash->error('You cannot make an award for someone else.');
 
