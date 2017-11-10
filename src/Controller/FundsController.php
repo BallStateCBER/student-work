@@ -145,7 +145,7 @@ class FundsController extends AppController
     {
         $fund = $this->Funds->get($id);
         if ($this->Funds->delete($fund)) {
-            $this->Flash->success(__('The degree has been deleted.'));
+            $this->Flash->success(__('The fund has been deleted.'));
 
             return $this->redirect(['action' => 'index']);
         } else {

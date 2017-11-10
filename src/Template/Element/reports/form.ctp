@@ -50,7 +50,7 @@
                     <?= $this->Form->control('start_date', [
                         'hour' => false,
                         'label' => false,
-                        'maxYear' => date('Y'),
+                        'maxYear' => date('Y', strtotime('+2 years')),
                         'meridian' => false,
                         'minute' => false,
                         'minYear' => '2000',
@@ -68,7 +68,7 @@
                         'empty' => 'n/a',
                         'hour' => false,
                         'label' => false,
-                        'maxYear' => date('Y'),
+                        'maxYear' => date('Y', strtotime('+2 years')),
                         'meridian' => false,
                         'minute' => false,
                         'minYear' => '2000',

@@ -7,7 +7,9 @@
 <h1>
     <?= $project->name ?>
 </h1>
-<small>Admin: <?= $this->Html->link('Edit this project source', ['controller' => 'Projects', 'action' => 'edit', $project->id], ['class' => 'text-danger']) ?></small>
+<?php if ($activeUser['is_admin']): ?>
+    <small>Admin: <?= $this->Html->link('Edit this project source', ['controller' => 'Projects', 'action' => 'edit', $project->id], ['class' => 'text-danger']) ?></small>
+<?php endif ?>
 <div class="row">
     <div class="col-lg-8 no-marg">
         <?= $project->description ?: "<p>There is no description for $project->name yet. Go on, put it up, or we aren't gonna know how to be proud of you!</p>" ?>

@@ -249,10 +249,10 @@ $firstName = $firstName[0];
     <small>Your Ball State ID is: <?= $user->id ?></small>
     <br />
     <small>
-        <?= $this->Html->link('Reset your password?', ['controller' => 'Users', 'action' => 'reset-password', $user->id, $resetPasswordHash], ['class' => 'text-danger']) ?>
+        <?= $this->Html->link('Reset password?', ['controller' => 'Users', 'action' => 'reset-password', $user->id, $resetPasswordHash], ['class' => 'text-danger']) ?>
     </small>
     <br />
     <small>
-        <?= $this->Html->link('Delete your account?', ['controller' => 'Users', 'action' => 'delete', $user->id], ['class' => 'text-danger']) ?>
+        <?= $this->Html->link('Delete account?', ['controller' => 'Users', 'action' => 'delete', $user->id], ['class' => 'text-danger']) ?>
     </small>
 </p>

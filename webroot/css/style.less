@@ -13,7 +13,6 @@
 @x-large: ~"(min-width: 1200px)";
 
 // universal stuff
-p,
 img {
     padding: 10px;
 }
@@ -111,8 +110,8 @@ body {
     }
 }
 
-label[for=admin-1],
-label[for=admin-0],
+label[for=is-admin-1],
+label[for=is-admin-0],
 label[for=routine-1],
 label[for=routine-2],
 label[for=routine-0] {
@@ -215,5 +214,29 @@ h1.user-view {
 .no-marg {
     p {
         margin-bottom: 0px;
+    }
+}
+
+// tutorial images
+.animation {
+    max-width: 100%;
+    @media @x-large {
+        width: 66%;
+    }
+}
+.screenshot {
+    transition: all .2s ease-in-out;
+    @media @large {
+        margin: 20px;
+    }
+}
+.screenshot:hover {
+    transform: scale(1.5);
+}
+.tutorial {
+    box-shadow: 0px 0px 10px 10px #cbf5fe;
+    padding: 0px;
+    @media @x-large {
+        margin: 20px;
     }
 }

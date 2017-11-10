@@ -46,7 +46,7 @@ class PagesController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['home']);
+        $this->Auth->allow(['help', 'home', 'studentHelp']);
     }
 
     /**
@@ -90,6 +90,18 @@ class PagesController extends AppController
     }
 
     /**
+     * renders help page
+     * @return void
+     */
+    public function help()
+    {
+        $people = $this->Auth->user('is_admin') ? 'Site Admins' : 'Students';
+        $this->set([
+            'titleForLayout' => "User Guide for $people"
+        ]);
+    }
+
+    /**
      * renders home page
      * @return void
      */
@@ -97,6 +109,17 @@ class PagesController extends AppController
     {
         $this->set([
             'titleForLayout' => ''
+        ]);
+    }
+
+    /**
+     * renders home page
+     * @return void
+     */
+    public function studentHelp()
+    {
+        $this->set([
+            'titleForLayout' => 'User Guide for Students'
         ]);
     }
 }

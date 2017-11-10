@@ -22,8 +22,10 @@
                     <td class="non-mobile <?= strtotime($report->end_date) > strtotime(date('Y-m-d')) || strtotime($report->end_date) == null ? 'alert alert-danger' : 'alert alert-success' ?>"><?= !$report->end_date ? 'No end date' : h(date('F j, Y', strtotime($report->end_date))) ?></u></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $report->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $report->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $report->id], ['confirm' => __('Are you sure you want to delete # {0}?', $report->id)]) ?>
+                        <?php if ($activeUser['is_admin'] || $report['student_id'] == $activeUser['name'] || $report['supervisor_id'] == $activeUser['name']): ?>
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $report->id]) ?>
+                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $report->id], ['confirm' => __('Are you sure you want to delete # {0}?', $report->id)]) ?>
+                        <?php endif ?>
                     </td>
                 </tr>
                 <?php endforeach ?>
