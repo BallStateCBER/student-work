@@ -28,7 +28,7 @@
                         'class' => 'form-control dates',
                         'disabled' => true,
                         'style' => 'display:block;',
-                        'value' => $activeUser['name']
+                        'value' => $activeUser['name'] ? $activeUser['name'] : "Employee #" . $activeUser['id']
                     ]) ?>
                 <?php endif ?>
             </div>

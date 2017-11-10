@@ -73,6 +73,9 @@ class ReportsController extends AppController
                         $projectNames += [$project->id => $project->name];
                     }
                 }
+                if (empty($projectNames)) {
+                    $projectNames += ["No Projects Added"];
+                }
                 continue;
             }
             $projectNames += [$project->id => $project->name];
