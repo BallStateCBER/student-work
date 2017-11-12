@@ -60,6 +60,9 @@
         </li>
         <?php endif ?>
     </ul>
+    <li class="nav-item">
+        <?= $this->Html->link('Help?', ['controller' => 'Pages', 'action' => 'help'], ['class'=>'nav-link float-right']) ?>
+    </li>
     <!--form class="form-inline my-2 my-lg-0">
         <!--?php
             $formTemplate = [

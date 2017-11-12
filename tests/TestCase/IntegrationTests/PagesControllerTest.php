@@ -26,6 +26,22 @@ class PagesControllerTest extends ApplicationTest
     }
 
     /**
+     * Test help page
+     *
+     * @return void
+     */
+    public function testHelpPage()
+    {
+        $this->session($this->currentEmployee);
+        $this->get('/help');
+        $this->assertResponseContains('Students');
+
+        $this->session($this->admin);
+        $this->get('/help');
+        $this->assertResponseContains('Site Admins');
+    }
+
+    /**
      * Test home page
      *
      * @return void
