@@ -114,7 +114,6 @@ class AppController extends Controller
             ]
         );
 
-
         $this->loadModel('Awards');
         $this->loadModel('Degrees');
         $this->loadModel('Projects');
