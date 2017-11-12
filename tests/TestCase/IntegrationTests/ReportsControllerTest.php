@@ -135,17 +135,17 @@ class ReportsControllerTest extends ApplicationTest
     {
         // can't edit reports that aren't yours
         $this->session($this->currentEmployee);
-        $this->get("/reports/edit/1");
+        $this->get("/reports/edit/2");
         $this->assertRedirect();
 
         // can't edit reports if you're a former employee
         $this->session($this->formerEmployee);
-        $this->get("/reports/edit/1");
+        $this->get("/reports/edit/2");
         $this->assertRedirect();
 
         // admins can do whatever
         $this->session($this->admin);
-        $this->get("/reports/edit/1");
+        $this->get("/reports/edit/2");
         $this->assertResponseOk();
 
         // current owners can do whatever too
@@ -184,19 +184,19 @@ class ReportsControllerTest extends ApplicationTest
     {
         // can't delete reports that aren't yours
         $this->session($this->currentEmployee);
-        $this->get("/reports/delete/1");
+        $this->get("/reports/delete/2");
         $this->assertRedirect();
 
         // can't delete reports if you're a former employee
         $this->session($this->formerEmployee);
-        $this->get("/reports/delete/1");
+        $this->get("/reports/delete/2");
         $this->assertRedirect();
 
         // admins can do whatever
         $this->session($this->admin);
-        $this->get("/reports/delete/1");
+        $this->get("/reports/delete/2");
         $this->assertResponseSuccess();
-        $report = $this->Reports->find()->where(['id' => 1])->first();
+        $report = $this->Reports->find()->where(['id' => 2])->first();
         $this->assertNull($report);
 
         // current owners can do whatever too
