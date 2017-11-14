@@ -17,7 +17,6 @@ class DegreesFixture extends TestFixture
         parent::init();
         $this->records = [
             [
-                'id' => 1,
                 'user_id' => 333666999,
                 'type' => 'Master of Business Administration',
                 'name' => 'Ball State University',
@@ -27,7 +26,6 @@ class DegreesFixture extends TestFixture
                 'date' => date('Y-m-d', strtotime('05-15-2008'))
             ],
             [
-                'id' => 2,
                 'user_id' => 987654321,
                 'type' => 'Bachelor of General Studies',
                 'name' => 'Ball State University',
@@ -37,7 +35,6 @@ class DegreesFixture extends TestFixture
                 'date' => date('Y-m-d', strtotime('05-15-2011'))
             ],
             [
-                'id' => 3,
                 'user_id' => 123456789,
                 'type' => 'Associate of General Studies',
                 'name' => 'Ball State University',

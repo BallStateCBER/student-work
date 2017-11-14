@@ -17,7 +17,6 @@ class AwardsFixture extends TestFixture
         parent::init();
         $this->records = [
             [
-                'id' => 1,
                 'user_id' => 333666999,
                 'name' => 'Admin of the Year',
                 'awarded_on' => date('Y-m-d', strtotime('-1 week')),
@@ -25,7 +24,6 @@ class AwardsFixture extends TestFixture
                 'description' => 'For excellence in the field of administration and placeholders.'
             ],
             [
-                'id' => 2,
                 'user_id' => 123456789,
                 'name' => 'Current Employee of the Year',
                 'awarded_on' => date('Y-m-d'),

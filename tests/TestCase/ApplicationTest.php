@@ -15,8 +15,6 @@
 namespace App\Test\TestCase;
 
 use App\Application;
-use App\Test\Fixture\ProjectsFixture;
-use App\Test\Fixture\ReportsFixture;
 use App\Test\Fixture\UsersFixture;
 use App\Test\Fixture\UsersProjectsFixture;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
@@ -39,19 +37,20 @@ use Cake\TestSuite\IntegrationTestCase;
  */
 class ApplicationTest extends IntegrationTestCase
 {
-    // projects fixtures
+    // fixtures
+    public $awards;
+    public $degrees;
+    public $funds;
     public $projects;
-
-    // reports fixtures
     public $reports;
-
-    // users-projects jointable fixtures
-    public $usersProjects;
 
     // users fixtures
     public $admin;
     public $currentEmployee;
     public $formerEmployee;
+
+    // users-projects jointable fixtures
+    public $usersProjects;
 
     /**
      * Fixtures
@@ -68,7 +67,7 @@ class ApplicationTest extends IntegrationTestCase
         'app.users_projects'
     ];
 
-    public $objects = [
+    public $classes = [
         'Awards',
         'Degrees',
         'Funds',
@@ -86,24 +85,19 @@ class ApplicationTest extends IntegrationTestCase
     public function setUp()
     {
         parent::setUp();
-        foreach ($this->objects as $object) {
+        foreach ($this->classes as $object) {
             $this->$object = TableRegistry::get($object);
         }
 
-        // set up projects fixtures
-        $projectsFixture = new ProjectsFixture();
-        $this->projects = [];
-
-        foreach ($projectsFixture->records as $project) {
-            $this->projects[] = $project;
-        }
-
-        // set up reports fixtures
-        $reportsFixture = new ReportsFixture();
-        $this->reports = [];
-
-        foreach ($reportsFixture->records as $report) {
-            $this->reports[] = $report;
+        $nonUserClasses = ['Awards', 'Degrees', 'Funds', 'Projects', 'Reports'];
+        foreach ($nonUserClasses as $class) {
+            $fixture = "App\Test\Fixture\\" . $class . "Fixture";
+            $object = new $fixture();
+            $class = strtolower($class);
+            $this->$class = [];
+            foreach ($object->records as $fix) {
+                $this->$class[] = $fix;
+            }
         }
 
         // set up the users fixtures
