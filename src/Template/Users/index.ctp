@@ -2,7 +2,7 @@
 <?php foreach ($users as $user): ?>
     <?= $x % 5 == 0 || $x == 0 ? '<div class="row">' : '' ?>
     <div class="col-lg-2 index text-center">
-        <?php $image = isset('users/' . $user->image) ? $user->image : 'cber-staff.jpg' ?>
+        <?php $image = isset($user->image) ? 'users/' . $user->image : 'cber-staff.jpg' ?>
         <?= $this->Html->link($this->Html->image($image, [
             'alt' => $user->name,
             'class' => 'img-index'

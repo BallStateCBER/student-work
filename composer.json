@@ -14,6 +14,7 @@
         "oldskool/cakephp-js": "dev-master",
         "josegonzalez/cakephp-upload": "^3.6",
         "friendsofcake/search": "^3.1",
+        "friendsofcake/fixturize": "dev-master",
         "akkaweb/cakephp-ckeditor": "dev-master",
         "xety/cake3-cookieauth": "1.*"
     },
