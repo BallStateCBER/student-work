@@ -2,21 +2,13 @@
 <?php foreach ($users as $user): ?>
     <?= $x % 5 == 0 || $x == 0 ? '<div class="row">' : '' ?>
     <div class="col-lg-2 index text-center">
-        <?php if ($user->image): ?>
-            <?= $this->Html->link($this->Html->image('users'.DS.$user->image, [
-                'alt' => $user->name,
-                'class' => 'img-index'
-            ]),
-            ['controller' => 'Users', 'action' => 'view', $user->id],
-            ['escape' => false]) ?>
-        <?php else: ?>
-            <?= $this->Html->link($this->Html->image('cber-staff.jpg', [
-                'alt' => $user->name,
-                'class' => 'img-index'
-            ]),
-            ['controller' => 'Users', 'action' => 'view', $user->id],
-            ['escape' => false]) ?>
-        <?php endif ?>
+        <?php $image = isset('users/' . $user->image) ? $user->image : 'cber-staff.jpg' ?>
+        <?= $this->Html->link($this->Html->image($image, [
+            'alt' => $user->name,
+            'class' => 'img-index'
+        ]),
+        ['controller' => 'Users', 'action' => 'view', $user->id],
+        ['escape' => false]) ?>
         <h5><?= $user->name ?: "Employee #$user->id" ?></h5>
         <?= $this->Text->autoLinkEmails($user->email) ?>
         <p>
