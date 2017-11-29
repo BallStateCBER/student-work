@@ -162,6 +162,25 @@ class UsersTable extends Table
     }
 
     /**
+     * get user->id from $name
+     *
+     * @param string|null $name User name
+     * @return bool
+     */
+    public function getIdFromName($name = null)
+    {
+        $result = $this->find()
+            ->select(['id'])
+            ->where(['name' => $name])
+            ->first();
+        if ($result) {
+            return $result->id;
+        }
+
+        return false;
+    }
+
+    /**
      * get reset password hash
      * @param int|null $userId User ID
      * @param string|null $email User email

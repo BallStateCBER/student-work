@@ -387,6 +387,7 @@ class ReportsController extends AppController
 
                     return;
                 }
+                $report->student_id = $this->Auth->user('id');
             }
             if ($this->Reports->save($report)) {
                 $this->Flash->success(__('The report has been saved.'));
