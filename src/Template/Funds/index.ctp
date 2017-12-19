@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <h3><?= __('Funds') ?></h3>
+        <h1><?= __('Funds') ?></h1>
         <?= $this->Html->link(__('New Funding Source'), ['action' => 'add']) ?>
         <div class="row">
             <?php $x = 1; ?>

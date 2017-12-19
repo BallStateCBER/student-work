@@ -5,7 +5,7 @@
     </h1>
     <div class="row">
         <div class="col-lg-3">
-            <label class="form-control-label">
+            <label class="form-control-label" for="name">
                 Fund number
             </label>
             <?= $this->Form->control('name', [
@@ -26,7 +26,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <label class="form-control-label">
+            <label class="form-control-label" for="funding-details">
                 Funding details
             </label>
             <?= $this->CKEditor->loadJs() ?>
