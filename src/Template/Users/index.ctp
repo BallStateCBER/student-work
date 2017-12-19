@@ -4,12 +4,12 @@
     <div class="col-lg-2 index text-center">
         <?php $image = isset($user->image) ? 'users/' . $user->image : 'cber-staff.jpg' ?>
         <?= $this->Html->link($this->Html->image($image, [
-            'alt' => $user->name,
+            'alt' => $user->name ?: 'Click for Employee #' . $user->id,
             'class' => 'img-index'
         ]),
         ['controller' => 'Users', 'action' => 'view', $user->id],
         ['escape' => false]) ?>
-        <h5><?= $user->name ?: "Employee #$user->id" ?></h5>
+        <h1><?= $user->name ?: "Employee #$user->id" ?></h1>
         <?= $this->Text->autoLinkEmails($user->email) ?>
         <p>
             <?php if (isset($user->position)): ?>

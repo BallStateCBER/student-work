@@ -31,46 +31,46 @@ if (!isset($user->name)) {
 </div>
 <div class="row">
     <div class="col-xl-4 col-lg-4 col-md-4">
-        <h6>Email</h6>
+        <h2>Email</h2>
         <?= $this->Text->autoLinkEmails($user->email) ?>
     </div>
     <div class="col-xl-4 col-lg-4 col-md-4">
-        <h6>Current Position</h6>
+        <h2>Current Position</h2>
         <?= $user->position ?: "<i>Not specified</i>" ?>
     </div>
     <div class="col-xl-4 col-lg-4 col-md-4">
-        <h6>Role</h6>
+        <h2>Role</h2>
         <?= $user->is_admin ? 'Site Admin' : 'Student' ?>
     </div>
 </div>
 <div class="row">
     <div class="col-xl-4 col-lg-4 col-md-3">
-        <h6>Birthday</h6>
+        <h2>Birthday</h2>
         <?= $user->birth_date ? date('F jS, Y', strtotime($user->birth_date)) : '<i>Not specifiied</i>' ?>
     </div>
     <div class="col-xl-4 col-lg-4 col-md-3">
-        <h6>Start Date</h6>
+        <h2>Start Date</h2>
         <?= $user->start_date ? date('F jS, Y', strtotime($user->start_date)) : '<i>Not specified</i>' ?>
     </div>
     <div class="col-xl-4 col-lg-4 col-md-3">
         <?php if ($user->end_date != null): ?>
-            <h6>End Date</h6>
+            <h2>End Date</h2>
             <?php $date = strtotime($user->end_date) ?>
             <?= date('F jS, Y', $date) ?>
         <?php endif ?>
         <?php if ($user->end_date == null || $user->end_date >= date('Y-m-d')): ?>
-            <h6>Currently</h6>
-            <h6>employed</h6>
+            <h2>Currently</h2>
+            <h2>employed</h2>
         <?php endif ?>
     </div>
 </div>
 <div class="row">
     <div class="col-xl-4 col-lg-3 col-md-3">
-        <h6>Emergency Contact</h6>
+        <h2>Emergency Contact</h2>
         <?= $user->ice_name ?: "<i>Not specified</i>" ?>
     </div>
     <div class="col-xl-4 col-lg-3 col-md-3">
-        <h6>Emergency Contact Number</h6>
+        <h2>Emergency Contact Number</h2>
         <?php if (isset($user->ice_phone)): ?>
             <?php $iceNumber = $this->Users->numberConvert($user->ice_phone) ?>
             <?= '<a href="tel:'.$iceNumber.'">'.$user->ice_phone.'</a>' ?>
@@ -79,13 +79,13 @@ if (!isset($user->name)) {
         <?php endif ?>
     </div>
     <div class="col-xl-4 col-lg-3 col-md-3">
-        <h6>Relationship</h6>
+        <h2>Relationship</h2>
         <?= $user->ice_relationship ?: "<i>Not specified</i>" ?>
     </div>
 </div>
 <div class="row">
     <div class="col-xl-3 col-lg-3 col-md-3">
-        <h6>Alternate Email</h6>
+        <h2>Alternate Email</h2>
         <?php if (isset($user->alt_email)): ?>
             <?= $this->Text->autoLinkEmails($user->alt_email) ?>
         <?php else: ?>
@@ -93,7 +93,7 @@ if (!isset($user->name)) {
         <?php endif ?>
     </div>
     <div class="col-xl-3 col-lg-3 col-md-3">
-        <h6>Cell Number</h6>
+        <h2>Cell Number</h2>
         <?php if (isset($user->cell)): ?>
             <?php $cellNumber = $this->Users->numberConvert($user->cell) ?>
             <?= '<a href="tel:'.$cellNumber.'">'.$user->cell.'</a>' ?>
@@ -104,10 +104,10 @@ if (!isset($user->name)) {
 </div>
 <div class="row">
     <div class="col-sm-9">
-        <h4>Educational Background</h4>
+        <h2>Educational Background</h2>
         <?php if ($degrees): ?>
             <?php foreach ($degrees as $degree): ?>
-                <h6><?= $degree->name ?>: <em><?= $degree->location ?></em></h6>
+                <h2><?= $degree->name ?>: <em><?= $degree->location ?></em></h2>
                 <p>
                     <?= $degree->type ?> in <?= $degree->major ?><br />
                     <?php $date = strtotime($degree->date) ?>
@@ -121,10 +121,10 @@ if (!isset($user->name)) {
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <h4>Awards</h4>
+        <h2>Awards</h2>
         <?php if ($awards): ?>
             <?php foreach ($awards as $award): ?>
-                <h6><?= $award->name ?></h6>
+                <h3><?= $award->name ?></h3>
                 <p>
                     <?php $date = strtotime($award->awarded_on) ?>
                     Awarded on <?= date('F jS, Y', $date) ?><br />
@@ -139,10 +139,10 @@ if (!isset($user->name)) {
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <h4>Projects</h4>
+        <h2>Projects</h2>
         <?php if ($user->projects): ?>
             <?php foreach ($user->projects as $project): ?>
-                <h6><?= $project->name ?></h6>
+                <h3><?= $project->name ?></h3>
                 <p>
                     <u>Project role:</u> <?= $project->_joinData->role ?><br />
                     <?= $project->organization ? 'With '.$project->organization.'<br />' : '' ?>
