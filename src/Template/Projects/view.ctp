@@ -17,24 +17,24 @@
 </div>
 <div class="row">
     <div class="col-lg-4">
-        <h6>Organization</h6>
+        <h2>Organization</h2>
         <?= $project->organization ?>
     </div>
     <div class="col-lg-4">
-        <h6>Fund number</h6>
+        <h2>Fund number</h2>
         <?= isset($project->fund_id) ? $this->Html->link($fundNumber, "/funds/index#fund-$project->fund_id") : 'None/not applicable' ?>
     </div>
     <div class="col-lg-4">
-        <h6>Funding details</h6>
+        <h2>Funding details</h2>
         <?= $project->funding_details?: "No funding details" ?>
     </div>
 </div>
 <?php if ($project->users): ?>
     <div class="row">
         <div class="col-sm-9">
-            <h4>Project credits</h4>
+            <h2>Project credits</h2>
                 <?php foreach ($project->users as $user): ?>
-                    <h6><?= $user->name ?></h6>
+                    <h3><?= $user->name ?></h3>
                     <p>
                         <u>Project role:</u> <?= $user->_joinData->role ?><br />
                         <u>Job title:</u> <?= $this->Html->link($user->position, ['controller' => 'Users', 'action' => 'view', $user->id]) ?>

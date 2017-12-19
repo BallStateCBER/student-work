@@ -22,7 +22,7 @@
             <?= $this->Form->control('organization', ['class' => 'form-control']) ?>
         </div>
         <div class="col-lg-3">
-            <label class="form-control-label">
+            <label class="form-control-label" for="fund-id">
                 Fund number (if applicable)
             </label>
             <?= $this->Form->control('fund_id', [
@@ -36,7 +36,7 @@
             </small>
         </div>
         <div class="col-lg-3">
-            <label class="form-control-label">
+            <label class="form-control-label" for="grant-name">
                 Grant name (if applicable)
             </label>
             <?= $this->Form->control('grant_name', [
@@ -47,7 +47,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <label class="form-control-label">
+            <label class="form-control-label" for="image">
                 Project image
             </label>
             <?= $this->Form->input('image', [
@@ -59,7 +59,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <label class="form-control-label">
+            <label class="form-control-label" for="description">
                 Project description
             </label>
             <?= $this->CKEditor->loadJs() ?>
@@ -67,7 +67,7 @@
             <?= $this->CKEditor->replace('description') ?>
         </div>
         <div class="col-lg-6">
-            <label class="form-control-label">
+            <label class="form-control-label" for="funding-details">
                 Funding Details
             </label>
             <?= $this->CKEditor->loadJs() ?>
@@ -76,13 +76,13 @@
         </div>
     </div>
     <?php if ($this->request->getParam('action') == 'edit'): ?>
-        <h3>
+        <h2>
             Edit contributors
             <?php if (!$project->users): ?>
                 (<a data-toggle="collapse" href="#employee0" aria-expanded="false" aria-controls="employee0">+</a>)
             <?php endif ?>
             (<a tabindex="0" id="help-popover" data-toggle="popover" data-trigger="focus" title="Need help?" data-content="If you need to change an employee's role in a project, you have to delete their old role and re-add them.">?</a>)
-        </h3>
+        </h2>
         <?php $y = 0 ?>
         <?php foreach ($project->users as $x => $user): ?>
             <div class="collapse show" id="employee<?= $x ?>">
@@ -105,8 +105,8 @@
                     </div>
                     <div class="col-lg-4">
                         <br />
-                        <label>Delete this Role?</label>
-                        <?= $this->Form->checkbox('users.'.$x.'.delete') ?><br />
+                        <label for="users.<?= $x ?>.delete">Delete this Role?</label>
+                        <?= $this->Form->checkbox('users.'.$x.'.delete', ['id' => 'users.'.$x.'.delete']) ?><br />
                         <a class="text-muted" data-toggle="collapse" href="#employee<?= $x + 1 ?>" aria-expanded="false" aria-controls="employee<?= $x + 1 ?>">Add Another?</a>
                     </div>
                 </div>
