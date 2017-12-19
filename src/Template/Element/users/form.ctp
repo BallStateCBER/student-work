@@ -120,7 +120,7 @@ $firstName = $firstName[0];
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <label class="form-control-label">
+            <label class="form-control-label" for="image">
                 Profile picture
             </label>
             <?= $this->Form->input('image', [
@@ -131,7 +131,7 @@ $firstName = $firstName[0];
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <label class="form-control-label">
+            <label class="form-control-label" for="bio">
                 A short bio?
             </label>
             <?= $this->Form->textarea('bio', ['class' => 'form-control']) ?>
@@ -176,7 +176,7 @@ $firstName = $firstName[0];
 </fieldset>
 <div class="row">
     <div class="col-sm-9">
-        <h4>Your educational background (<?= $this->Html->link('+', ['controller' => 'Degrees', 'action' => 'add']) ?>)</h4>
+        <h2>Your educational background (<?= $this->Html->link('+', ['controller' => 'Degrees', 'action' => 'add']) ?>)</h2>
         <?php if ($degrees): ?>
             <?php foreach ($degrees as $degree): ?>
                 <h6><?= $degree->name ?>: <em><?= $degree->location ?></em></h6>
@@ -194,7 +194,7 @@ $firstName = $firstName[0];
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <h4>Your awards (<?= $this->Html->link('+', ['controller' => 'Awards', 'action' => 'add']) ?>)</h4>
+        <h2>Your awards (<?= $this->Html->link('+', ['controller' => 'Awards', 'action' => 'add']) ?>)</h2>
         <?php if ($awards): ?>
             <?php foreach ($awards as $award): ?>
                 <h6><?= $award->name ?></h6>
@@ -213,11 +213,11 @@ $firstName = $firstName[0];
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <h4>Your projects
+        <h2>Your projects
             <?php if ($activeUser['is_admin'] == 1): ?>
                 (<?= $this->Html->link('+', ['controller' => 'Projects', 'action' => 'add']) ?>)
             <?php endif ?>
-        </h4>
+        </h2>
         <?php if ($user->projects): ?>
             <?php foreach ($user->projects as $project): ?>
                 <h6><?= $project->name ?></h6>
