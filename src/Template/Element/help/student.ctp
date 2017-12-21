@@ -10,9 +10,9 @@
     We use this site to track projects, assign projects to students & staff, write reports on those projects, and maintain a database of student & staff information.
     Here's a quick guide on how to use this website. All example images can be enlarged, clicked, and enlarged further.
 </p>
-<h3 align='left'>
+<h2 align='left'>
     Logging in
-</h3>
+</h2>
 <p>
     A site administrator will need to create you an account. After that, they'll give you the credentials you need to log in.
     To get started, click the <a href="/login">Log in</a> link above, at the upper-left hand corner of the screen. Please enter your <u>@bsu.edu</u> email address,
@@ -24,9 +24,9 @@
         'class' => 'home-img screenshot tutorial float-left'
     ]) ?>
 </a>
-<h3 align='left'>
+<h2 align='left'>
     Account information
-</h3>
+</h2>
 <p>
     Please fill out your account information after your account has been created. You can do this by clicking <a href="/account">Edit Your Account</a> at the top
     of the screen. You may add as much or as little information as you wish, including any degrees or awards you've earned in your academic career.
@@ -38,9 +38,9 @@
         For the time being, please don't delete your account. Your account will be disabled automatically if you leave CBER, outside of logging in and seeing indexes.
     </u>
 </p>
-<h3 align='left'>
+<h2 align='left'>
     Projects & reports index
-</h3>
+</h2>
 <p>
     By clicking <a href="/projects">Projects</a> at the top of the screen, you may view ongoing or completed projects we're working on here at CBER. Each row in the
     projects index has a link for you to view each individual project.
@@ -50,9 +50,9 @@
     name, whether they're ongoing or completed projects, and the students & supervisors working on them. Using the actions column in the index, you'll be able to view all
     the reports, and edit or delete ones you own.
 </p>
-<h3 align='left'>
+<h2 align='left'>
     Adding, editing, and deleting reports
-</h3>
+</h2>
 <p>
     To add a report, click <a href="/reports/add">Add a Report</a> under the <u>Student Reports</u> menu at the top of the screen. You will only be able to add reports
     for yourself, and for projects that you have been added to as a contributor.
@@ -73,9 +73,9 @@
     Once they've added you to a project, you'll be able to write your reports on it. You have the ability to edit and delete any reports that you're a contributor
     to.
 </p>
-<h3 align='left'>
+<h2 align='left'>
     Students & Staff index
-</h3>
+</h2>
 <p>
     Next to the student reports menu, at the top of the screen, is the <a href="/employees">Students & Staff</a> link. This will take you to our index of current &
     former CBER employees. Using this index, we can learn about each other, serve as effective job references for each other, and remember each other's birthdays.

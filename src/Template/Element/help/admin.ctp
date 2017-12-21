@@ -10,17 +10,17 @@
     We use this site to track projects, assign projects to students & staff, write reports on those projects, and maintain a database of student & staff information.
     Here's a quick guide on how to use this website.
 </p>
-<h3 align='left'>
+<h2 align='left'>
     Student user guide
-</h3>
+</h2>
 <p>
     Before we get started, please visit the <a href="/student-help">student version</a> of the user guide. This will walk you through basic tasks (such as logging in,
     editing account information, accessing the indexes, and manipulating reports). This will also help you to understand what our students experience when they use
     this site.
 </p>
-<h3 align='left'>
+<h2 align='left'>
     Site admin abilities & responsibilities
-</h3>
+</h2>
 <p>
     As an admin, you have the ability to do anything you want on this site, except delete the site itself. You can add, edit, and delete anything:
     projects, reports, users & user information, and funding information. You have the ability to sabotage us and delete all of the information on this site if you
@@ -32,9 +32,9 @@
     you must create accounts for them using their <u>@bsu.edu</u> email, and create projects for them to generate reports from. It is also your responsibility to add
     them as contributors.
 </p>
-<h3 align="left">
+<h2 align="left">
     Adding, editing, and deleting users
-</h3>
+</h2>
 <a href="/img/register.png">
     <?= $this->Html->image('register.png', [
         'alt' => 'Registering users',
@@ -55,17 +55,17 @@
         from breaking the reports or projects sections, either way we haven't decided what to do about that yet so please don't delete any accounts.
     </u>
 </p>
-<h3 align="left">
+<h2 align="left">
     Funds
-</h3>
+</h2>
 <p>
     All admins have the ability and responsibility to keep track of funds. The funds index has an actions column which allows admins to edit and delete fund
     information, and funds information can be added by clicking <a href="/funds/add">New Funding Source</a> under the header of the funds index. All funding information
     is viewable from the funds index. No student can access this section of the site.
 </p>
-<h3 align="left">
+<h2 align="left">
     Adding, editing, and deleting projects
-</h3>
+</h2>
 <a href="/img/add-a-project.png">
     <?= $this->Html->image('add-a-project.png', [
         'alt' => 'Adding a project',
@@ -97,9 +97,9 @@
     Remember: only site admins can change details about projects. Students may look at them, but nothing more. Project moderation is an admin responsibility and can help
     students or new staff better understand our workflow here at CBER.
 </p>
-<h3 align="left">
+<h2 align="left">
     Adding, editing, and deleting reports
-</h3>
+</h2>
 <p>
     This works just the same for admins as it does for students, the only difference being that admins have the ability to edit and delete any report they wish,
     regardless of whether or not they contributed.
