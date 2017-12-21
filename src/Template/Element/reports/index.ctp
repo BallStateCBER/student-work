@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-9">
-        <h3><?= __('Reports') ?></h3>
+        <h1><?= __('Reports') ?></h1>
         <table cellpadding="15" cellspacing="0" class="whole-table">
             <thead>
                 <tr>
@@ -43,29 +43,29 @@
         </div>
     </div>
     <div class="col-lg-3">
-        <h3>Actions</h3>
+        <h1>Actions</h1>
         <div id="accordion" role="tablist" aria-multiselectable="true">
             <div class="card">
                 <div class="card-header" role="tab" id="headingOne">
-                    <h6 class="mb-0">
+                    <h2 class="mb-0">
                         <?= $this->Html->link(__('New Report'), ['action' => 'add']) ?>
-                    </h6>
+                    </h2>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header" role="tab" id="headingOne">
-                    <h6 class="mb-0">
+                    <h2 class="mb-0">
                         <?= $this->Html->link(__('All Reports'), ['action' => 'index']) ?>
-                    </h6>
+                    </h2>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header" role="tab" id="headingOne">
-                    <h6 class="mb-0">
+                    <h2 class="mb-0">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                             Reports by project status
                         </a>
-                    </h6>
+                    </h2>
                 </div>
                 <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="card-block">
@@ -76,11 +76,11 @@
             </div>
             <div class="card">
                 <div class="card-header" role="tab" id="headingTwo">
-                    <h6 class="mb-0">
+                    <h2 class="mb-0">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             Reports by project name
                         </a>
-                    </h6>
+                    </h2>
                 </div>
                 <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="card-block">
@@ -92,11 +92,11 @@
             </div>
             <div class="card">
                 <div class="card-header" role="tab" id="headingThree">
-                    <h6 class="mb-0">
+                    <h2 class="mb-0">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                             Reports by student
                         </a>
-                    </h6>
+                    </h2>
                 </div>
                 <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="card-block">
@@ -108,11 +108,11 @@
             </div>
             <div class="card">
                 <div class="card-header" role="tab" id="headingFour">
-                    <h6 class="mb-0">
+                    <h2 class="mb-0">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                             Reports by supervisor
                         </a>
-                    </h6>
+                    </h2>
                 </div>
                 <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
                     <div class="card-block">

@@ -8,7 +8,7 @@
         </h1>
         <div class="row">
             <div class="col-xl-2">
-                <label class="form-control-label">
+                <label class="form-control-label" for="supervisor-id">
                     Supervisor
                 </label>
                 <?= $this->Form->control('supervisor_id', [
@@ -16,10 +16,11 @@
                 ]) ?>
             </div>
             <div class="col-xl-3">
-                <label>For student or employee</label>
+                <label for="student-id">For student or employee</label>
                 <?php if ($activeUser['is_admin'] == 1): ?>
                     <?= $this->Form->text('student_id', [
                         'class' => 'form-control dates',
+                        'id' => 'student-id',
                         'style' => 'display:block;',
                         'value' => $activeUser['name']
                     ]) ?>
@@ -27,13 +28,14 @@
                     <?= $this->Form->text('student_id', [
                         'class' => 'form-control dates',
                         'disabled' => true,
+                        'id' => 'student-id',
                         'style' => 'display:block;',
                         'value' => $activeUser['name'] ? $activeUser['name'] : "Employee #" . $activeUser['id']
                     ]) ?>
                 <?php endif ?>
             </div>
             <div class="col-xl-3">
-                <label class="form-control-label">
+                <label class="form-control-label" for="project-name">
                     Project name
                 </label>
                 <?= $this->Form->control('project_name', [
@@ -43,7 +45,7 @@
         </div>
         <div class="row">
             <div class="col-lg-5">
-                <label class="form-control-label">
+                <label class="form-control-label" for="start-date">
                     Start date
                 </label>
                 <div>
@@ -59,7 +61,7 @@
                 </div>
             </div>
             <div class="col-lg-5">
-                <label class="form-control-label">
+                <label class="form-control-label" for="end-date">
                     End date
                 </label>
                 <div>
@@ -79,7 +81,7 @@
         </div>
         <div class="row">
             <div class="col-lg-5">
-                <label class="form-control-label">
+                <label class="form-control-label" for="work-performed">
                     What activities did you perform for this project?
                 </label>
                 <?= $this->CKEditor->loadJs() ?>
@@ -87,14 +89,14 @@
                 <?= $this->CKEditor->replace('work_performed') ?>
             </div>
             <div class="col-lg-5">
-                <label class="form-control-label">
+                <label class="form-control-label" for="learned">
                     What did you learn from this task?
                 </label>
                 <?= $this->Form->textarea('learned', ['class' => 'form-control']) ?>
                 <?= $this->CKEditor->replace('learned') ?>
             </div>
             <div class="col-lg-2">
-                <label class="form-control-label">
+                <label class="form-control-label" for="routine">
                     Was this a routine activity?
                 </label>
                 <?= $this->Form->radio('routine',
