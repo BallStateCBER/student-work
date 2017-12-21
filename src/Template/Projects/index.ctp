@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <h2><?= __('Projects') ?></h2>
+        <h1><?= __('Projects') ?></h1>
         <div class="row">
             <?php $x = 1; ?>
             <?php foreach ($projects as $project): ?>
