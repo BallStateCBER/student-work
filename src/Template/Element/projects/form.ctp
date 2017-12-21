@@ -79,9 +79,9 @@
         <h2>
             Edit contributors
             <?php if (!$project->users): ?>
-                (<a data-toggle="collapse" href="#employee0" aria-expanded="false" aria-controls="employee0">+</a>)
+                (<a data-toggle="collapse" href="#employee0" aria-expanded="false" aria-controls="employee0">+ <span class="sr-only"> Add a Contributor</span></a>)
             <?php endif ?>
-            (<a tabindex="0" id="help-popover" data-toggle="popover" data-trigger="focus" title="Need help?" data-content="If you need to change an employee's role in a project, you have to delete their old role and re-add them.">?</a>)
+            (<a tabindex="0" id="help-popover" data-toggle="popover" data-trigger="focus" title="Need help?" data-content="If you need to change an employee's role in a project, you have to delete their old role and re-add them."><span class="sr-only">Do you need help</span>?</a>)
         </h2>
         <?php $y = 0 ?>
         <?php foreach ($project->users as $x => $user): ?>

@@ -73,7 +73,7 @@ if (!isset($user->name)) {
         <h2>Emergency Contact Number</h2>
         <?php if (isset($user->ice_phone)): ?>
             <?php $iceNumber = $this->Users->numberConvert($user->ice_phone) ?>
-            <?= '<a href="tel:'.$iceNumber.'">'.$user->ice_phone.'</a>' ?>
+            <?= '<a href="tel:'.$iceNumber.'"><span class="sr-only">Call this number: </span>'.$user->ice_phone.'</a>' ?>
         <?php else: ?>
             <i>Not specified</i>
         <?php endif ?>
@@ -96,7 +96,7 @@ if (!isset($user->name)) {
         <h2>Cell Number</h2>
         <?php if (isset($user->cell)): ?>
             <?php $cellNumber = $this->Users->numberConvert($user->cell) ?>
-            <?= '<a href="tel:'.$cellNumber.'">'.$user->cell.'</a>' ?>
+            <?= '<a href="tel:'.$cellNumber.'"><span class="sr-only">Call this number: </span>'.$user->cell.'</a>' ?>
         <?php else: ?>
             <i>Not specified</i>
         <?php endif ?>

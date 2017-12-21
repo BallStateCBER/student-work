@@ -176,10 +176,10 @@ $firstName = $firstName[0];
 </fieldset>
 <div class="row">
     <div class="col-sm-9">
-        <h2>Your educational background (<?= $this->Html->link('+', ['controller' => 'Degrees', 'action' => 'add']) ?>)</h2>
+        <h2>Your educational background (<a href="/degrees/add">+<span class="sr-only"> Add a Degree</span></a>)</h2>
         <?php if ($degrees): ?>
             <?php foreach ($degrees as $degree): ?>
-                <h6><?= $degree->name ?>: <em><?= $degree->location ?></em></h6>
+                <h3><?= $degree->name ?>: <em><?= $degree->location ?></em></h3>
                 <p class="exp-description">
                     <?= $degree->type ?> in <?= $degree->major ?><br />
                     <?php $date = strtotime($degree->date) ?>
@@ -194,10 +194,10 @@ $firstName = $firstName[0];
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <h2>Your awards (<?= $this->Html->link('+', ['controller' => 'Awards', 'action' => 'add']) ?>)</h2>
+        <h2>Your educational background (<a href="/awards/add">+<span class="sr-only"> Add an Award</span></a>)</h2>
         <?php if ($awards): ?>
             <?php foreach ($awards as $award): ?>
-                <h6><?= $award->name ?></h6>
+                <h3><?= $award->name ?></h3>
                 <p class="exp-description">
                     <?php $date = strtotime($award->awarded_on) ?>
                     Awarded on <?= date('F jS, Y', $date) ?><br />
@@ -215,12 +215,12 @@ $firstName = $firstName[0];
     <div class="col-sm-12">
         <h2>Your projects
             <?php if ($activeUser['is_admin'] == 1): ?>
-                (<?= $this->Html->link('+', ['controller' => 'Projects', 'action' => 'add']) ?>)
+                (<a href="/projects/add">+<span class="sr-only"> Add a Project</span></a>)
             <?php endif ?>
         </h2>
         <?php if ($user->projects): ?>
             <?php foreach ($user->projects as $project): ?>
-                <h6><?= $project->name ?></h6>
+                <h3><?= $project->name ?></h3>
                 <p class="exp-description">
                     <u>Project role:</u> <?= $project->_joinData->role ?><br />
                     <?= $project->organization ? 'With '.$project->organization.'<br />' : '' ?>
