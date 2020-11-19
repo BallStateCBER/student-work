@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dfc4a5a8eb8c39362caabbdd768d4ecb",
+    "content-hash": "7df1fcf44fd6e67ba4e7c59602b842e4",
     "packages": [
         {
             "name": "akkaweb/cakephp-ckeditor",
@@ -321,6 +321,57 @@
             ],
             "description": "A composer installer for CakePHP 3.0+ plugins.",
             "time": "2020-10-29T04:00:42+00:00"
+        },
+        {
+            "name": "friendsofcake/fixturize",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfCake/fixturize.git",
+                "reference": "af1186656e37bef2c040366fe12aa39536d0415b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfCake/fixturize/zipball/af1186656e37bef2c040366fe12aa39536d0415b",
+                "reference": "af1186656e37bef2c040366fe12aa39536d0415b",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^3.2"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "FriendsOfCake\\Fixturize\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Winther",
+                    "homepage": "http://cakephp.nu/",
+                    "role": "Author"
+                },
+                {
+                    "name": "José Lorenzo Rodríguez",
+                    "homepage": "https://github.com/lorenzo",
+                    "role": "Contributor"
+                }
+            ],
+            "description": "CakePHP Fixture classes to help increase productivity or performance",
+            "homepage": "https://github.com/FriendsOfCake/fixturize",
+            "keywords": [
+                "Fixture",
+                "cakephp",
+                "fixtures",
+                "performance",
+                "phpunit",
+                "unittest"
+            ],
+            "time": "2019-01-23T11:14:37+00:00"
         },
         {
             "name": "friendsofcake/search",
@@ -4238,6 +4289,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "oldskool/cakephp-js": 20,
+        "friendsofcake/fixturize": 20,
         "akkaweb/cakephp-ckeditor": 20,
         "psy/psysh": 0
     },
